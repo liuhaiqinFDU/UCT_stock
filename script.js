@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let eventTitles = {};
 
     // Fetch event IDs and titles for the eventid dropdown
-    fetch('../json_data/event_ids.json')
+    fetch('json_data/event_ids.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const state = document.getElementById('state').value; //||null
 
         // Fetch the data from the JSON file
-        fetch(`../json_data/event${eventid}.json`)
+        fetch(`json_data/event${eventid}.json`)
             .then(response => response.json())
             .then(data => {
                 console.log("Data fetched for event:", eventid, data);
