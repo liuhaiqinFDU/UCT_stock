@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let eventTitles = {};
 
     // Fetch event IDs and titles for the eventid dropdown
-    fetch('../json_data/event_ids.json')
+    fetch('json_data/event_ids.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
