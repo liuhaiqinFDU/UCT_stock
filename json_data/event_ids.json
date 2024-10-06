@@ -1,1 +1,386 @@
-["1", "10", "100", "101", "102", "107", "112", "14", "15", "16", "17", "19", "20", "21", "24", "25", "26", "27", "29", "3", "31", "32", "36", "37", "38", "39", "4", "40", "42", "45", "46", "47", "48", "49", "5", "50", "51", "52", "53", "55", "56", "59", "62", "64", "65", "67", "69", "71", "73", "78", "79", "8", "80", "84", "87", "88", "89", "9", "91", "94", "96", "97", "98", "99"]
+[
+  {
+    "eventid": 1,
+    "date": "2017-04-26",
+    "title": "The Trump administration launches an investigation into whether aluminum imports, including those from China, pose a threat to U.S. national security.The Trump administration launches an investigation into whether aluminum imports, including those from China, pose a threat to U.S. national security.",
+    "tic": 873
+  },
+  {
+    "eventid": 3,
+    "date": "2017-08-18",
+    "title": "The U.S. officially begins an investigation into China's alleged theft of intellectual property under Section 301 of the Trade Act of 1974.",
+    "tic": 967
+  },
+  {
+    "eventid": 4,
+    "date": "2017-06-29",
+    "title": "The Trump administration announces its first significant sanctions against Chinese firms and individuals for their alleged involvement in North Korea's nuclear and missile programs.",
+    "tic": 822
+  },
+  {
+    "eventid": 5,
+    "date": "2018-01-22",
+    "title": "The Trump administration imposes safeguard tariffs on solar panels and washing machines, primarily targeting Chinese imports.",
+    "tic": 997
+  },
+  {
+    "eventid": 8,
+    "date": "2018-04-03",
+    "title": "The Trump administration unveils a list of Chinese imports worth $50 billion that would be subject to 25% tariffs.",
+    "tic": 1017
+  },
+  {
+    "eventid": 9,
+    "date": "2018-04-16",
+    "title": "The U.S. bans American companies from selling components to Chinese telecom equipment maker ZTE, effectively shutting down the company temporarily.",
+    "tic": 516
+  },
+  {
+    "eventid": 10,
+    "date": "2018-05-29",
+    "title": "The White House announces that it will impose the initial $50 billion in tariffs on Chinese imports, with 25% duties on $34 billion worth of goods starting on July 6th.",
+    "tic": 503
+  },
+  {
+    "eventid": 14,
+    "date": "2018-08-23",
+    "title": "The U.S. imposes tariffs on an additional $16 billion worth of Chinese imports.",
+    "tic": 1
+  },
+  {
+    "eventid": 15,
+    "date": "2018-09-24",
+    "title": "The Trump administration announces plans to impose 10% tariffs on an additional $200 billion worth of Chinese imports, effective September 24th.",
+    "tic": 1
+  },
+  {
+    "eventid": 16,
+    "date": "2018-11-20",
+    "title": "The Trump administration releases a report accusing China of engaging in hostile cyber activities and economic aggression.",
+    "tic": 1268
+  },
+  {
+    "eventid": 17,
+    "date": "2018-12-01",
+    "title": "The arrest of Huawei CFO Meng Wanzhou in Canada at the request of the U.S. raises tensions and prompts a diplomatic crisis with China.",
+    "tic": 1019
+  },
+  {
+    "eventid": 19,
+    "date": "2019-05-15",
+    "title": "President Trump issues an executive order giving the U.S. government powers to block U.S. companies from using foreign telecoms equipment deemed a national security risk, primarily targeting Huawei.",
+    "tic": 1008
+  },
+  {
+    "eventid": 20,
+    "date": "2019-05-16",
+    "title": "The U.S. adds Huawei to a trade blacklist, restricting its ability to do business with American companies.",
+    "tic": 977
+  },
+  {
+    "eventid": 21,
+    "date": "2019-08-01",
+    "title": "President Trump announces plans to impose a 10% tariff on an additional $300 billion worth of Chinese imports, effective September 1st.",
+    "tic": 808
+  },
+  {
+    "eventid": 24,
+    "date": "2020-07-22",
+    "title": "Closure of Chinese consulate in Houston. Tit-for-tat action after China closed the U.S. consulate in Chengdu.",
+    "tic": 179
+  },
+  {
+    "eventid": 25,
+    "date": "2020-09-01",
+    "title": "The U.S. imposes a 15% tariff on a wide range of Chinese goods, including consumer electronics, clothing, and footwear, as part of the ongoing trade war.",
+    "tic": 593
+  },
+  {
+    "eventid": 26,
+    "date": "2020-08-06",
+    "title": "Executive order banning transactions with TikTok and WeChat. Targeted Chinese technology companies with national security concerns.",
+    "tic": 1282
+  },
+  {
+    "eventid": 27,
+    "date": "2020-11-12",
+    "title": "The Trump administration issues an executive order prohibiting U.S. investments in companies linked to the Chinese military.",
+    "tic": 833
+  },
+  {
+    "eventid": 29,
+    "date": "2021-06-02",
+    "title": "The Biden administration announces plans to maintain and enforce the existing tariffs on Chinese goods imposed by the Trump administration.",
+    "tic": 891
+  },
+  {
+    "eventid": 31,
+    "date": "2021-07-29",
+    "title": "the SEC halted IPO plans for Chinese ride-hailing company Didi shortly after its U.S. listing, citing concerns over data security risks.",
+    "tic": 736
+  },
+  {
+    "eventid": 32,
+    "date": "2021-12-05",
+    "title": "Diplomatic boycott of Beijing Winter Olympics. Aimed at pressuring China on human rights issues.",
+    "tic": 1243
+  },
+  {
+    "eventid": 36,
+    "date": "2023-02-02",
+    "title": "The U.S. shot down a suspected Chinese spy balloon off the coast of South Carolina, further straining tensions between the two countries.",
+    "tic": 342
+  },
+  {
+    "eventid": 37,
+    "date": "2024-02-07",
+    "title": "The U.S. accused China of cyberespionage in a joint statement by the U.S. National Security Agency, U.S. cyber watchdog CISA, the FBI, and the Transportation Security Administration",
+    "tic": 609
+  },
+  {
+    "eventid": 38,
+    "date": "2023-03-02",
+    "title": "The U.S. Department of Commerce added 28 Chinese companies to its Entity List, restricting their ability to trade with U.S. companies due to their alleged roles in supporting Chinese military efforts",
+    "tic": 997
+  },
+  {
+    "eventid": 39,
+    "date": "2024-03-07",
+    "title": "The U.S. House of Representatives passed a bill requiring ByteDance to divest TikTok's U.S. operations or face a ban, citing national security concern.",
+    "tic": 360
+  },
+  {
+    "eventid": 40,
+    "date": "2023-05-21",
+    "title": "Beijing retaliates by banning chip purchases from US firm Micron for use in \u201ccritical information infrastructure\u201d\u2014including in the telecommunications, transportation, and defense sectors\u2014citing cybersecurity concerns.",
+    "tic": 482
+  },
+  {
+    "eventid": 42,
+    "date": "2017-03-07",
+    "title": "The US Department of Commerce sanctions Chinese telecommunications equipment manufacturer ZTE by adding it to the Entity List, which means American companies cannot sells goods or services to ZTE without a license.",
+    "tic": 645
+  },
+  {
+    "eventid": 45,
+    "date": "2018-04-02",
+    "title": "China imposes retaliatory tariffs on aluminum waste and scrap, pork, fruits and nuts, and other US products, worth $2.4 billion in export value in 2017. This compares to the US steel and aluminum tariffs covering Chinese exports worth $2.8 billion in 2017.",
+    "tic": 307
+  },
+  {
+    "eventid": 46,
+    "date": "2018-04-04",
+    "title": "China publishes its list of 106 products subject to forthcoming 25 percent tariffs as retaliation for Trump\u2019s Section \n301 tariffs, covering $50 billion of China\u2019s imports from the United States. They mostly affect US transportation \n(vehicles, aircraft, and vessels) and vegetable products (largely soybeans).",
+    "tic": 220
+  },
+  {
+    "eventid": 47,
+    "date": "2018-04-05",
+    "title": "Trump instructs trade officials to consider whether an additional $100 billion of US imports from China should be subject to new tariffs",
+    "tic": 940
+  },
+  {
+    "eventid": 48,
+    "date": "2018-04-17",
+    "title": "The Chinese government announces preliminary antidumping duties of 178.6 percent on imports from the United \nStates of sorghum.",
+    "tic": 152
+  },
+  {
+    "eventid": 49,
+    "date": "2018-05-13",
+    "title": "President Trump tweets \u201cPresident Xi of China, and I, are working together to give massive Chinese phone company, \nZTE, a way to get back into business, fast. Too many jobs in China lost. Commerce Department has been instructed \nto get it done!\u201d",
+    "tic": 670
+  },
+  {
+    "eventid": 50,
+    "date": "2018-05-18",
+    "title": "China\u2019s Commerce Ministry announcement comes as US and Chinese negotiating teams meet to resolve trade \ndisputes.",
+    "tic": 1343
+  },
+  {
+    "eventid": 51,
+    "date": "2018-06-18",
+    "title": "In response to China\u2019s retaliatory tariffs announced June 15, 2018, President Trump directs the US Trade Representative to identify an additional $200 billion worth of Chinese goods for additional tariffs at a rate of 10 percent. This is on top of the $50 billion list of June 15. He also threatens another $200 billion of tariffs if China retaliates again",
+    "tic": 1178
+  },
+  {
+    "eventid": 52,
+    "date": "2018-07-10",
+    "title": "Following up on the June 18 request, the US Trade Representative releases a list of $200 billion of imports from China to be subjected to new 10 percent tariffs after public hearings in August. Intermediate goods, like computer and auto parts, make up 47 percent of the list. Consumer goods are more heavily targeted than in the previous June 15 list\u2014including telephones, computers, furniture, lamps, and luggage. This list combined with the $50 billion list of June 15 would cover $250 billion of the roughly $504 billion of goods imported from China in 2017.",
+    "tic": 1011
+  },
+  {
+    "eventid": 53,
+    "date": "2018-07-20",
+    "title": "In an interview, Trump says he is ready to impose tariffs on all US imports from China, which totaled $504 billion \nin 2017. The threat covers the remaining $262 billion of imports not already under previous tariffs or being inves\u0002tigated as previously announced under the Section 301 investigation. Capital goods and consumer products would \nbe the primary targets, since intermediate inputs were already previously targeted, and include mobile phones, \nlaptops, and clothing.",
+    "tic": 372
+  },
+  {
+    "eventid": 55,
+    "date": "2018-08-07",
+    "title": "The Trump administration releases a revision to the second phase of its $50 billion list, announcing that $16 billion of imports from China will be subject to a higher 25 percent tariff rate, going into effect on August 23. After public hearings, the US Trade Representative removed only 5 of the 284 products subject to the list published on June 15. Those products include alginic acid, splitting machines, containers, floating docks, and microtomes\u2014imports \nworth $400 million in 2017.",
+    "tic": 998
+  },
+  {
+    "eventid": 56,
+    "date": "2018-08-08",
+    "title": "China revises the second tranche of its June 15 list of $50 billion of imports from the United States with which it planned to impose 25 percent tariffs. Crude oil was removed and replaced with a number of other products. The tariffs on the revised list, covering $16 billion of imports from the United States, are expected to go into effect as soon as the Trump administration\u2019s second tranche of its June 15 tariff list is imposed on August 23.",
+    "tic": 492
+  },
+  {
+    "eventid": 59,
+    "date": "2018-09-18",
+    "title": "China announced its plan to place tariffs on $60 billion of US exports if Trump goes ahead with his recently finalized tariffs on $200 billion of Chinese exports. These tariffs are mainly on intermediate inputs and capital equip\u0002ment, and range from 5 to 10 percent, down from the 5 to 25 percent originally announced.",
+    "tic": 186
+  },
+  {
+    "eventid": 62,
+    "date": "2019-03-21",
+    "title": "The Trump administration  issued its first set of sanctions aimed at North Korea since the failed summit last month between Kim Jong Un and President Donald Trump, going after two Chinese shipping companies that have helped Pyongyang evade restrictions imposed by the US and United Nations Security Council.",
+    "tic": 834
+  },
+  {
+    "eventid": 64,
+    "date": "2019-05-05",
+    "title": "In a sudden reversal during the US-China trade negotiations, President Trump tweets (later officially confirmed) that the United States will increase the 10 percent tariff on $200 billion of imports from China to 25 percent on May 10, 2019. He also indicates he will \u201cshortly\u201d impose 25 percent tariffs on the rest of US imports from China not yet targeted with his Section 301 tariffs, which he states are \u201c325 Billions Dollars\u201d and would mostly hit final consumer products such as toys, footwear, clothing, and electronics.",
+    "tic": 734
+  },
+  {
+    "eventid": 65,
+    "date": "2019-05-13",
+    "title": "In retaliation for President Trump\u2019s tariff rate increase on May 10, China announced that on June 1, it intends to \nincrease the tariff rate covering some of the $60 billion of US exports it had already hit in September.",
+    "tic": 488
+  },
+  {
+    "eventid": 67,
+    "date": "2019-08-05",
+    "title": "U.S. Labels China a Currency Manipulator.",
+    "tic": 510
+  },
+  {
+    "eventid": 69,
+    "date": "2019-09-11",
+    "title": "China announces it will exclude 16 products (less than $2 billion of US exports) from its retaliatory tariffs imposed \nin 2018, such as some animal feeds, chemicals, and petroleum products. President Trump plans to delay his tariff \nincrease on $250 billion of Chinese imports from 25 to 30 percent, originally set out on August 23, 2019, from \nOctober 1 to October 15.",
+    "tic": 88
+  },
+  {
+    "eventid": 71,
+    "date": "2019-11-27",
+    "title": "Trump Signs Bill Supporting Hong Kong Protesters",
+    "tic": 1028
+  },
+  {
+    "eventid": 73,
+    "date": "2020-01-15",
+    "title": "\u2018Phase One\u2019 Trade Deal Signed. Under the agreement, China agrees to purchase the extraordinary amount of an additional $200 billion worth of US exports. Most tariffs remain in effect, and China does not address subsidies or state-owned enterprises\u2014major issues that prompted the trade war.",
+    "tic": 748
+  },
+  {
+    "eventid": 78,
+    "date": "2020-03-17",
+    "title": "China Expels American Journalists",
+    "tic": 738
+  },
+  {
+    "eventid": 79,
+    "date": "2020-04-27",
+    "title": "The US Department of Commerce expands export controls to prevent entities in China, Russia, and Venezuela from \npurchasing US technology that could be used in weapons development, military aircraft, or surveillance technology",
+    "tic": 575
+  },
+  {
+    "eventid": 80,
+    "date": "2020-06-30",
+    "title": "FCC DESIGNATES HUAWEI AND ZTE AS NATIONAL SECURITY THREAT",
+    "tic": 751
+  },
+  {
+    "eventid": 84,
+    "date": "2021-01-19",
+    "title": "U.S. Designates China\u2019s Abuses of Uyghurs as Genocide",
+    "tic": 724
+  },
+  {
+    "eventid": 87,
+    "date": "2021-06-14",
+    "title": "At U.S. Urging, NATO Declares China a \u2018Security Challenge\u2019",
+    "tic": 198
+  },
+  {
+    "eventid": 88,
+    "date": "2021-10-04",
+    "title": "In a speech, USTR Katherine Tai says the Biden administration will enforce the phase one agreement, including the \n$200 billion purchase commitments. It will also begin a new \u201ctargeted tariff exclusion process\u201d to provide selective \nrelief to US importers adversely affected by the US tariffs that remain on nearly two-thirds (roughly $335 billion) \nof US imports from China.",
+    "tic": 300
+  },
+  {
+    "eventid": 89,
+    "date": "2021-11-10",
+    "title": "Collaboration on Climate Change Amid Tensions",
+    "tic": 744
+  },
+  {
+    "eventid": 91,
+    "date": "2022-03-18",
+    "title": "Biden Presses Xi on Russia\u2019s War in Ukraine",
+    "tic": 599
+  },
+  {
+    "eventid": 94,
+    "date": "2022-08-31",
+    "title": "US semiconductor companies like Nvidia and AMD reveal the US government has imposed new export control \nlicensing requirements for sales to China of their advanced chips linked to artificial intelligence and advanced \ncomputing.",
+    "tic": 625
+  },
+  {
+    "eventid": 96,
+    "date": "2017-04-20",
+    "title": "Trump administration launching an investigation into steel imports",
+    "tic": 672
+  },
+  {
+    "eventid": 97,
+    "date": "2018-07-31",
+    "title": "U.S. Said to Plan Higher Tariff on $200 Billion of China Imports",
+    "tic": 1133
+  },
+  {
+    "eventid": 98,
+    "date": "2020-07-23",
+    "title": "China closes US consulate in Chengdu",
+    "tic": 1434
+  },
+  {
+    "eventid": 99,
+    "date": "2015-06-25",
+    "title": "US blames China for OPM cyberattack",
+    "tic": 683
+  },
+  {
+    "eventid": 100,
+    "date": "2016-12-16",
+    "title": "China seizes US drone",
+    "tic": 744
+  },
+  {
+    "eventid": 101,
+    "date": "2017-08-01",
+    "title": "China opens its first overseas military base in Djibouti, raising concerns about its growing military presence",
+    "tic": 211
+  },
+  {
+    "eventid": 102,
+    "date": "2020-05-28",
+    "title": "China introduces a controversial national security law in Hong Kong",
+    "tic": 189
+  },
+  {
+    "eventid": 107,
+    "date": "2019-05-31",
+    "title": "China announces plans to establish its own \u201cunreliable entity list\u201d",
+    "tic": 325
+  },
+  {
+    "eventid": 112,
+    "date": "2024-02-09",
+    "title": "China establish a military presence along Gabon\u2019s Atlantic Ocean coast",
+    "tic": 1380
+  }
+]
