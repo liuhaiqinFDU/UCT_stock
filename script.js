@@ -173,8 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const layout = {
             title: title,
-            xaxis: { title: 'DIST' },
-            yaxis: { title: 'CRET' }
+            xaxis: { title: 'Minutes to the Event' },
+            yaxis: { title: 'Cumulative Returns (%, annualized)' }
         };
 
         Plotly.newPlot(chartId, [traceBand, traceMedian], layout);
