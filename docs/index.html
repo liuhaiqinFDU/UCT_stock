@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Frequency Event Study Around UCT Events</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>High Frequency Event Study Around UCT Events</h1>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Cumulative Returns</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Distribution of Surprises</a>
+            </li> -->
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+                <div>
+                    <label for="eventid">Event ID:</label>
+                    <select id="eventid" required></select>
+                </div>
+                <div>
+                    <label for="window">Window:</label>
+                    <select id="window" required>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                        <option value="60">60</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="PrimarySector">Primary Sector:</label>
+                    <select id="PrimarySector">
+                        <option value="">-- Select Primary Sector --</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="state">State:</label>
+                    <select id="state">
+                        <option value="">-- Select State --</option>
+                    </select>
+                </div>
+                <!-- <div>
+                    <label for="SIC4">SIC:</label>
+                    <select id="SIC4">
+                        <option value="">-- Select SIC --</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="city">City:</label>
+                    <select id="city">
+                        <option value="">-- Select City --</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="conml">Firm:</label>
+                    <select id="conml">
+                        <option value="">-- Select Firm --</option>
+                    </select>
+                </div> -->
+                <div id="chart1"></div>
+            </div>
+            <!--
+            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+                <div>
+                    <label for="eventid2">Event ID:</label>
+                    <select id="eventid2" required></select>
+                </div>
+                <div>
+                    <label for="PrimarySector2">Primary Sector:</label>
+                    <select id="PrimarySector2">
+                        <option value="">-- Select Primary Sector --</option>
+                    </select>
+                </div>-->
+                <!--<div>
+                    <label for="SIC42">SIC:</label>
+                    <select id="SIC42">
+                        <option value="">-- Select SIC --</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="state2">State:</label>
+                    <select id="state2">
+                        <option value="">-- Select State --</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="city2">City:</label>
+                    <select id="city2">
+                        <option value="">-- Select City --</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="conml2">Firm:</label>
+                    <select id="conml2">
+                        <option value="">-- Select Firm --</option>
+                    </select>
+                </div> -->
+                <!-- <div id="chart2"></div>
+            </div>
+            -->
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>
