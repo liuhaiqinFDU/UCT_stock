@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const layout = {
             title: title,
             xaxis: { title: 'Minutes to the Event' },
-            yaxis: { title: 'Cumulative Returns (%, annualized)' }
+            yaxis: { title: 'Cumulative Minutely Returns (%)' }
         };
     
         // Render the chart
