@@ -20,29 +20,31 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
-                <div>
-                    <label for="eventid">Event ID:</label>
-                    <select id="eventid" required></select>
-                </div>
-                <div>
-                    <label for="window">Window:</label>
-                    <select id="window" required>
-                        <option value="30">30</option>
-                        <option value="45">45</option>
-                        <option value="60">60</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="PrimarySector">Primary Sector:</label>
-                    <select id="PrimarySector">
-                        <option value="">-- Select Primary Sector --</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="state">State:</label>
-                    <select id="state">
-                        <option value="">-- Select State --</option>
-                    </select>
+                <div class="row">
+                    <div class="col">
+                        <label for="eventid">Event ID:</label>
+                        <select id="eventid" required></select>
+                    </div>
+                    <div class="col">
+                        <label for="window">Window:</label>
+                        <select id="window" required>
+                            <option value="30">30</option>
+                            <option value="45">45</option>
+                            <option value="60">60</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="PrimarySector">Primary Sector:</label>
+                        <select id="PrimarySector">
+                            <option value="">-- Select Primary Sector --</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="state">State:</label>
+                        <select id="state">
+                            <option value="">-- Select State --</option>
+                        </select>
+                    </div>
                 </div>
                 <!-- <div>
                     <label for="SIC4">SIC:</label>
@@ -62,8 +64,8 @@
                         <option value="">-- Select Firm --</option>
                     </select>
                 </div> -->
-                <div id="chart1"></div>  <!-- to put "No data"-->
-                <div id="eventTime"></div> <!-- to put Date HH:MM-->
+                <div class="row" id="chart1"></div>  <!-- to put "No data"-->
+                <div class="row" id="eventTime"></div> <!-- to put Date HH:MM-->
             </div>
             <!--
             <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
