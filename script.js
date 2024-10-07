@@ -143,8 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function processData(data, primarySector, state, window, eventid) {
         // Filter data only if necessary
         const filteredData = data.filter(item =>
-            (!primarySector || item.PrimarySector === primarySector) &&
-            (!state || item.state === state)
+            (item.PrimarySector === primarySector) && //!primarySector || 
+            (item.state === state) //!state || 
         );
 
         console.log("Filtered data:", filteredData);
