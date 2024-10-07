@@ -272,5 +272,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const minute = tic - hour * 60;
     
     }
+
+    
+    // Fetch options for the second tab
+    function fetchOptions2() {
+        const eventid = document.getElementById('eventid2').value;
+        const figuresContainer = document.getElementById('figuresContainer');
+        figuresContainer.innerHTML = ''; // Clear existing figures
+
+        // Assuming the figures are stored in the 'figures' folder
+        const figurePrefix = `cret${eventid}`;
+        const figureExtensions = ['.png', '.jpg', '.jpeg']; // Add other extensions if needed
+
+        figureExtensions.forEach(extension => {
+            const img = document.createElement('img');
+            img.src = `figures/${figurePrefix}${extension}`;
+            img.alt = `Figure for event ID ${eventid}`;
+            img.onerror = () => img.style.display = 'none'; // Hide image if not found
+            figuresContainer.appendChild(img);
+        });
+    }
     
 });
