@@ -279,15 +279,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Assuming the figures are stored in the 'figures' folder
         const figurePrefix = `cret${eventid}`;
-        const figureExtensions = ['.png', '.jpg', '.jpeg']; // Add other extensions if needed
+        const maxFigures = 10; // Adjust this number based on the maximum expected number of figures
 
-        figureExtensions.forEach(extension => {
+        for (let i = 1; i <= maxFigures; i++) {
             const img = document.createElement('img');
-            img.src = `figures/${figurePrefix}${extension}`;
+            img.src = `figures/${figurePrefix}_${i}.png`;
             img.alt = `Figure for event ID ${eventid}`;
             img.onerror = () => img.style.display = 'none'; // Hide image if not found
             figuresContainer.appendChild(img);
-        });
+        }
     }
     
 });
