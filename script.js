@@ -45,6 +45,22 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
+    
+    // Fetch the list of event IDs for the second tab
+    fetch('json_data/event_ids_questionable.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json(); // Parse the JSON from the response
+        })
+        .then(data => {
+            const uniqueEventIds = [...new Set(data.map(item => item.eventid))];
+            populateDropdown('eventid2', uniqueEventIds);
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
 
 
     // Event listener for the eventid dropdown
@@ -53,12 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchData();
     });
 
-
     // Event listener for other dropdowns
     dropdowns.forEach(dropdown => {
         document.getElementById(dropdown).addEventListener('change', fetchData);
     });
     
+    // Event listener for the second tab
+    document.getElementById('eventid2').addEventListener('change', () => {
+        fetchOptions2(); // only need to fetch figures
+    });
+
     function populateDropdown(id, options) {
         const select = document.getElementById(id);
         select.innerHTML = ''; // Clear existing options
@@ -251,6 +271,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const hour = Math.floor(tic / 60);
         const minute = tic - hour * 60;
     
+    }
+
+    
+    // Fetch options for the second tab
+    function fetchOptions2() {
+        const eventid = document.getElementById('eventid2').value;
+        const figuresContainer = document.getElementById('figuresContainer');
+        figuresContainer.innerHTML = ''; // Clear existing figures
+
+        // Assuming the figures are stored in the 'figures' folder
+        const figurePrefix = `cret${eventid}`;
+        const figureExtensions = ['.png', '.jpg', '.jpeg']; // Add other extensions if needed
+
+        figureExtensions.forEach(extension => {
+            const img = document.createElement('img');
+            img.src = `figures/${figurePrefix}${extension}`;
+            img.alt = `Figure for event ID ${eventid}`;
+            img.onerror = () => img.style.display = 'none'; // Hide image if not found
+            figuresContainer.appendChild(img);
+        });
     }
     
 });
