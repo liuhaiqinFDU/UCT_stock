@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const dropdowns = ['eventid', 'window', 'PrimarySector', 'state'];
     let eventTitles = {};
+    let tic = {};
 
-    // Fetch event IDs and titles for the eventid dropdown
+    // Fetch event IDs and titles, timings for the eventid dropdown
     fetch('json_data/event_ids.json')
         .then(response => {
             if (!response.ok) {
@@ -11,13 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json(); // Parse the JSON from the response
         })
         .then(data => {
-            // Extract unique eventid values and titles
-            const uniqueEventIds = [...new Set(data.map(item => item.eventid))];
-            eventTitles = data.reduce((acc, item) => {
-                acc[item.eventid] = item.title;
-                return acc;
-            }, {});
-            console.log("Unique Event IDs and Titles received:", uniqueEventIds, eventTitles);
+            // Extract unique eventid values and map eventid to titles and tics in a single pass
+            const uniqueEventIds = [];
+            const eventTitles = {};
+            const eventTics = {};
+    
+            data.forEach(item => {
+                if (!eventTitles[item.eventid]) { // Process only if not already processed
+                    uniqueEventIds.push(item.eventid);
+                    eventTitles[item.eventid] = item.title;
+                    eventTics[item.eventid] = item.tic;
+                }
+            });
+            console.log("Unique Event IDs:",uniqueEventIds);
 
             // Populate the dropdown list
             populateDropdown('eventid', uniqueEventIds);
@@ -34,11 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('There has been a problem with your fetch operation:', error);
         });
 
+
     // Event listener for the eventid dropdown
     document.getElementById('eventid').addEventListener('change', () => {
         fetchOptions();
         fetchData();
     });
+
 
     // Event listener for other dropdowns
     dropdowns.forEach(dropdown => {
