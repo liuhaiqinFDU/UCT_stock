@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             // Extract unique eventid values and map eventid to titles and tics in a single pass
-            //const uniqueEventIds = [];
+            const uniqueEventIds = [];
             //const eventTitles = {};
             //const eventDates = {};
             //const eventTics = {};
