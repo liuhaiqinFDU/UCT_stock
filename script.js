@@ -187,6 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
         //console.log("Data received for plotting:", data);
         //console.log("Window:", window);
         
+        // Calculate and display the event time (hour and minute from tic)
+        const hour = Math.floor(tic / 60);
+        const minute = tic - hour * 60;
+        
         // Set the time in a separate text box or div
         const timeBox = document.getElementById('eventTime'); // Assumes you have an element with ID 'eventTime'
         timeBox.innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}`;
@@ -266,10 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
         // Render the chart
         Plotly.newPlot(chartId, [traceBand, traceMedian], layout);
-    
-        // Calculate and display the event time (hour and minute from tic)
-        const hour = Math.floor(tic / 60);
-        const minute = tic - hour * 60;
     
     }
 
