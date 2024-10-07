@@ -181,9 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const dist = [], median = [], perc_10 = [], perc_90 = [];
         filteredData.forEach(item => {
             dist.push(item.dist);
-            median.push(item[`cret${window}_median`]);
-            perc_10.push(item[`cret${window}_perc_10`]);
-            perc_90.push(item[`cret${window}_perc_90`]);
+            median.push(item[`cret${window}_median`]/982.8);
+            perc_10.push(item[`cret${window}_perc_10`]/982.8);
+            perc_90.push(item[`cret${window}_perc_90`]/982.8);
         });
     
         console.log("Dist:", dist);
