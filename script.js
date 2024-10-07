@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             // Extract unique eventid values and map eventid to titles and tics in a single pass
-            const uniqueEventIds = [];
-            const eventTitles = {};
-            const eventDates = {};
-            const eventTics = {};
+            //const uniqueEventIds = [];
+            //const eventTitles = {};
+            //const eventDates = {};
+            //const eventTics = {};
     
             data.forEach(item => {
                 if (!eventTitles[item.eventid]) { // Process only if not already processed
@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     eventTics[item.eventid] = item.tic;
                 }
             });
-            console.log("Unique Event IDs:",uniqueEventIds);
+            console.log("Event Titles:", eventTitles);
+            console.log("Event Dates:", eventDates);
+            console.log("Event Tics:", eventTics);
 
             // Populate the dropdown list
             populateDropdown('eventid', uniqueEventIds);
@@ -162,9 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function plotData(data, window, chartId, title, date, tic) {
-        console.log("Data received for plotting:", data);
-        console.log("Window:", window);
-    
+        //console.log("Data received for plotting:", data);
+        //console.log("Window:", window);
+        
         // Filter data based on the window parameter
         let filteredData;
         if (window == 45) {
@@ -189,6 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Perc 10:", perc_10);
         console.log("Perc 90:", perc_90);
         console.log("Title:", title);
+        console.log("Date:", date);
+        console.log("Time:", tic);
     
         // Function to insert <br> tags for long titles
         function insertLineBreaks(str, maxLineLength) {
