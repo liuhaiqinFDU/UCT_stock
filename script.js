@@ -167,6 +167,10 @@ document.addEventListener('DOMContentLoaded', () => {
         //console.log("Data received for plotting:", data);
         //console.log("Window:", window);
         
+        // Set the time in a separate text box or div
+        const timeBox = document.getElementById('eventTime'); // Assumes you have an element with ID 'eventTime'
+        timeBox.innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}`;
+        
         // Filter data based on the window parameter
         let filteredData;
         if (window == 45) {
@@ -247,9 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const hour = Math.floor(tic / 60);
         const minute = tic - hour * 60;
     
-        // Set the time in a separate text box or div
-        const timeBox = document.getElementById('eventTime'); // Assumes you have an element with ID 'eventTime'
-        timeBox.innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}`;
+        
     }
     
 });
