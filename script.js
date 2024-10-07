@@ -187,6 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
         //console.log("Data received for plotting:", data);
         //console.log("Window:", window);
         
+        console.log("Title:", title);
+        console.log("Date:", date);
+        console.log("Time:", tic);
+
         // Calculate and display the event time (hour and minute from tic)
         const hour = Math.floor(tic / 60);
         const minute = tic - hour * 60;
@@ -214,13 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
             perc_90.push(item[`cret${window}_perc_90`]/982.8);
         });
     
-        console.log("Dist:", dist);
-        console.log("Median:", median);
-        console.log("Perc 10:", perc_10);
-        console.log("Perc 90:", perc_90);
-        console.log("Title:", title);
-        console.log("Date:", date);
-        console.log("Time:", tic);
     
         // Function to insert <br> tags for long titles
         function insertLineBreaks(str, maxLineLength) {
