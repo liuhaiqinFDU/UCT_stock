@@ -251,7 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const hour = Math.floor(tic / 60);
         const minute = tic - hour * 60;
     
-        
     }
     
 });
