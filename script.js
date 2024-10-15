@@ -321,7 +321,21 @@ document.addEventListener('DOMContentLoaded', () => {
             xaxis: { title: '',
                     tickformat: '%Y-%m-%d %H:%M',
                     tickangle: 45 },
-            yaxis: { title: 'Cumulative Minutely Returns (%)' }
+            yaxis: { title: 'Cumulative Minutely Returns (%)' },
+            shapes: [
+                {
+                    type: 'line',
+                    x0: xLabels[dist.indexOf(0)],
+                    y0: Math.min(...perc_10),
+                    x1: xLabels[dist.indexOf(0)],
+                    y1: Math.max(...perc_90),
+                    line: {
+                        color: 'red',
+                        width: 2,
+                        dash: 'dashdot'
+                    }
+                }
+            ]
         };
     
         // Render the chart
