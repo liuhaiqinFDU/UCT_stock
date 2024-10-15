@@ -182,6 +182,61 @@ document.addEventListener('DOMContentLoaded', () => {
             plotData(filteredData, window, 'chart1', eventTitles[eventid], eventDates[eventid], eventTics[eventid]);
         }
     }
+    function generateXLabels(eventDate, eventTic, distArray) {
+        const tradingStart = 9 * 60 + 30; // 9:30 AM in minutes
+        const tradingEnd = 16 * 60; // 4:00 PM in minutes
+        const tradingMinutesPerDay = tradingEnd - tradingStart;
+    
+        // Convert eventDate and eventTic to a Date object
+        const [year, month, day] = eventDate.split('-').map(Number);
+        const eventTime = new Date(year, month - 1, day, Math.floor(eventTic / 60), eventTic % 60);
+    
+        function addTradingMinutes(date, minutes) {
+            let currentMinutes = date.getHours() * 60 + date.getMinutes();
+            let daysToAdd = 0;
+    
+            while (minutes !== 0) {
+                if (currentMinutes >= tradingStart && currentMinutes < tradingEnd) {
+                    const remainingMinutesToday = tradingEnd - currentMinutes;
+                    if (minutes > 0) {
+                        if (minutes <= remainingMinutesToday) {
+                            currentMinutes += minutes;
+                            minutes = 0;
+                        } else {
+                            minutes -= remainingMinutesToday;
+                            currentMinutes = tradingEnd;
+                        }
+                    } else {
+                        const minutesSinceStart = currentMinutes - tradingStart;
+                        if (Math.abs(minutes) <= minutesSinceStart) {
+                            currentMinutes += minutes;
+                            minutes = 0;
+                        } else {
+                            minutes += minutesSinceStart;
+                            currentMinutes = tradingStart;
+                        }
+                    }
+                }
+    
+                if (currentMinutes >= tradingEnd || currentMinutes < tradingStart) {
+                    daysToAdd += minutes > 0 ? 1 : -1;
+                    currentMinutes = minutes > 0 ? tradingStart : tradingEnd;
+                    if (date.getDay() === 5 && minutes > 0) daysToAdd += 2; // Skip to Monday
+                    if (date.getDay() === 1 && minutes < 0) daysToAdd -= 2; // Skip to Friday
+                }
+            }
+    
+            date.setDate(date.getDate() + daysToAdd);
+            date.setHours(Math.floor(currentMinutes / 60), currentMinutes % 60);
+            return date;
+        }
+    
+        return distArray.map(dist => {
+            const labelDate = new Date(eventTime);
+            addTradingMinutes(labelDate, dist);
+            return labelDate.toISOString().replace('T', ' ').substring(0, 16);
+        });
+    }
 
     function plotData(data, window, chartId, title, date, tic) {
         //console.log("Data received for plotting:", data);
@@ -218,7 +273,8 @@ document.addEventListener('DOMContentLoaded', () => {
             perc_90.push(item[`cret${window}_perc_90`]/982.8);
         });
     
-    
+        const xLabels = generateXLabels(date, tic, dist);
+        
         // Function to insert <br> tags for long titles
         function insertLineBreaks(str, maxLineLength) {
             const words = str.split(' ');
