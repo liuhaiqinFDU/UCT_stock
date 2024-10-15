@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
         // Plotly traces
         const traceMedian = {
-            x: dist,
+            x: xLabels,
             y: median,
             mode: 'lines',
             name: 'Median',
@@ -318,7 +318,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Plotly layout
         const layout = {
             title: title,
-            xaxis: { title: 'Minutes to the Event' },
+            xaxis: { title: '',
+                    tickformat: '%Y-%m-%d %H:%M',
+                    tickangle: 45 },
             yaxis: { title: 'Cumulative Minutely Returns (%)' }
         };
     
