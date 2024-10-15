@@ -272,7 +272,8 @@ document.addEventListener('DOMContentLoaded', () => {
             perc_10.push(item[`cret${window}_perc_10`]/982.8);
             perc_90.push(item[`cret${window}_perc_90`]/982.8);
         });
-    
+
+        // Labels on Minutes instead of Distance
         const xLabels = generateXLabels(date, tic, dist);
         
         // Function to insert <br> tags for long titles
@@ -306,12 +307,12 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     
         const traceBand = {
-            x: [...dist, ...dist.slice().reverse()],
+            x: [...xLabels, ...xLabels.slice().reverse()], //[...dist, ...dist.slice().reverse()],
             y: [...perc_90, ...perc_10.slice().reverse()],
             fill: 'toself',
             fillcolor: 'lightgrey',
             line: { color: 'transparent' },
-            name: '10%-90% Range'
+            name: '10%-90%'
         };
     
         // Plotly layout
