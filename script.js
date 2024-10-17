@@ -428,9 +428,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 shapes: [
                     {
                         type: 'line',
-                        x0: eventDistToLabel[0], //eventTime
+                        x0: xLabelsNEG.length, //eventDistToLabel[0]
                         y0: Math.min(...perc_10NEG.concat(perc_10POS)),
-                        x1: eventDistToLabel[0], //eventTime
+                        x1: xLabelsNEG.length, //eventDistToLabel[0]
                         y1: Math.max(...perc_90NEG.concat(perc_90POS)),
                         line: {
                             color: 'red',
