@@ -127,9 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Set default values (null or first element can be chosen here)
                 document.getElementById('PrimarySector').value = null;
                 document.getElementById('state').value = null;
-                
-                // Save the dist_to_labels mapping for the selected event
-                eventDistToLabels = data[0].dist_to_labels;
 
                 // Fetch data after setting options
                 fetchData();
@@ -441,7 +438,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    
     // Fetch options for the second tab
     function fetchOptions2() {
         const eventid = document.getElementById('eventid2').value;
