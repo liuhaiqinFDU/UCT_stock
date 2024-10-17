@@ -372,7 +372,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Insert "0": eventTime into eventDistToLabel
             eventDistToLabel[0] = eventTime;
 
-            
             const dist = [], median = [], perc_10 = [], perc_90 = [];
             filteredData.forEach(item => {
                 dist.push(item.dist);
