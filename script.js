@@ -300,152 +300,72 @@ document.addEventListener('DOMContentLoaded', () => {
         // Check if dist = 0 exists in the data
         const hasDistZero = filteredData.some(item => item.dist === 0);
         
-        if (hasDistZero) {
-            
-            const dist = [], median = [], perc_10 = [], perc_90 = [];
-            filteredData.forEach(item => {
-                dist.push(item.dist);
-                median.push( item[`cret${window}_median` ]/982.8);
-                perc_10.push(item[`cret${window}_perc_10`]/982.8);
-                perc_90.push(item[`cret${window}_perc_90`]/982.8);
+        if (!hasDistZero) {
+            // If dist = 0 does not exist, insert a fake data point
+            filteredData.push({
+                dist: 0,
+                [`cret${window}_median` ]: null,
+                [`cret${window}_perc_10`]: null,
+                [`cret${window}_perc_90`]: null
             });
-            
-            const xLabels = dist.map(d => eventDistToLabel[d] || d);
-
-            const traceMedian = {
-                x: xLabels,
-                y: median,
-                mode: 'lines',
-                name: 'Median',
-                line: { color: 'blue' }
-            };
-        
-            const traceBand = {
-                x: [...xLabels, ...xLabels.slice().reverse()], 
-                y: [...perc_90, ...perc_10.slice().reverse()],
-                fill: 'toself',
-                fillcolor: 'lightgrey',
-                line: { color: 'transparent' },
-                name: '10%-90%'
-            };
-        
-            // Plotly layout
-            const layout = {
-                title: title,
-                xaxis: { title: '',
-                        tickformat: '%Y-%m-%d %H:%M',
-                        tickangle: 45 },
-                yaxis: { title: 'Cumulative Minutely Returns (%)' },
-                shapes: [
-                    { // plot the red dash line at dist=0
-                        type: 'line',
-                        x0: xLabels[dist.indexOf(0)],
-                        y0: Math.min(...perc_10),
-                        x1: xLabels[dist.indexOf(0)],
-                        y1: Math.max(...perc_90),
-                        line: {
-                            color: 'red',
-                            width: 2,
-                            dash: 'dashdot'
-                        }
-                    }
-                ]
-            };
-
-            Plotly.newPlot(chartId, [traceBand, traceMedian], layout);
-
-        } else {
-            
-            // If dist = 0 does not exist, insert it
+            filteredData.sort((a, b) => a.dist - b.dist); // Ensure data is sorted by dist
+    
+            // Insert "0": eventTime into eventDistToLabel
             eventDistToLabel[0] = eventTime;
-            
-            // Split data into two parts: one for dist < 0 and one for dist > 0
-            let distNegative = filteredData.filter(item => item.dist < 0);
-            let distPositive = filteredData.filter(item => item.dist > 0);
-
-            const distNEG = [], medianNEG = [], perc_10NEG = [], perc_90NEG = [];
-            distNegative.forEach(item => {
-                distNEG.push(item.dist);
-                medianNEG.push( item[`cret${window}_median` ]/982.8);
-                perc_10NEG.push(item[`cret${window}_perc_10`]/982.8);
-                perc_90NEG.push(item[`cret${window}_perc_90`]/982.8);
-            });
-            
-            const distPOS = [], medianPOS = [], perc_10POS = [], perc_90POS = [];
-            distPositive.forEach(item => {
-                distPOS.push(item.dist);
-                medianPOS.push( item[`cret${window}_median` ]/982.8);
-                perc_10POS.push(item[`cret${window}_perc_10`]/982.8);
-                perc_90POS.push(item[`cret${window}_perc_90`]/982.8);
-            });
-            
-            const xLabelsNEG = distNEG.map(d => eventDistToLabel[d] || d);
-            const xLabelsPOS = distPOS.map(d => eventDistToLabel[d] || d);
-
-            const traceMedianNegative = {
-                x: xLabelsNEG,
-                y: medianNEG,
-                mode: 'lines',
-                name: '',
-                line: { color: 'blue' }
-            };
-        
-            const traceMedianPositive = {
-                x: xLabelsPOS,
-                y: medianPOS,
-                mode: 'lines',
-                name: 'Median',
-                line: { color: 'blue' }
-            };
-        
-            const traceBandNegative = {
-                x: [...xLabelsNEG, ...xLabelsNEG.reverse()],
-                y: [...perc_90NEG, ...perc_10NEG.reverse()],
-                fill: 'toself',
-                fillcolor: 'lightgrey',
-                line: { color: 'transparent' },
-                name: ''
-            };
-        
-            const traceBandPositive = {
-                x: [...xLabelsPOS, ...xLabelsPOS.reverse()],
-                y: [...perc_90POS, ...perc_10POS.reverse()],
-                fill: 'toself',
-                fillcolor: 'lightgrey',
-                line: { color: 'transparent' },
-                name: '10%-90%'
-            };
-
-            // Plotly layout
-            const layout = {
-                title: title,
-                xaxis: {
-                    title: '',
-                    tickformat: '%Y-%m-%d %H:%M',
-                    tickangle: 45
-                },
-                yaxis: { title: 'Cumulative Minutely Returns (%)' },
-                shapes: [
-                    {
-                        type: 'line',
-                        x0: xLabelsNEG.length, //eventDistToLabel[0]
-                        y0: Math.min(...perc_10NEG.concat(perc_10POS)),
-                        x1: xLabelsNEG.length, //eventDistToLabel[0]
-                        y1: Math.max(...perc_90NEG.concat(perc_90POS)),
-                        line: {
-                            color: 'red',
-                            width: 2,
-                            dash: 'dashdot'
-                        }
-                    }
-                ]
-            };
-            Plotly.newPlot(chartId, [traceBandNegative, 
-                traceBandPositive, traceMedianNegative, 
-                traceMedianPositive], layout);
-            
-
         }
+    
+        const dist = [], median = [], perc_10 = [], perc_90 = [];
+        filteredData.forEach(item => {
+            dist.push(item.dist);
+            median.push( item[`cret${window}_median` ]/982.8);
+            perc_10.push(item[`cret${window}_perc_10`]/982.8);
+            perc_90.push(item[`cret${window}_perc_90`]/982.8);
+        });
+        
+        const xLabels = dist.map(d => eventDistToLabel[d] || d);
+
+        const traceMedian = {
+            x: xLabels,
+            y: median,
+            mode: 'lines',
+            name: 'Median',
+            line: { color: 'blue' }
+        };
+    
+        const traceBand = {
+            x: [...xLabels, ...xLabels.slice().reverse()], 
+            y: [...perc_90, ...perc_10.slice().reverse()],
+            fill: 'toself',
+            fillcolor: 'lightgrey',
+            line: { color: 'transparent' },
+            name: '10%-90%'
+        };
+
+        // Plotly layout
+        const layout = {
+            title: title,
+            xaxis: { title: '',
+                    tickformat: '%Y-%m-%d %H:%M',
+                    tickangle: 45 },
+            yaxis: { title: 'Cumulative Minutely Returns (%)' },
+            shapes: [
+                { // plot the red dash line at dist=0
+                    type: 'line',
+                    x0: xLabels[dist.indexOf(0)],
+                    y0: Math.min(...perc_10),
+                    x1: xLabels[dist.indexOf(0)],
+                    y1: Math.max(...perc_90),
+                    line: {
+                        color: 'red',
+                        width: 2,
+                        dash: 'dashdot'
+                    }
+                }
+            ]
+        };
+
+        Plotly.newPlot(chartId, [traceBand, traceMedian], layout);
+
     }
 
     // Fetch options for the second tab
