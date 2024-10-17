@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let eventTitles = {};
     let eventDates = {};
     let eventTics = {};
+    let eventDistToLabels = {}; 
+    // Add this global variable to store the dist_to_labels mapping
+
 
     // Fetch event IDs and titles, timings for the eventid dropdown
     fetch('json_data/event_ids.json')
@@ -90,6 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
+
     function fetchOptions() {
         const eventid = document.getElementById('eventid').value;
         fetch(`json_data/event${eventid}.json`)
@@ -121,7 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Set default values (null or first element can be chosen here)
                 document.getElementById('PrimarySector').value = null;
                 document.getElementById('state').value = null;
-    
+                
+                // Save the dist_to_labels mapping for the selected event
+                eventDistToLabels = data[0].dist_to_labels;
+
                 // Fetch data after setting options
                 fetchData();
             })
@@ -182,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
             plotData(filteredData, window, 'chart1', eventTitles[eventid], eventDates[eventid], eventTics[eventid]);
         }
     }
+    /*
     function generateXLabels(eventDate, eventTic, distArray) {
         const tradingStart = 9 * 60 + 30; // 9:30 AM in minutes
         const tradingEnd = 16 * 60; // 4:00 PM in minutes
@@ -237,6 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return labelDate.toISOString().replace('T', ' ').substring(0, 16);
         });
     }
+    */
 
     function plotData(data, window, chartId, title, date, tic) {
         //console.log("Data received for plotting:", data);
@@ -263,7 +273,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             filteredData = data; // No filtering for other window values
         }
-    
+        
+        // Generate x-axis labels using dist_to_labels mapping
+        const xLabels = data.map(item => eventDistToLabels[item.dist] || item.dist);
+
         // Combine map calls into a single iteration to reduce overhead
         const dist = [], median = [], perc_10 = [], perc_90 = [];
         filteredData.forEach(item => {
@@ -274,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Labels on Minutes instead of Distance
-        const xLabels = generateXLabels(date, tic, dist);
+        //const xLabels = generateXLabels(date, tic, dist);
         
         // Function to insert <br> tags for long titles
         function insertLineBreaks(str, maxLineLength) {
