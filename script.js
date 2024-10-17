@@ -384,6 +384,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 ]
             };
+            Plotly.newPlot(chartId, [traceBandNegative, 
+                traceBandPositive, traceMedianNegative, 
+                traceMedianPositive], layout);
         } else {
             
             const traceMedian = {
@@ -425,16 +428,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 ]
             };
-        }
 
-        // Render the chart
-        if (!hasDistZero) {
-            Plotly.newPlot(chartId, [traceBandNegative, 
-                traceBandPositive, traceMedianNegative, 
-                traceMedianPositive], layout);
-        }
-        else{
             Plotly.newPlot(chartId, [traceBand, traceMedian], layout);
+
         }
     }
 
