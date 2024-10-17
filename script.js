@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Fetch event IDs and titles, timings for the eventid dropdown
-    fetch('json_data/event_ids.json')
+    fetch('json_data/event_ids_updated.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -28,11 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     eventTitles[item.eventid] = item.title;
                     eventDates[item.eventid] = item.date;
                     eventTics[item.eventid] = item.tic;
+                    eventDistToLabels[item.eventid] = item.dist_to_labels;
                 }
             });
             console.log("Event Titles:", eventTitles);
             console.log("Event Dates:", eventDates);
             console.log("Event Tics:", eventTics);
+            console.log("Event Labels:", eventDistToLabels);
 
             // Populate the dropdown list
             populateDropdown('eventid', uniqueEventIds);
