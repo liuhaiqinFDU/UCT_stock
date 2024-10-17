@@ -364,9 +364,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (prevDate !== currDate) {
                 shapes.push({
                     type: 'line',
-                    x0: xLabels[i],
+                    x0: xLabels[i-1],
                     y0: Math.min(...perc_10),
-                    x1: xLabels[i],
+                    x1: xLabels[i-1],
                     y1: Math.max(...perc_90),
                     line: {
                         color: 'gray',
