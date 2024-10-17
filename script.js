@@ -370,6 +370,42 @@ document.addEventListener('DOMContentLoaded', () => {
             line: { color: 'transparent' },
             name: '10%-90% (dist > 0)'
         };
+
+        // Create shapes for vertical lines when date changes
+        const shapes = [
+            { // plot the red dash line at dist=0
+                type: 'line',
+                x0: xLabels[dist.indexOf(0)],
+                y0: Math.min(...perc_10),
+                x1: xLabels[dist.indexOf(0)],
+                y1: Math.max(...perc_90),
+                line: {
+                    color: 'red',
+                    width: 2,
+                    dash: 'dashdot'
+                }
+            }
+        ];
+
+        // Add gray vertical lines when date changes
+        for (let i = 1; i < xLabels.length; i++) {
+            const prevDate = xLabels[i - 1].split(' ')[0];
+            const currDate = xLabels[i].split(' ')[0];
+            if (prevDate !== currDate) {
+                shapes.push({
+                    type: 'line',
+                    x0: xLabels[i],
+                    y0: Math.min(...perc_10),
+                    x1: xLabels[i],
+                    y1: Math.max(...perc_90),
+                    line: {
+                        color: 'gray',
+                        width: 1,
+                        dash: 'dot'
+                    }
+                });
+            }
+        }
     
         // Plotly layout
         const layout = {
@@ -377,23 +413,14 @@ document.addEventListener('DOMContentLoaded', () => {
             xaxis: {
                 title: '',
                 tickangle: 45,
-                type: 'category' // Ensure x-axis is treated as categorical
+                type: 'category', // Ensure x-axis is treated as categorical
+                tickvals: xLabels.filter((_, i) => i % 5 === 0), // Show every 5th label
+                tickfont: {
+                    size: 10 // Reduce font size
+                }
             },
             yaxis: { title: 'Cumulative Minutely Returns (%)' },
-            shapes: [
-                { // plot the red dash line at dist=0
-                    type: 'line',
-                    x0: xLabels[dist.indexOf(0)],
-                    y0: Math.min(...perc_10),
-                    x1: xLabels[dist.indexOf(0)],
-                    y1: Math.max(...perc_90),
-                    line: {
-                        color: 'red',
-                        width: 2,
-                        dash: 'dashdot'
-                    }
-                }
-            ]
+            shapes: shapes
         };
     
         Plotly.newPlot(chartId, [traceBandNegative, traceBandPositive, 
