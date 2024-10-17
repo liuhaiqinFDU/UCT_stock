@@ -303,9 +303,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!hasDistZero) {
             filteredData.push({
                 dist: 0,
-                [`cret${window}_median`]: null,
-                [`cret${window}_perc_10`]: null,
-                [`cret${window}_perc_90`]: null
+                [`cret${window}_median`]: undefined,
+                [`cret${window}_perc_10`]: undefined,
+                [`cret${window}_perc_90`]: undefined
             });
             filteredData.sort((a, b) => a.dist - b.dist); 
             // Ensure data is sorted by dist
