@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Check if dist = 0 exists in the data
         const hasDistZero = filteredData.some(item => item.dist === 0);
             
-        if (~hasDistZero) {
+        if (!hasDistZero) {
             filteredData.push({
                 dist: 0,
                 [`cret${window}_median`]: null,
