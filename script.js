@@ -274,21 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
             filteredData = data; // No filtering for other window values
         }
         
-        // Check if dist = 0 exists in the data
-        const hasDistZero = filteredData.some(item => item.dist === 0);
-        // If dist = 0 does not exist, insert it
-        if (!hasDistZero) {
-            const zeroPoint = {
-                dist: 0,
-                [`cret${window}_median`]: 0,
-                [`cret${window}_perc_10`]: 0,
-                [`cret${window}_perc_90`]: 0
-            };
-            filteredData.push(zeroPoint);
-            filteredData.sort((a, b) => a.dist - b.dist); 
-            // Ensure data is sorted by dist
-        }
-        
         // Generate x-axis labels using dist_to_labels mapping
         //const xLabels = generateXLabels(date, tic, dist);
         const xLabels = data.map(item => eventDistToLabel[item.dist] || item.dist);
@@ -301,7 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
             perc_10.push(item[`cret${window}_perc_10`]/982.8);
             perc_90.push(item[`cret${window}_perc_90`]/982.8);
         });
-
         
         // Function to insert <br> tags for long titles
         function insertLineBreaks(str, maxLineLength) {
@@ -324,8 +308,27 @@ document.addEventListener('DOMContentLoaded', () => {
         // Insert line breaks into the title
         title = insertLineBreaks(title, 100);
 
+        // Check if dist = 0 exists in the data
+        const hasDistZero = filteredData.some(item => item.dist === 0);
+        
         // Plotly traces
         if (!hasDistZero) {
+            
+            // If dist = 0 does not exist, insert it
+            const zeroPoint = {
+                dist: 0,
+                [`cret${window}_median`]: 0,
+                [`cret${window}_perc_10`]: 0,
+                [`cret${window}_perc_90`]: 0
+            };
+            filteredData.push(zeroPoint);
+            // Ensure data is sorted by dist
+            filteredData.sort((a, b) => a.dist - b.dist); 
+
+            // Split data into two parts: one for dist < 0 and one for dist > 0
+            const distNegative = filteredData.filter(item => item.dist < 0);
+            const distPositive = filteredData.filter(item => item.dist > 0);
+            
             const traceMedianNegative = {
                 x: distNegative.map(item => eventDistToLabel[item.dist] || item.dist),
                 y: distNegative.map(item => item[`cret${window}_median`] / 982.8),
