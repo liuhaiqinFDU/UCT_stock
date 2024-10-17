@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Fetch event IDs and titles, timings for the eventid dropdown
-    fetch('json_data/event_ids_updated.json')
+    fetch('json_data/event_ids.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
             select.add(opt);
         });
     }
-
 
 
     function fetchOptions() {
@@ -277,19 +276,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Generate x-axis labels using dist_to_labels mapping
+        //const xLabels = generateXLabels(date, tic, dist);
         const xLabels = data.map(item => eventDistToLabels[item.dist] || item.dist);
 
         // Combine map calls into a single iteration to reduce overhead
         const dist = [], median = [], perc_10 = [], perc_90 = [];
         filteredData.forEach(item => {
             dist.push(item.dist);
-            median.push(item[`cret${window}_median`]/982.8);
+            median.push( item[`cret${window}_median` ]/982.8);
             perc_10.push(item[`cret${window}_perc_10`]/982.8);
             perc_90.push(item[`cret${window}_perc_90`]/982.8);
         });
 
-        // Labels on Minutes instead of Distance
-        //const xLabels = generateXLabels(date, tic, dist);
         
         // Function to insert <br> tags for long titles
         function insertLineBreaks(str, maxLineLength) {
