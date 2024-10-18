@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // initialize global variables
     const state = {
-        dropdowns: ['eventid', 'window', 'PrimarySector', 'state'], //, 'SIC4', 'city', 'conml'
+        dropdowns: ['eventid', 'window', 'PrimarySector', 'state'], //, 'SIC4', 'city'
         eventTitles: {},
         eventDates: {},
         eventTics: {},
