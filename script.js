@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
         eventDates: {},
         eventTics: {},
         eventDistToLabels: {},
-        cachedEventData: {}
+        cachedEventData: {},
+        initialDropdownData: {}
     };
 
     async function fetchJSON(url) {
@@ -29,10 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const uniqueEventIds = [];
             eventData.forEach(item => {
                 if (!appState.eventTitles[item.eventid]) {
-                    uniqueEventIds.push( item.eventid);
+                    uniqueEventIds.push(item.eventid);
                     appState.eventTitles[item.eventid] = item.title;
-                    appState.eventDates[ item.eventid] = item.date;
-                    appState.eventTics[  item.eventid] = item.tic;
+                    appState.eventDates[item.eventid] = item.date;
+                    appState.eventTics[item.eventid] = item.tic;
                     appState.eventDistToLabels[item.eventid] = item.dist_to_labels;
                 }
             });
@@ -55,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function populateDropdown(id, options) {
+    function populateDropdown(id, options, selectedValue = '') {
         const select = document.getElementById(id);
         select.innerHTML = '<option value="">-- Select --</option>';
         options.forEach(option => {
@@ -64,6 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
             opt.text = option;
             select.add(opt);
         });
+        if (selectedValue) {
+            select.value = selectedValue;
+        }
     }
 
     async function fetchOptions() {
@@ -81,23 +85,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDropdowns(data) {
         const primarySectors = new Set();
         const states = new Set();
-        const cities = new Set();
-        const sic4s  = new Set();
-        const conmls = new Set();
 
         data.forEach(item => {
             primarySectors.add(item.PrimarySector);
             states.add(item.state);
-            cities.add(item.city);
-            sic4s.add(item.SIC4);
-            conmls.add(item.conml);
         });
 
-        populateDropdown('PrimarySector', Array.from(primarySectors));
-        populateDropdown('state', Array.from(states));
-        populateDropdown('city', Array.from(cities));
-        populateDropdown('SIC4', Array.from(sic4s));
-        populateDropdown('conml', Array.from(conmls));
+        const selectedPrimarySector = document.getElementById('PrimarySector').value;
+        const selectedState = document.getElementById('state').value;
+
+        populateDropdown('PrimarySector', Array.from(primarySectors), selectedPrimarySector);
+        populateDropdown('state', Array.from(states), selectedState);
+
+        // Store initial dropdown data for city, SIC4, and conml
+        appState.initialDropdownData = data;
+        updateCityDropdown(data, selectedPrimarySector, selectedState);
     }
 
     async function fetchData() {
@@ -139,8 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
             filteredData = filteredData.filter(item => item.dist >= -10 && item.dist <= 20);
         }
 
-        updateDependentDropdowns(filteredData);
-
         const chartElement = document.getElementById('chart1');
         if (filteredData.length === 0) {
             chartElement.innerHTML = 'No data';
@@ -155,34 +155,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function updateDependentDropdowns(data) {
+    function updateCityDropdown(data, primarySector, state) {
         const cities = new Set();
+
+        data.forEach(item => {
+            if ((!primarySector || item.PrimarySector === primarySector) &&
+                (!state || item.state === state)) {
+                cities.add(item.city);
+            }
+        });
+
+        const selectedCity = document.getElementById('city').value;
+        populateDropdown('city', Array.from(cities), selectedCity);
+        updateSIC4Dropdown(data, primarySector, state, selectedCity);
+    }
+
+    function updateSIC4Dropdown(data, primarySector, state, city) {
         const sic4s = new Set();
+
+        data.forEach(item => {
+            if ((!primarySector || item.PrimarySector === primarySector) &&
+                (!state || item.state === state) &&
+                (!city || item.city === city)) {
+                sic4s.add(item.SIC4);
+            }
+        });
+
+        const selectedSIC4 = document.getElementById('SIC4').value;
+        populateDropdown('SIC4', Array.from(sic4s), selectedSIC4);
+        updateCompanyDropdown(data, primarySector, state, city, selectedSIC4);
+    }
+
+    function updateCompanyDropdown(data, primarySector, state, city, sic4) {
         const conmls = new Set();
 
         data.forEach(item => {
-            cities.add(item.city);
-            sic4s.add(item.SIC4);
-            conmls.add(item.conml);
+            if ((!primarySector || item.PrimarySector === primarySector) &&
+                (!state || item.state === state) &&
+                (!city || item.city === city) &&
+                (!sic4 || item.SIC4 === sic4)) {
+                conmls.add(item.conml);
+            }
         });
 
-        populateDropdown('city', Array.from(cities));
-        populateDropdown('SIC4', Array.from(sic4s));
-        populateDropdown('conml', Array.from(conmls));
+        const selectedConml = document.getElementById('conml').value;
+        populateDropdown('conml', Array.from(conmls), selectedConml);
     }
-    
     
     function calculateStatistics(data, window) {
         const cretKey = `cret${window}`;
         const distMap = new Map();
 
         data.forEach(item => {
-            item[cretKey].forEach((value, index) => {
-                if (!distMap.has(index)) {
-                    distMap.set(index, []);
-                }
-                distMap.get(index).push(value);
-            });
+            if (!distMap.has(item.dist)) {
+                distMap.set(item.dist, []);
+            }
+            distMap.get(item.dist).push(item[cretKey]);
         });
 
         const dist = [];
@@ -205,7 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return { dist, median, perc_10, perc_90 };
     }
-
 
     function plotData(stats, chartId, title, date, tic, eventDistToLabel) {
 
@@ -369,6 +396,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('eventid2').addEventListener('change', fetchOptions2);
+
+    document.getElementById('PrimarySector').addEventListener('change', () => {
+        const primarySector = document.getElementById('PrimarySector').value;
+        const state = document.getElementById('state').value;
+        updateCityDropdown(appState.initialDropdownData, primarySector, state);
+    });
+
+    document.getElementById('state').addEventListener('change', () => {
+        const primarySector = document.getElementById('PrimarySector').value;
+        const state = document.getElementById('state').value;
+        updateCityDropdown(appState.initialDropdownData, primarySector, state);
+    });
+
+    document.getElementById('city').addEventListener('change', () => {
+        const primarySector = document.getElementById('PrimarySector').value;
+        const state = document.getElementById('state').value;
+        const city = document.getElementById('city').value;
+        updateSIC4Dropdown(appState.initialDropdownData, primarySector, state, city);
+    });
+
+    document.getElementById('SIC4').addEventListener('change', () => {
+        const primarySector = document.getElementById('PrimarySector').value;
+        const state = document.getElementById('state').value;
+        const city = document.getElementById('city').value;
+        const sic4 = document.getElementById('SIC4').value;
+        updateCompanyDropdown(appState.initialDropdownData, primarySector, state, city, sic4);
+    });
 
     initialize();
 });
