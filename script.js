@@ -255,9 +255,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const hasDistZero = dist.includes(0);
         if (!hasDistZero) {
             dist.push(0);
-            median.push(null); //null
-            perc_10.push(null);
-            perc_90.push(null);
+            median.push(0); //null
+            perc_10.push(0);
+            perc_90.push(0);
 
             // Sort dist and keep the same order for other arrays
             const sortedIndices = dist.map((value, index) => [value, index])
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const traceBand = {
             x: [...xLabels, ...xLabels.slice().reverse()],
-            y: [...perc_10, ...perc_90.slice().reverse()],
+            y: [...perc_90, ...perc_10.slice().reverse()],
             fill: 'toself',
             fillcolor: 'lightgrey',
             line: { color: 'transparent' },
