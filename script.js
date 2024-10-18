@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // initialize global variables
-    const state = {
-        dropdowns: ['eventid', 'window', 'PrimarySector', 'state'], //, 'SIC4', 'city'
+    const appState = {
+        dropdowns: ['eventid', 'window', 'PrimarySector', 'appState'], //, 'SIC4', 'city'
         eventTitles: {},
         eventDates: {},
         eventTics: {},
@@ -30,12 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const eventData = await fetchJSON('json_data/event_ids.json');
             const uniqueEventIds = [];
             eventData.forEach(item => {
-                if (!state.eventTitles[item.eventid]) {
+                if (!appState.eventTitles[item.eventid]) {
                     uniqueEventIds.push(item.eventid);
-                    state.eventTitles[item.eventid] = item.title;
-                    state.eventDates[item.eventid] = item.date;
-                    state.eventTics[item.eventid] = item.tic;
-                    state.eventDistToLabels[item.eventid] = item.dist_to_labels;
+                    appState.eventTitles[item.eventid] = item.title;
+                    appState.eventDates[item.eventid] = item.date;
+                    appState.eventTics[item.eventid] = item.tic;
+                    appState.eventDistToLabels[item.eventid] = item.dist_to_labels;
                 }
             });
             populateDropdown('eventid', uniqueEventIds);
@@ -76,12 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const states = new Set();
             data.forEach(item => {
                 primarySectors.add(item.PrimarySector);
-                states.add(item.state);
+                states.add(item.appState);
             });
             populateDropdown('PrimarySector', Array.from(primarySectors));
-            populateDropdown('state', Array.from(states));
+            populateDropdown('appState', Array.from(states));
             document.getElementById('PrimarySector').value = null;
-            document.getElementById('state').value = null;
+            document.getElementById('appState').value = null;
             await fetchData();
         } catch (error) {
             console.error('Error fetching options:', error);
@@ -92,25 +92,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const eventid = document.getElementById('eventid').value;
         const window = document.getElementById('window').value;
         const primarySector = document.getElementById('PrimarySector').value;
-        const state = document.getElementById('state').value;
+        const appState = document.getElementById('appState').value;
 
-        if (state.cachedEventData[eventid]) {
-            processData(state.cachedEventData[eventid], primarySector, state, window, eventid);
+        if (appState.cachedEventData[eventid]) {
+            processData(appState.cachedEventData[eventid], primarySector, appState, window, eventid);
         } else {
             try {
                 const data = await fetchJSON(`json_data/event${eventid}.json`);
-                state.cachedEventData[eventid] = data;
-                processData(data, primarySector, state, window, eventid);
+                appState.cachedEventData[eventid] = data;
+                processData(data, primarySector, appState, window, eventid);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
     }
 
-    function processData(data, primarySector, state, window, eventid) {
+    function processData(data, primarySector, appState, window, eventid) {
         const filteredData = data.filter(item =>
             (!primarySector || item.PrimarySector === primarySector) &&
-            (!state || item.state === state)
+            (!appState || item.appState === appState)
         );
 
         const chartElement = document.getElementById('chart1');
@@ -120,9 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (chartElement.innerHTML === 'No data') {
                 chartElement.innerHTML = '';
             }
-            plotData(filteredData, window, 'chart1', state.eventTitles[eventid], 
-                state.eventDates[eventid], state.eventTics[eventid], 
-                state.eventDistToLabels[eventid]);
+            plotData(filteredData, window, 'chart1', appState.eventTitles[eventid], 
+                appState.eventDates[eventid], appState.eventTics[eventid], 
+                appState.eventDistToLabels[eventid]);
         }
     }
 
@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchData();
     });
 
-    state.dropdowns.forEach(dropdown => {
+    appState.dropdowns.forEach(dropdown => {
         document.getElementById(dropdown).addEventListener('change', fetchData);
     });
 
