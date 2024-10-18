@@ -255,10 +255,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const hasDistZero = dist.includes(0);
         if (!hasDistZero) {
             dist.push(0);
-            median.push(0); //null
-            perc_10.push(0);
-            perc_90.push(0);
-            dist.sort((a, b) => a - b);  // Ensure data is sorted by dist
+            median.push(null);
+            perc_10.push(null);
+            perc_90.push(null);
+
+            // Sort dist and keep the same order for other arrays
+            const sortedIndices = dist.map((value, index) => [value, index])
+                                      .sort(([a], [b]) => a - b)
+                                      .map(([, index]) => index);
+
+            dist = sortedIndices.map(index => dist[index]);
+            median = sortedIndices.map(index => median[index]);
+            perc_10 = sortedIndices.map(index => perc_10[index]);
+            perc_90 = sortedIndices.map(index => perc_90[index]);
 
             // Insert "0": eventTime into eventDistToLabel
             eventDistToLabel[0] = eventTime;
