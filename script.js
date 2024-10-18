@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // initialize global variables
+    // initialize global variables that can't be reassigned
     const appState = {
         dropdowns: ['eventid', 'window', 'PrimarySector', 'state', 'SIC4', 'city', 'conml'],
         eventTitles: {},
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populateDropdown(id, options) {
         const select = document.getElementById(id);
-        select.innerHTML = '';
+        select.innerHTML = '<option value="">-- Select --</option>';
         options.forEach(option => {
             const opt = document.createElement('option');
             opt.value = option;
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function processData(data, primarySector, state, city, sic4, conml, window, eventid) {
-        const filteredData = data.filter(item =>
+        let filteredData = data.filter(item =>
             (!primarySector || item.PrimarySector === primarySector) &&
             (!state || item.state === state) &&
             (!city || item.city === city) &&
