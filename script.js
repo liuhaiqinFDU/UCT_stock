@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('window').value = 45;
             }
             await fetchOptions();
+            await fetchData();
         } catch (error) {
             console.error('Initialization error:', error);
         }
