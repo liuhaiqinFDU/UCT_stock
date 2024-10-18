@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('window').value = 45;
             }
             await fetchOptions();
-            await fetchData();
         } catch (error) {
             console.error('Initialization error:', error);
         }
@@ -108,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function processData(data, primarySector, state, window, eventid) {
         const filteredData = data.filter(item =>
-            (!primarySector || item.PrimarySector === primarySector) &&
-            (!state || item.state === state)
+            (item.PrimarySector === primarySector) &&
+            (item.state === state)
         );
 
         const chartElement = document.getElementById('chart1');
