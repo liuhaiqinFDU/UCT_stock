@@ -2,14 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // initialize global variables
     const appState = {
-        dropdowns: ['eventid', 'window', 'PrimarySector', 'appState'], //, 'SIC4', 'city'
+        dropdowns: ['eventid', 'window', 'PrimarySector', 'state'], //, 'SIC4', 'city'
         eventTitles: {},
         eventDates: {},
         eventTics: {},
         eventDistToLabels: {},
         cachedEventData: {}
     };
-
 
     async function fetchJSON(url) {
         try {
@@ -24,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    
     async function initialize() {
         try {
             const eventData = await fetchJSON('json_data/event_ids.json');
@@ -76,41 +74,41 @@ document.addEventListener('DOMContentLoaded', () => {
             const states = new Set();
             data.forEach(item => {
                 primarySectors.add(item.PrimarySector);
-                states.add(item.appState);
+                states.add(item.state);
             });
             populateDropdown('PrimarySector', Array.from(primarySectors));
-            populateDropdown('appState', Array.from(states));
+            populateDropdown('state', Array.from(states));
             document.getElementById('PrimarySector').value = null;
-            document.getElementById('appState').value = null;
+            document.getElementById('state').value = null;
             await fetchData();
         } catch (error) {
             console.error('Error fetching options:', error);
         }
     }
-    
+
     async function fetchData() {
         const eventid = document.getElementById('eventid').value;
         const window = document.getElementById('window').value;
         const primarySector = document.getElementById('PrimarySector').value;
-        const appState = document.getElementById('appState').value;
+        const state = document.getElementById('state').value;
 
         if (appState.cachedEventData[eventid]) {
-            processData(appState.cachedEventData[eventid], primarySector, appState, window, eventid);
+            processData(appState.cachedEventData[eventid], primarySector, state, window, eventid);
         } else {
             try {
                 const data = await fetchJSON(`json_data/event${eventid}.json`);
                 appState.cachedEventData[eventid] = data;
-                processData(data, primarySector, appState, window, eventid);
+                processData(data, primarySector, state, window, eventid);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
     }
 
-    function processData(data, primarySector, appState, window, eventid) {
+    function processData(data, primarySector, state, window, eventid) {
         const filteredData = data.filter(item =>
             (!primarySector || item.PrimarySector === primarySector) &&
-            (!appState || item.appState === appState)
+            (!state || item.state === state)
         );
 
         const chartElement = document.getElementById('chart1');
