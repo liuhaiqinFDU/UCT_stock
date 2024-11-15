@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,39 +11,53 @@
         body {
             background-color: #f8f9fa;
         }
+
         .container {
             margin-top: 20px;
         }
+
         .nav-tabs .nav-link {
             color: #495057;
         }
+
         .nav-tabs .nav-link.active {
             color: #007bff;
         }
+
         .form-group {
             margin-bottom: 1rem;
         }
+
         .card {
             margin-top: 20px;
         }
-        #chart1, #figuresContainer {
+
+        #chart1,
+        #figuresContainer {
             margin-top: 20px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1 class="text-center">High Frequency Event Study Around UCT Events</h1>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Unquestionable Events</a>
+                <a class="nav-link" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1"
+                    aria-selected="false">Unquestionable Events</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Questionable Events</a>
+                <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2"
+                    aria-selected="false">Questionable Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3"
+                    aria-selected="true">Winners & Losers</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+            <div class="tab-pane fade show" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -115,6 +130,64 @@
                     </div>
                 </div>
             </div>
+            <div class="tab-pane fade show active" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                <label for="eventid2">Event ID:</label>
+                                <select id="eventid2" class="form-control" required></select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="window2">Window:</label>
+                                <select id="window2" class="form-control" required>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                    <option value="60">60</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="PrimarySector2">Primary Sector:</label>
+                                <select id="PrimarySector2" class="form-control">
+                                    <option value="">-- Select Primary Sector --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="state2">State:</label>
+                                <select id="state2" class="form-control">
+                                    <option value="">-- Select State --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                <label for="city2">City:</label>
+                                <select id="city2" class="form-control">
+                                    <option value="">-- Select City --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="SIC42">SIC4:</label>
+                                <select id="SIC42" class="form-control">
+                                    <option value="">-- Select SIC4 --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="conml2">Company Name:</label>
+                                <select id="conml2" class="form-control">
+                                    <option value="">-- Select Company --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" id="eventTime2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" id="chart2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -123,4 +196,5 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

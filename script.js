@@ -11,6 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
         initialDropdownData: {}
     };
 
+    const appState2 = {
+        dropdowns: ['eventid2', 'window2', 'PrimarySector2', 'state2', 'SIC42', 'city2', 'conml2'],
+        eventTitles: {},
+        eventDates: {},
+        eventTics: {},
+        eventDistToLabels: {},
+        cachedEventData: {},
+        initialDropdownData: {}
+    };
+
     async function fetchJSON(url) {
         try {
             const response = await fetch(url);
@@ -54,6 +64,28 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error fetching questionable event IDs:', error);
         }
+
+        try {
+            const eventData2 = await fetchJSON('winner_loser/event_ids.json');
+            const uniqueEventIds2 = [];
+            eventData2.forEach(item => {
+                if (!appState.eventTitles[item.eventid]) {
+                    uniqueEventIds.push(item.eventid);
+                    appState.eventTitles[item.eventid] = item.title;
+                    appState.eventDates[item.eventid] = item.date;
+                    appState.eventTics[item.eventid] = item.tic;
+                    appState.eventDistToLabels[item.eventid] = item.dist_to_labels;
+                }
+            });
+            populateDropdown('eventid2', uniqueEventIds2);
+            if (uniqueEventIds2.length > 0) {
+                document.getElementById('eventid2').value = uniqueEventIds2[0];
+                document.getElementById('window2').value = 45;
+            }
+            await fetchOptions2();
+        } catch (error) {
+            console.error('Initialization error:', error);
+        }
     }
 
     function populateDropdown(id, options, selectedValue = '') {
@@ -82,6 +114,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function fetchOptions2() {
+        const eventid2 = document.getElementById('eventid2').value;
+        try {
+            const data2 = await fetchJSON(`winner_loser/event${eventid}.json`);
+            appState.cachedEventData[eventid2] = data2;
+            updateDropdowns2(data2);
+            await fetchData2();
+        } catch (error) {
+            console.error('Error fetching options:', error);
+        }
+    }
+
     function updateDropdowns(data) {
         const primarySectors = new Set();
         const states = new Set();
@@ -100,6 +144,26 @@ document.addEventListener('DOMContentLoaded', () => {
         // Store initial dropdown data for city, SIC4, and conml
         appState.initialDropdownData = data;
         updateCityDropdown(data, selectedPrimarySector, selectedState);
+    }
+
+    function updateDropdowns2(data2) {
+        const primarySectors2 = new Set();
+        const states2 = new Set();
+
+        data2.forEach(item => {
+            primarySectors2.add(item.PrimarySector);
+            states2.add(item.state);
+        });
+
+        const selectedPrimarySector2 = document.getElementById('PrimarySector2').value;
+        const selectedState2 = document.getElementById('state2').value;
+
+        populateDropdown('PrimarySector', Array.from(primarySectors2), selectedPrimarySector2);
+        populateDropdown('state', Array.from(states2), selectedState2);
+
+        // Store initial dropdown data for city, SIC4, and conml
+        appState2.initialDropdownData = data2;
+        updateCityDropdown(data2, selectedPrimarySector2, selectedState2);
     }
 
     async function fetchData() {
@@ -124,6 +188,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+
+    async function fetchData2() {
+        const eventid2 = document.getElementById('eventid2').value;
+        const window2 = document.getElementById('window2').value;
+        const primarySector2 = document.getElementById('PrimarySector2').value;
+        const state2 = document.getElementById('state2').value;
+        const city2 = document.getElementById('city2').value;
+        const sic42 = document.getElementById('SIC42').value;
+        const conml2 = document.getElementById('conml2').value;
+
+        if (appState2.cachedEventData[eventid2]) {
+            processData2(appState2.cachedEventData[eventid2], 
+                primarySector2, state2, city2, sic42, conml2, window2, eventid2);
+        } else {
+            try {
+                const data2 = await fetchJSON(`winner_loser/event${eventid2}.json`);
+                appState2.cachedEventData[eventid] = data;
+                processData2(data2,primarySector2,state2,city2,sic42,conml2,window2,eventid2);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+    }    
 
     function processData(data, primarySector, state, city, sic4, conml, window, eventid) {
         let filteredData = data.filter(item =>
@@ -155,6 +243,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
+    
+    function processData2(data2, primarySector2, state2, city2, sic42, conml2, window2, eventid2) {
+        let filteredData2 = data2.filter(item =>
+            (!primarySector2 || item.PrimarySector === primarySector2) &&
+            (!state2 || item.state === state2) &&
+            (!city2 || item.city === city2) &&
+            (!sic42 || item.SIC4 === sic42) &&
+            (!conml2 || item.conml === conml2)
+        );
+
+        // Filter data based on the window parameter
+        if (window2 == 45) {
+            filteredData2 = filteredData2.filter(item => item.dist >= -15 && item.dist <= 30);
+        } else if (window2 == 30) {
+            filteredData2 = filteredData2.filter(item => item.dist >= -10 && item.dist <= 20);
+        }
+
+        const chartElement2 = document.getElementById('chart2');
+        if (filteredData2.length === 0) {
+            chartElement2.innerHTML = 'No data';
+        } else {
+            if (chartElement2.innerHTML === 'No data') {
+                chartElement2.innerHTML = '';
+            }
+            const stats2 = calculateStatistics(filteredData2, window2); 
+            // I use the same function but not plot the same data
+            plotData2(stats2, 'chart2', appState2.eventTitles[eventid2], 
+                appState2.eventDates[eventid2], appState2.eventTics[eventid2], 
+                appState2.eventDistToLabels[eventid2]);
+        }
+    }
+
     function updateCityDropdown(data, primarySector, state) {
         const cities = new Set();
 
@@ -168,6 +289,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedCity = document.getElementById('city').value;
         populateDropdown('city', Array.from(cities), selectedCity);
         updateSIC4Dropdown(data, primarySector, state, selectedCity);
+    }
+
+    function updateCityDropdown2(data2, primarySector2, state2) {
+        const cities2 = new Set();
+
+        data2.forEach(item => {
+            if ((!primarySector2 || item.PrimarySector === primarySector2) &&
+                (!state2 || item.state === state2)) {
+                cities2.add(item.city);
+            }
+        });
+
+        const selectedCity2 = document.getElementById('city2').value;
+        populateDropdown('city2', Array.from(cities2), selectedCity2);
+        updateSIC4Dropdown2(data2, primarySector2, state2, selectedCity2);
     }
 
     function updateSIC4Dropdown(data, primarySector, state, city) {
@@ -186,6 +322,22 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCompanyDropdown(data, primarySector, state, city, selectedSIC4);
     }
 
+    function updateSIC4Dropdown2(data2, primarySector2, state2, city2) {
+        const sic4s2 = new Set();
+
+        data2.forEach(item => {
+            if ((!primarySector2 || item.PrimarySector === primarySector2) &&
+                (!state2 || item.state === state2) &&
+                (!city2 || item.city === city2)) {
+                sic4s2.add(item.SIC4);
+            }
+        });
+
+        const selectedSIC42 = document.getElementById('SIC42').value;
+        populateDropdown('SIC42', Array.from(sic4s2), selectedSIC42);
+        updateCompanyDropdown2(data2, primarySector2, state2, city2, selectedSIC42);
+    }
+
     function updateCompanyDropdown(data, primarySector, state, city, sic4) {
         const conmls = new Set();
 
@@ -202,6 +354,22 @@ document.addEventListener('DOMContentLoaded', () => {
         populateDropdown('conml', Array.from(conmls), selectedConml);
     }
     
+    function updateCompanyDropdown2(data2, primarySector2, state2, city2, sic42) {
+        const conmls2 = new Set();
+
+        data2.forEach(item => {
+            if ((!primarySector2 || item.PrimarySector === primarySector2) &&
+                (!state2 || item.state === state2) &&
+                (!city2 || item.city === city2) &&
+                (!sic42 || item.SIC4 === sic42)) {
+                conmls2.add(item.conml);
+            }
+        });
+
+        const selectedConml2 = document.getElementById('conml2').value;
+        populateDropdown('conml2', Array.from(conmls2), selectedConml2);
+    }
+
     function calculateStatistics(data, window) {
         const cretKey = `cret${window}`;
         const distMap = new Map();
@@ -360,6 +528,111 @@ document.addEventListener('DOMContentLoaded', () => {
         Plotly.newPlot(chartId, [traceBand, traceMedian], layout);
     }
 
+    function plotData2(stats, chartId, title, date, tic, eventDistToLabel, firms) {
+        console.log("Title:", title);
+        console.log("Date:", date);
+        console.log("Time:", tic);
+    
+        // Calculate and display the event time (hour and minute from tic)
+        const hour = Math.floor(tic / 60);
+        const minute = tic - hour * 60;
+        const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
+        document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}`;
+    
+        // Insert line breaks into the title
+        title = insertLineBreaks(title, 100);
+    
+        let { dist, perc_10, perc_90 } = stats;
+        
+        // Check if dist = 0 exists in the data
+        const hasDistZero = dist.includes(0);
+        if (!hasDistZero) {
+            dist.push(0);
+            perc_10.push(0);
+            perc_90.push(0);
+    
+            // Sort dist and keep the same order for other arrays
+            const sortedIndices = dist.map((value, index) => [value, index])
+                                      .sort(([a], [b]) => a - b)
+                                      .map(([, index]) => index);
+    
+            dist = sortedIndices.map(index => dist[index]);
+            perc_10 = sortedIndices.map(index => perc_10[index]);
+            perc_90 = sortedIndices.map(index => perc_90[index]);
+    
+            // Insert "0": eventTime into eventDistToLabel
+            eventDistToLabel[0] = eventTime;
+        }
+    
+        const xLabels = dist.map(d => eventDistToLabel[d] || d);
+    
+        const traces = firms.map((firm, index) => {
+            return {
+                x: xLabels,
+                y: stats[`cret${window}`][firm],
+                mode: 'lines',
+                name: firm,
+                line: {
+                    color: `rgba(0, 0, 255, ${1 - index / firms.length})`
+                }
+            };
+        });
+    
+        // Create shapes for vertical lines when date changes
+        const shapes = [
+            { // plot the red dash line at dist=0
+                type: 'line',
+                x0: xLabels[dist.indexOf(0)],
+                y0: Math.min(...perc_10),
+                x1: xLabels[dist.indexOf(0)],
+                y1: Math.max(...perc_90),
+                line: {
+                    color: 'red',
+                    width: 2,
+                    dash: 'dashdot'
+                }
+            }
+        ];
+    
+        // Add gray vertical lines when date changes
+        for (let i = 1; i < xLabels.length; i++) {
+            const prevDate = xLabels[i - 1].split(' ')[0];
+            const currDate = xLabels[i].split(' ')[0];
+            if (prevDate !== currDate) {
+                shapes.push({
+                    type: 'line',
+                    x0: xLabels[i-1],
+                    y0: Math.min(...perc_10),
+                    x1: xLabels[i-1],
+                    y1: Math.max(...perc_90),
+                    line: {
+                        color: 'gray',
+                        width: 1,
+                        dash: 'dot'
+                    }
+                });
+            }
+        }
+    
+        const layout = {
+            title: title,
+            xaxis: {
+                title: '',
+                //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
+                tickangle: 45,
+                type: 'category',
+                tickvals: xLabels.filter((_, i) => i % 3 === 0), // Show every 5th label
+                tickfont: {
+                    size: 10 // Reduce font size
+                }
+            },
+            yaxis: { title: 'Cumulative Minutely Returns (%)' },
+            shapes: shapes
+        };
+    
+        Plotly.newPlot(chartId, traces, layout);
+    }
+
     // Function to insert <br> tags for long titles
     function insertLineBreaks(str, maxLineLength) {
         const words = str.split(' ');
@@ -378,33 +651,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return result.trim();
     }
     
-    async function fetchOptions2() {
-        const eventid = document.getElementById('eventid2').value;
-        const figuresContainer = document.getElementById('figuresContainer');
-        figuresContainer.innerHTML = '';
-
-        const figurePrefix = `cret${eventid}`;
-        const maxFigures = 10;
-
-        for (let i = 1; i <= maxFigures; i++) {
-            const img = document.createElement('img');
-            img.src = `figures/${figurePrefix}_${i}.png`;
-            img.alt = `Figure for event ID ${eventid}`;
-            img.onerror = () => img.style.display = 'none';
-            figuresContainer.appendChild(img);
-        }
-    }
-
     document.getElementById('eventid').addEventListener('change', () => {
         fetchOptions();
         fetchData();
+    });
+
+    document.getElementById('eventid2').addEventListener('change', () => {
+        fetchOptions2();
+        fetchData2();
     });
 
     appState.dropdowns.forEach(dropdown => {
         document.getElementById(dropdown).addEventListener('change', fetchData);
     });
 
-    document.getElementById('eventid2').addEventListener('change', fetchOptions2);
+    appState2.dropdowns.forEach(dropdown => {
+        document.getElementById(dropdown).addEventListener('change', fetchData2);
+    });
+
 
     document.getElementById('PrimarySector').addEventListener('change', () => {
         const primarySector = document.getElementById('PrimarySector').value;
@@ -412,10 +676,22 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCityDropdown(appState.initialDropdownData, primarySector, state);
     });
 
+    document.getElementById('PrimarySector2').addEventListener('change', () => {
+        const primarySector2 = document.getElementById('PrimarySector2').value;
+        const state2 = document.getElementById('state2').value;
+        updateCityDropdown2(appState2.initialDropdownData, primarySector2, state2);
+    });
+
     document.getElementById('state').addEventListener('change', () => {
         const primarySector = document.getElementById('PrimarySector').value;
         const state = document.getElementById('state').value;
         updateCityDropdown(appState.initialDropdownData, primarySector, state);
+    });
+
+    document.getElementById('state2').addEventListener('change', () => {
+        const primarySector2 = document.getElementById('PrimarySector2').value;
+        const state2 = document.getElementById('state2').value;
+        updateCityDropdown2(appState2.initialDropdownData, primarySector2, state2);
     });
 
     document.getElementById('city').addEventListener('change', () => {
@@ -425,12 +701,27 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSIC4Dropdown(appState.initialDropdownData, primarySector, state, city);
     });
 
+    document.getElementById('city2').addEventListener('change', () => {
+        const primarySector2 = document.getElementById('PrimarySector2').value;
+        const state2 = document.getElementById('state2').value;
+        const city2 = document.getElementById('city2').value;
+        updateSIC4Dropdown2(appState2.initialDropdownData, primarySector2, state2, city2);
+    });
+
     document.getElementById('SIC4').addEventListener('change', () => {
         const primarySector = document.getElementById('PrimarySector').value;
         const state = document.getElementById('state').value;
         const city = document.getElementById('city').value;
         const sic4 = document.getElementById('SIC4').value;
         updateCompanyDropdown(appState.initialDropdownData, primarySector, state, city, sic4);
+    });
+
+    document.getElementById('SIC42').addEventListener('change', () => {
+        const primarySector2 = document.getElementById('PrimarySector2').value;
+        const state2 = document.getElementById('state2').value;
+        const city2 = document.getElementById('city2').value;
+        const sic42 = document.getElementById('SIC42').value;
+        updateCompanyDropdown2(appState2.initialDropdownData, primarySector2, state2, city2, sic42);
     });
 
     initialize();
