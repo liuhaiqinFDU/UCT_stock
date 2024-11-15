@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const stats2 = calculateStatistics(filteredData2, window2); 
             // I use the same function but not plot the same data
-            plotData2(stats2, 'chart2', appState2.eventTitles[eventid2], 
+            plotData2(filteredData2, stats2, 'chart2', appState2.eventTitles[eventid2], 
                 appState2.eventDates[eventid2], appState2.eventTics[eventid2], 
                 appState2.eventDistToLabels[eventid2]);
         }
@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Plotly.newPlot(chartId, [traceBand, traceMedian], layout);
     }
 
-    function plotData2(stats, chartId, title, date, tic, eventDistToLabel, firms) {
+    function plotData2(filteredData, stats, chartId, title, date, tic, eventDistToLabel) {
         console.log("Title:", title);
         console.log("Date:", date);
         console.log("Time:", tic);
@@ -563,15 +563,23 @@ document.addEventListener('DOMContentLoaded', () => {
     
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
     
-        const traces = firms.map((firm, index) => {
+        // Group data by firm name (conm)
+        const groupedData = filteredData.reduce((acc, row) => {
+            if (!acc[row.conm]) {
+                acc[row.conm] = [];
+            }
+            acc[row.conm].push(row);
+            return acc;
+        }, {});
+        
+        // Create traces for each firm
+        const traces = Object.keys(groupedData).map(firmName => {
+            const firmData = groupedData[firmName];
             return {
-                x: xLabels,
-                y: stats[`cret${window}`][firm],
-                mode: 'lines',
-                name: firm,
-                line: {
-                    color: `rgba(0, 0, 255, ${1 - index / firms.length})`
-                }
+                x: firmData.map(row => row.dist),
+                y: firmData.map(row => row[`cret${window}`]),
+                mode: 'lines+markers',
+                name: firmName
             };
         });
     
