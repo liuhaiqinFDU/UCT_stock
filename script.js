@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cachedEventData: {},
         initialDropdownData: {}
     };
-
+    
     const appState2 = {
         dropdowns: ['eventid2', 'window2', 'PrimarySector2', 'state2', 'SIC42', 'city2', 'conml2'],
         eventTitles: {},
