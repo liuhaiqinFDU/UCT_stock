@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const questionableEventData = await fetchJSON('json_data/event_ids_questionable.json');
             const uniqueEventIds = [...new Set(questionableEventData.map(item => item.eventid))];
-            populateDropdown('eventid2', uniqueEventIds);
+            populateDropdown('eventid_question', uniqueEventIds);
         } catch (error) {
             console.error('Error fetching questionable event IDs:', error);
         }
@@ -69,12 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const eventData2 = await fetchJSON('winner_loser/event_ids.json');
             const uniqueEventIds2 = [];
             eventData2.forEach(item => {
-                if (!appState.eventTitles[item.eventid]) {
-                    uniqueEventIds.push(item.eventid);
-                    appState.eventTitles[item.eventid] = item.title;
-                    appState.eventDates[item.eventid] = item.date;
-                    appState.eventTics[item.eventid] = item.tic;
-                    appState.eventDistToLabels[item.eventid] = item.dist_to_labels;
+                if (!appState2.eventTitles[item.eventid]) {
+                    uniqueEventIds2.push(item.eventid);
+                    appState2.eventTitles[item.eventid] = item.title;
+                    appState2.eventDates[item.eventid] = item.date;
+                    appState2.eventTics[item.eventid] = item.tic;
+                    appState2.eventDistToLabels[item.eventid] = item.dist_to_labels;
                 }
             });
             populateDropdown('eventid2', uniqueEventIds2);
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const eventid2 = document.getElementById('eventid2').value;
         try {
             const data2 = await fetchJSON(`winner_loser/event${eventid}.json`);
-            appState.cachedEventData[eventid2] = data2;
+            appState2.cachedEventData[eventid2] = data2;
             updateDropdowns2(data2);
             await fetchData2();
         } catch (error) {
