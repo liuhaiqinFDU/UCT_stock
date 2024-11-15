@@ -404,9 +404,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function plotData(stats, chartId, title, date, tic, eventDistToLabel) {
 
-        console.log("Title:", title);
-        console.log("Date:", date);
-        console.log("Time:", tic);
+        //console.log("Title:", title);
+        //console.log("Date:", date);
+        //console.log("Time:", tic);
 
         // Calculate and display the event time (hour and minute from tic)
         const hour = Math.floor(tic / 60);
@@ -660,6 +660,11 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchOptions2();
         fetchData2();
     });
+    
+    // Event listener for the second tab
+    document.getElementById('eventid_question').addEventListener('change', () => {
+        fetchOptions_question(); // only need to fetch figures
+    });
 
     appState.dropdowns.forEach(dropdown => {
         document.getElementById(dropdown).addEventListener('change', fetchData);
@@ -723,6 +728,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const sic42 = document.getElementById('SIC42').value;
         updateCompanyDropdown2(appState2.initialDropdownData, primarySector2, state2, city2, sic42);
     });
+
+    // Fetch options for the second tab
+    function fetchOptions_question() {
+        const eventid = document.getElementById('eventid_question').value;
+        const figuresContainer = document.getElementById('figuresContainer');
+        figuresContainer.innerHTML = ''; // Clear existing figures
+
+        // Assuming the figures are stored in the 'figures' folder
+        const figurePrefix = `cret${eventid}`;
+        const maxFigures = 10; // Adjust this number based on the maximum expected number of figures
+
+        for (let i = 1; i <= maxFigures; i++) {
+            const img = document.createElement('img');
+            img.src = `figures/${figurePrefix}_${i}.png`;
+            img.alt = `Figure for event ID ${eventid}`;
+            img.onerror = () => img.style.display = 'none'; // Hide image if not found
+            figuresContainer.appendChild(img);
+        }
+    }
 
     initialize();
 });
