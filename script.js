@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cachedEventData: {},
         initialDropdownData: {}
     };
-    
+
     const appState2 = {
         dropdowns: ['eventid2', 'window2', 'PrimarySector2', 'state2', 'SIC42', 'city2', 'conml2'],
         eventTitles: {},
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initialDropdownData: {}
     };
 
-    async function fetchJSON(url) {
+    async function fetchJSON(url){
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function initialize() {
+    async function initialize(){
         try {
             const eventData = await fetchJSON('json_data/event_ids.json');
             const uniqueEventIds = [];
@@ -158,8 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedPrimarySector2 = document.getElementById('PrimarySector2').value;
         const selectedState2 = document.getElementById('state2').value;
 
-        populateDropdown('PrimarySector', Array.from(primarySectors2), selectedPrimarySector2);
-        populateDropdown('state', Array.from(states2), selectedState2);
+        populateDropdown('PrimarySector2', Array.from(primarySectors2), selectedPrimarySector2);
+        populateDropdown('state2', Array.from(states2), selectedState2);
 
         // Store initial dropdown data for city, SIC4, and conml
         appState2.initialDropdownData = data2;
@@ -188,7 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
 
     async function fetchData2() {
         const eventid2 = document.getElementById('eventid2').value;
