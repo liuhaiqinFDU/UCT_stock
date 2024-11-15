@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             try {
                 const data2 = await fetchJSON(`winner_loser/event${eventid2}.json`);
-                appState2.cachedEventData[eventid] = data;
+                appState2.cachedEventData[eventid2] = data2;
                 processData2(data2,primarySector2,state2,city2,sic42,conml2,window2,eventid2);
             } catch (error) {
                 console.error('Error fetching data:', error);
