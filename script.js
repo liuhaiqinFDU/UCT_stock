@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchOptions2() {
         const eventid2 = document.getElementById('eventid2').value;
         try {
-            const data2 = await fetchJSON(`winner_loser/event${eventid}.json`);
+            const data2 = await fetchJSON(`winner_loser/event${eventid2}.json`);
             appState2.cachedEventData[eventid2] = data2;
             updateDropdowns2(data2);
             await fetchData2();
@@ -242,8 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
-    
     function processData2(data2, primarySector2, state2, city2, sic42, conml2, window2, eventid2) {
         let filteredData2 = data2.filter(item =>
             (!primarySector2 || item.PrimarySector === primarySector2) &&
