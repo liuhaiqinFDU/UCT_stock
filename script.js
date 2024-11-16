@@ -526,9 +526,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function plotData2(filteredData, stats, chartId, title, date, tic, eventDistToLabel) {
-        console.log("Title:", title);
-        console.log("Date:", date);
-        console.log("Time:", tic);
+        //console.log("Title:", title);
+        //console.log("Date:", date);
+        //console.log("Time:", tic);
     
         // Calculate and display the event time (hour and minute from tic)
         const hour = Math.floor(tic / 60);
@@ -562,13 +562,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
-    
-        // Group data by firm name (conm)
+        
+        console.log("xLabels:", xLabels); 
+
+        // Group data by firm name (conml)
         const groupedData = filteredData.reduce((acc, row) => {
-            if (!acc[row.conm]) {
-                acc[row.conm] = [];
+            if (!acc[row.conml]) {
+                acc[row.conml] = [];
             }
-            acc[row.conm].push(row);
+            acc[row.conml].push(row);
             return acc;
         }, {});
         
