@@ -526,10 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function plotData2(filteredData, stats, chartId, title, date, tic, eventDistToLabel) {
-        //console.log("Title:", title);
-        //console.log("Date:", date);
-        //console.log("Time:", tic);
-    
+
         // Calculate and display the event time (hour and minute from tic)
         const hour = Math.floor(tic / 60);
         const minute = tic - hour * 60;
@@ -577,12 +574,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const firmData = groupedData[firmName];
             return {
                 x: firmData.map(row => row.dist),
-                y: firmData.map(row => row[`cret${window}`]),
+                y: firmData.map(row => row[`cret${window2}`]),
                 mode: 'lines+markers',
-                name: firmName
+                name: firmName,
+                hoverinfo: 'name',
+                opacity: 0.6 // Set initial opacity
             };
         });
-        console.log("xLabels:", traces); 
+        console.log("traces:", traces); 
     
         // Create shapes for vertical lines when date changes
         const shapes = [
@@ -633,7 +632,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             },
             yaxis: { title: 'Cumulative Minutely Returns (%)' },
-            shapes: shapes
+            shapes: shapes,
+            hovermode: 'closest', // Highlight the closest point
+            hoverlabel: {
+                bgcolor: 'white',
+                font: { color: 'black' }
+            }
         };
     
         Plotly.newPlot(chartId, traces, layout);
