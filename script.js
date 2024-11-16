@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const stats2 = calculateStatistics(filteredData2, window2); 
             // I use the same function but not plot the same data
-            plotData2(filteredData2, stats2, 'chart2', appState2.eventTitles[eventid2], 
+            plotData2(filteredData2, window2, stats2, 'chart2', appState2.eventTitles[eventid2], 
                 appState2.eventDates[eventid2], appState2.eventTics[eventid2], 
                 appState2.eventDistToLabels[eventid2]);
         }
@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Plotly.newPlot(chartId, [traceBand, traceMedian], layout);
     }
 
-    function plotData2(filteredData, stats, chartId, title, date, tic, eventDistToLabel) {
+    function plotData2(filteredData, window2, stats, chartId, title, date, tic, eventDistToLabel) {
 
         // Calculate and display the event time (hour and minute from tic)
         const hour = Math.floor(tic / 60);
@@ -637,10 +637,27 @@ document.addEventListener('DOMContentLoaded', () => {
             hoverlabel: {
                 bgcolor: 'white',
                 font: { color: 'black' }
-            }
+            },
+            showlegend: false // Disable the legend
         };
     
         Plotly.newPlot(chartId, traces, layout);
+
+        // Add hover event to change opacity of other lines
+        const plotElement = document.getElementById(chartId);
+        plotElement.on('plotly_hover', function(data) {
+            const update = {
+                opacity: traces.map((_, i) => i === data.points[0].curveNumber ? 1 : 0.2)
+            };
+            Plotly.restyle(chartId, update);
+        });
+
+        plotElement.on('plotly_unhover', function(data) {
+            const update = {
+                opacity: traces.map(() => 0.6)
+            };
+            Plotly.restyle(chartId, update);
+        });
     }
 
     // Function to insert <br> tags for long titles
