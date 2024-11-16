@@ -563,12 +563,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
         
-        console.log("xLabels:", xLabels); 
-
         // Group data by firm name (conml)
         const groupedData = filteredData.reduce((acc, row) => {
             if (!acc[row.conml]) {
-                acc[row.conml] = [];
+                 acc[row.conml] = [];
             }
             acc[row.conml].push(row);
             return acc;
@@ -584,6 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 name: firmName
             };
         });
+        console.log("xLabels:", traces); 
     
         // Create shapes for vertical lines when date changes
         const shapes = [
