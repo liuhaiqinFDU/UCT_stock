@@ -624,6 +624,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return acc;
         }, {});
         
+         // Flatten the cret{window2}_abnormal values across all firms
+        const allCretValues = [];
+        Object.keys(groupedData).forEach(firmName => {
+            const firmData = groupedData[firmName];
+            firmData.forEach(row => {
+                allCretValues.push(row[`cret${window2}_abnormal`]);
+            });
+        });
+
+        // Calculate the minimum and maximum values
+        const minCretValue = Math.min(...allCretValues);
+        const maxCretValue = Math.max(...allCretValues);
+        
         // Create traces for each firm
         const traces = Object.keys(groupedData).map(firmName => {
             const firmData = groupedData[firmName];
@@ -646,9 +659,9 @@ document.addEventListener('DOMContentLoaded', () => {
             { // plot the red dash line at dist=1
                 type: 'line',
                 x0: xLabels[dist.indexOf(0)],
-                y0: Math.min(...perc_10),
+                y0: minCretValue,
                 x1: xLabels[dist.indexOf(0)],
-                y1: Math.max(...perc_90),
+                y1: maxCretValue,
                 line: {
                     color: 'red',
                     width: 2,
@@ -665,9 +678,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 shapes.push({
                     type: 'line',
                     x0: xLabels[i-1],
-                    y0: Math.min(...perc_10),
+                    y0: minCretValue,
                     x1: xLabels[i-1],
-                    y1: Math.max(...perc_90),
+                    y1: maxCretValue,
                     line: {
                         color: 'gray',
                         width: 1,
@@ -742,6 +755,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return acc;
         }, {});
         
+        // Flatten the cret{window2}_abnormal values across all firms
+        const allCretValues = [];
+        Object.keys(groupedData).forEach(firmName => {
+            const firmData = groupedData[firmName];
+            firmData.forEach(row => {
+                allCretValues.push(row[`cret${window2}_abnormal`]);
+            });
+        });
+
+        // Calculate the minimum and maximum values
+        const minCretValue = Math.min(...allCretValues);
+        const maxCretValue = Math.max(...allCretValues);
+        
         // Create traces for each firm
         const traces = Object.keys(groupedData).map(firmName => {
             const firmData = groupedData[firmName];
@@ -763,9 +789,9 @@ document.addEventListener('DOMContentLoaded', () => {
             { // plot the red dash line at dist=0
                 type: 'line',
                 x0: xLabels[dist.indexOf(0)],
-                y0: Math.min(...perc_10),
+                y0: minCretValue,
                 x1: xLabels[dist.indexOf(0)],
-                y1: Math.max(...perc_90),
+                y1: maxCretValue,
                 line: {
                     color: 'red',
                     width: 2,
@@ -782,9 +808,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 shapes.push({
                     type: 'line',
                     x0: xLabels[i-1],
-                    y0: Math.min(...perc_10),
+                    y0: minCretValue,
                     x1: xLabels[i-1],
-                    y1: Math.max(...perc_90),
+                    y1: maxCretValue,
                     line: {
                         color: 'gray',
                         width: 1,
