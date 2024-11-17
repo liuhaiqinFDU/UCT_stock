@@ -587,7 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
                 tickangle: 45,
-                type: 'category',
+                type: 'text',
                 tickvals: xLabels.filter((_, i) => i % 3 === 0), // Show every 5th label
                 ticktext: xLabels.filter((_, i) => i % 3 === 0), //Ensure labels are shown
                 tickfont: {
