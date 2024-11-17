@@ -430,13 +430,21 @@ document.addEventListener('DOMContentLoaded', () => {
             line: { color: 'blue' }
         };
 
-        const traceBand = {
-            x: [...xLabels, ...xLabels.slice().reverse()],
-            y: [...perc_90, ...perc_10.slice().reverse()],
-            fill: 'toself',
-            fillcolor: 'lightgrey',
-            line: { color: 'transparent' },
-            name: '10%-90%'
+        const traceHigh = {
+            x: xLabels,
+            y: perc_90, 
+            mode: 'lines',
+            name: 'P90',
+            line: { color: 'lightgrey' }
+        };
+
+        
+        const traceLow = {
+            x: xLabels,
+            y: perc_10, 
+            mode: 'lines',
+            name: 'P10',
+            line: { color: 'lightgrey' }
         };
 
         // Create shapes for vertical lines when date changes
@@ -504,7 +512,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ] */
         };
 
-        Plotly.newPlot(chartId, [traceBand, traceMedian], layout);
+        Plotly.newPlot(chartId, [traceHigh, traceMedian, traceLow], layout);
 
 
         let { distabs, medianabs, perc_10abs, perc_90abs } = statsabs;
@@ -522,13 +530,21 @@ document.addEventListener('DOMContentLoaded', () => {
             line: { color: 'blue' }
         };
 
-        const traceBandabs = {
-            x: [...xLabelsabs, ...xLabelsabs.slice().reverse()],
-            y: [...perc_90abs, ...perc_10abs.slice().reverse()],
-            fill: 'toself',
-            fillcolor: 'lightgrey',
-            line: { color: 'transparent' },
-            name: '10%-90%'
+        const traceHighabs = {
+            x: xLabelsabs,
+            y: perc_90abs, 
+            mode: 'lines',
+            name: 'P90',
+            line: { color: 'lightgrey' }
+        };
+
+        
+        const traceLowabs = {
+            x: xLabelsabs,
+            y: perc_10abs, 
+            mode: 'lines',
+            name: 'P10',
+            line: { color: 'lightgrey' }
         };
 
         // Create shapes for vertical lines when date changes
@@ -583,7 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
             shapes: shapesabs 
         };
 
-        Plotly.newPlot(chartIDabs, [traceBandabs, traceMedianabs], layoutabs);
+        Plotly.newPlot(chartIDabs, [traceHighabs, traceMedianabs,traceLowabs], layoutabs);
     }
 
     function plotData2(filteredData, window2, stats, chartId, title, date, tic, eventDistToLabel) {
