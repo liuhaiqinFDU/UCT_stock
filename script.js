@@ -535,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const minute = tic - hour * 60;
         const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
         // Insert line breaks into the title
-        title = insertLineBreaks(title, 100);
+        //title = insertLineBreaks(title, 100);
         document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}, ${title}`;
     
     
@@ -699,6 +699,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
+        console.log("xLabels:", xLabels);
         
         // Group data by firm name (conml)
         const groupedData = filteredData.reduce((acc, row) => {
@@ -722,8 +723,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 hoverinfo: 'name',
                 opacity: 0.6 // Set initial opacity
             };
-        });
-        console.log("traces:", traces); 
+        }); 
     
         // Create shapes for vertical lines when date changes
         const shapes = [
