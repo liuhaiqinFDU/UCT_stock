@@ -235,10 +235,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (chartElement.innerHTML === 'No data') {
                 chartElement.innerHTML = '';
             }
-            const stats = calculateStatistics(filteredData, window);
+            const stats = calculateStatistics(filteredData, window,'absolute');
             plotData(stats, 'chart1', appState.eventTitles[eventid], 
                 appState.eventDates[eventid], appState.eventTics[eventid], 
-                appState.eventDistToLabels[eventid]);
+                appState.eventDistToLabels[eventid],'Absolute');
+            const statsabs = calculateStatistics(filteredData, window,'abnormal');
+            plotData(statsabs, 'chart1abs', appState.eventTitles[eventid], 
+                appState.eventDates[eventid], appState.eventTics[eventid], 
+                appState.eventDistToLabels[eventid],'Abnormal');
         }
     }
 
@@ -265,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (chartElement2.innerHTML === 'No data') {
                 chartElement2.innerHTML = '';
             }
-            const stats2 = calculateStatistics(filteredData2, window2); 
+            const stats2 = calculateStatistics(filteredData2, window2,'abnormal'); 
             // I use the same function but not plot the same data
             plotData2(filteredData2, window2, stats2, 'chart2', appState2.eventTitles[eventid2], 
                 appState2.eventDates[eventid2], appState2.eventTics[eventid2], 
@@ -370,8 +374,8 @@ document.addEventListener('DOMContentLoaded', () => {
         populateDropdown('conml2', Array.from(conmls2), selectedConml2);
     }
 
-    function calculateStatistics(data, window) {
-        const cretKey = `cret${window}`;
+    function calculateStatistics(data, window,rettype) {
+        const cretKey = `cret${window}_${rettype}`;
         const distMap = new Map();
 
         data.forEach(item => {
@@ -402,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return { dist, median, perc_10, perc_90 };
     }
 
-    function plotData(stats, chartId, title, date, tic, eventDistToLabel) {
+    function plotData(stats, chartId, title, date, tic, eventDistToLabel, retname) {
 
         //console.log("Title:", title);
         //console.log("Date:", date);
@@ -475,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const layout = {
-            title: 'Cumulative Absolute Returns (Minutely, %)',
+            title: `Cumulative ${retname} Returns (Minutely, %)`,
             xaxis: {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
@@ -582,7 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         const layout = {
-            title: 'Cumulative Abnormal Returns (Minutely)',
+            title: 'Cumulative Abnormal Returns (Minutely, %)',
             xaxis: {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
@@ -699,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const layout = {
-            title: 'Cumulative Absolute Returns (Minutely)',
+            title: 'Cumulative Absolute Returns (Minutely, %)',
             xaxis: {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
