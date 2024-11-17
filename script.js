@@ -236,13 +236,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 chartElement.innerHTML = '';
             }
             const stats = calculateStatistics(filteredData, window,'absolute');
-            plotData(stats, 'chart1', appState.eventTitles[eventid], 
-                appState.eventDates[eventid], appState.eventTics[eventid], 
-                appState.eventDistToLabels[eventid],'Absolute');
             const statsabs = calculateStatistics(filteredData, window,'abnormal');
-            plotData(statsabs, 'chart1abs', appState.eventTitles[eventid], 
+            plotData(stats,statsabs,'chart1','chart1abs', appState.eventTitles[eventid], 
                 appState.eventDates[eventid], appState.eventTics[eventid], 
-                appState.eventDistToLabels[eventid],'Abnormal');
+                appState.eventDistToLabels[eventid]);
         }
     }
 
@@ -406,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return { dist, median, perc_10, perc_90 };
     }
 
-    function plotData(stats, chartId, title, date, tic, eventDistToLabel, retname) {
+    function plotData(stats, statsabs, chartId, chartIDabs, title, date, tic, eventDistToLabel) {
 
         //console.log("Title:", title);
         //console.log("Date:", date);
@@ -508,6 +505,85 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         Plotly.newPlot(chartId, [traceBand, traceMedian], layout);
+
+
+        let { distabs, medianabs, perc_10abs, perc_90abs } = statsabs;
+        
+        // I'VE MADE SURE DIST FULLY SPANNED FOR EACH FIRM SO NO NEED TO INSERT ANYTHING NOW
+
+        const xLabelsabs = distabs.map(d => eventDistToLabel[d] || d);
+        //console.log("xLabels:", xLabels); 
+
+        const traceMedianabs = {
+            x: xLabelsabs,
+            y: medianabs,
+            mode: 'lines',
+            name: 'Median',
+            line: { color: 'blue' }
+        };
+
+        const traceBandabs = {
+            x: [...xLabelsabs, ...xLabelsabs.slice().reverse()],
+            y: [...perc_90abs, ...perc_10abs.slice().reverse()],
+            fill: 'toself',
+            fillcolor: 'lightgrey',
+            line: { color: 'transparent' },
+            name: '10%-90%'
+        };
+
+        // Create shapes for vertical lines when date changes
+        const shapesabs = [
+            { // plot the red dash line at dist=0
+                type: 'line',
+                x0: xLabelsabs[distabs.indexOf(0)],
+                y0: Math.min(...perc_10abs),
+                x1: xLabelsabs[distabs.indexOf(0)],
+                y1: Math.max(...perc_90abs),
+                line: {
+                    color: 'red',
+                    width: 2,
+                    dash: 'dashdot'
+                }
+            }
+        ];
+
+        // Add gray vertical lines when date changes
+        for (let i = 1; i < xLabelsabs.length; i++) {
+            const prevDate = xLabelsabs[i - 1].split(' ')[0];
+            const currDate = xLabelsabs[i].split(' ')[0];
+            if (prevDate !== currDate) {
+                shapesabs.push({
+                    type: 'line',
+                    x0: xLabelsabs[i-1],
+                    y0: Math.min(...perc_10abs),
+                    x1: xLabelsabs[i-1],
+                    y1: Math.max(...perc_90abs),
+                    line: {
+                        color: 'gray',
+                        width: 1,
+                        dash: 'dot'
+                    }
+                });
+            }
+        }
+
+        const layoutabs = {
+            title: `Cumulative Abnormal Returns (Minutely, %)`,
+            xaxis: {
+                title: '',
+                //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
+                tickangle: 45,
+                type: 'category',
+                tickvals: xLabelsabs.filter((_, i) => i % 3 === 0), // Show every 5th label
+                tickfont: {
+                    size: 10 // Reduce font size
+                }
+            },
+            yaxis: { title: '' },
+            shapes: shapesabs 
+        };
+
+        Plotly.newPlot(chartIDabs, [traceBandabs, traceMedianabs], layoutabs);
     }
 
     function plotData2(filteredData, window2, stats, chartId, title, date, tic, eventDistToLabel) {
