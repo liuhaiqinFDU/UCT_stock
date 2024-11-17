@@ -531,44 +531,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function plotData2(filteredData, window2, stats, chartId, title, date, tic, eventDistToLabel) {
 
-        // Calculate and display the event time (hour and minute from tic)
         const hour = Math.floor(tic / 60);
         const minute = tic - hour * 60;
         const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
-        // Insert line breaks into the title
-        //title = insertLineBreaks(title, 100);
         document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}, ${title}`;
     
     
         let { dist, median, perc_10, perc_90 } = stats;
         
-        // Check if dist = 0 exists in the data
-        // decide to not insert this since it will show up as 0 anyway
-        // but "0" can't be distinguishable so it becomes confusing if I do
-        // and I need to insert zero for each firm, which is costly (there is no 0 in the original `dist_to_labels`)
-        /*
-        const hasDistZero = dist.includes(0);
-        if (!hasDistZero) {
-            dist.push(0);
-            median.push(0); //null
-            perc_10.push(0);
-            perc_90.push(0);
-    
-            // Sort dist and keep the same order for other arrays
-            const sortedIndices = dist.map((value, index) => [value, index])
-                                      .sort(([a], [b]) => a - b)
-                                      .map(([, index]) => index);
-    
-            dist = sortedIndices.map(index => dist[index]);
-            median = sortedIndices.map(index => median[index]);
-            perc_10 = sortedIndices.map(index => perc_10[index]);
-            perc_90 = sortedIndices.map(index => perc_90[index]);
-    
-            // Insert "0": eventTime into eventDistToLabel
-            eventDistToLabel[0] = eventTime;
-        }*/
-        // Ensure dist is sorted
-        dist.sort((a, b) => a - b);
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
         console.log("xLabels:", xLabels);
         
@@ -603,9 +573,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const shapes = [
             { // plot the red dash line at dist=1
                 type: 'line',
-                x0: xLabels[dist.indexOf(1)],
+                x0: xLabels[dist.indexOf(0)],
                 y0: Math.min(...perc_10),
-                x1: xLabels[dist.indexOf(1)],
+                x1: xLabels[dist.indexOf(0)],
                 y1: Math.max(...perc_90),
                 line: {
                     color: 'red',
@@ -642,8 +612,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
                 tickangle: 45,
                 type: 'category',
-                tickvals: xLabels, //.filter((_, i) => i % 3 === 0) Show every 5th label
-                ticktext: xLabels, //.filter((_, i) => i % 3 === 0) Ensure labels are shown
+                tickvals: xLabels.filter((_, i) => i % 3 === 0), // Show every 5th label
+                ticktext: xLabels.filter((_, i) => i % 3 === 0), //Ensure labels are shown
                 tickfont: {
                     size: 10 // Reduce font size
                 }
