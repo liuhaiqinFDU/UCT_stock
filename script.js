@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             plotData2(filteredData2, window2, stats2, 'chart2', appState2.eventTitles[eventid2], 
                 appState2.eventDates[eventid2], appState2.eventTics[eventid2], 
                 appState2.eventDistToLabels[eventid2]);
-            plotData3(filteredData2, window2, stats2, 'chart3', appState2.eventTitles[eventid2], 
+            plotData3(filteredData2, window2, stats2, 'chart3', 
                 appState2.eventDates[eventid2], appState2.eventTics[eventid2], 
                 appState2.eventDistToLabels[eventid2]);
         }
@@ -534,10 +534,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const hour = Math.floor(tic / 60);
         const minute = tic - hour * 60;
         const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
-        document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}`;
-    
         // Insert line breaks into the title
         title = insertLineBreaks(title, 100);
+        document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}, ${title}`;
+    
     
         let { dist, perc_10, perc_90 } = stats;
         
@@ -625,7 +625,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const layout = {
-            title: title,
+            title: 'Cumulative Abnormal Returns (Minutely, %)',
             xaxis: {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
@@ -636,7 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     size: 10 // Reduce font size
                 }
             },
-            yaxis: { title: 'Cumulative Minutely Returns (%)' },
+            yaxis: { title: '' },
             shapes: shapes,
             hovermode: 'closest', // Highlight the closest point
             hoverlabel: {
@@ -665,16 +665,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function plotData3(filteredData, window2, stats, chartId, title, date, tic, eventDistToLabel) {
+    function plotData3(filteredData, window2, stats, chartId, date, tic, eventDistToLabel) {
 
         // Calculate and display the event time (hour and minute from tic)
         const hour = Math.floor(tic / 60);
         const minute = tic - hour * 60;
         const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
-        document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}`;
+        //document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}`;
     
         // Insert line breaks into the title
-        title = insertLineBreaks(title, 100);
+        //title = insertLineBreaks(title, 100);
     
         let { dist, perc_10, perc_90 } = stats;
         
@@ -762,7 +762,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const layout = {
-            title: title,
+            title: 'Cumulative Absolute Returns (Minutely, %)',
             xaxis: {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
@@ -773,7 +773,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     size: 10 // Reduce font size
                 }
             },
-            yaxis: { title: 'Cumulative Minutely Returns (%)' },
+            yaxis: { title: '' },
             shapes: shapes,
             hovermode: 'closest', // Highlight the closest point
             hoverlabel: {
