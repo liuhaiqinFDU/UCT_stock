@@ -644,7 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 bgcolor: 'white',
                 font: { color: 'black' }
             },
-            showlegend: false // Disable the legend
+            showlegend: true // Disable the legend
         };
     
         Plotly.newPlot(chartId, traces, layout);
