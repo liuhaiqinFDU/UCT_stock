@@ -567,8 +567,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Insert "0": eventTime into eventDistToLabel
             eventDistToLabel[0] = eventTime;
         }*/
-    
+        // Ensure dist is sorted
+        dist.sort((a, b) => a - b);
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
+        console.log("xLabels:", xLabels);
         
         // Group data by firm name (conml)
         const groupedData = filteredData.reduce((acc, row) => {
@@ -595,7 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 opacity: 0.6 // Set initial opacity
             };
         });
-        console.log("traces:", traces); 
+        //console.log("traces:", traces); 
     
         // Create shapes for vertical lines when date changes
         const shapes = [
@@ -640,8 +642,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
                 tickangle: 45,
                 type: 'category',
-                tickvals: xLabels.filter((_, i) => i % 3 === 0), // Show every 5th label
-                ticktext: xLabels.filter((_, i) => i % 3 === 0), // Ensure labels are shown
+                tickvals: xLabels, //.filter((_, i) => i % 3 === 0) Show every 5th label
+                ticktext: xLabels, //.filter((_, i) => i % 3 === 0) Ensure labels are shown
                 tickfont: {
                     size: 10 // Reduce font size
                 }
