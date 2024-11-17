@@ -572,6 +572,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create traces for each firm
         const traces = Object.keys(groupedData).map(firmName => {
             const firmData = groupedData[firmName];
+            // Sort firmData by dist
+            firmData.sort((a, b) => a.dist - b.dist);
             return {
                 x: firmData.map(row => row.dist),
                 y: firmData.map(row => row[`cret${window2}`]),
