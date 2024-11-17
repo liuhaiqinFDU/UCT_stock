@@ -270,6 +270,9 @@ document.addEventListener('DOMContentLoaded', () => {
             plotData2(filteredData2, window2, stats2, 'chart2', appState2.eventTitles[eventid2], 
                 appState2.eventDates[eventid2], appState2.eventTics[eventid2], 
                 appState2.eventDistToLabels[eventid2]);
+            plotData3(filteredData2, window2, stats2, 'chart3', appState2.eventTitles[eventid2], 
+                appState2.eventDates[eventid2], appState2.eventTics[eventid2], 
+                appState2.eventDistToLabels[eventid2]);
         }
     }
 
@@ -576,7 +579,7 @@ document.addEventListener('DOMContentLoaded', () => {
             firmData.sort((a, b) => a.dist - b.dist);
             return {
                 x: firmData.map(row => row.dist),
-                y: firmData.map(row => row[`cret${window2}`]),
+                y: firmData.map(row => row[`cret${window2}_abnormal`]),
                 mode: 'lines+markers',
                 name: firmName,
                 hoverinfo: 'name',
@@ -662,6 +665,142 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function plotData3(filteredData, window2, stats, chartId, title, date, tic, eventDistToLabel) {
+
+        // Calculate and display the event time (hour and minute from tic)
+        const hour = Math.floor(tic / 60);
+        const minute = tic - hour * 60;
+        const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
+        document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}`;
+    
+        // Insert line breaks into the title
+        title = insertLineBreaks(title, 100);
+    
+        let { dist, perc_10, perc_90 } = stats;
+        
+        // Check if dist = 0 exists in the data
+        const hasDistZero = dist.includes(0);
+        if (!hasDistZero) {
+            dist.push(0);
+            perc_10.push(0);
+            perc_90.push(0);
+    
+            // Sort dist and keep the same order for other arrays
+            const sortedIndices = dist.map((value, index) => [value, index])
+                                      .sort(([a], [b]) => a - b)
+                                      .map(([, index]) => index);
+    
+            dist = sortedIndices.map(index => dist[index]);
+            perc_10 = sortedIndices.map(index => perc_10[index]);
+            perc_90 = sortedIndices.map(index => perc_90[index]);
+    
+            // Insert "0": eventTime into eventDistToLabel
+            eventDistToLabel[0] = eventTime;
+        }
+    
+        const xLabels = dist.map(d => eventDistToLabel[d] || d);
+        
+        // Group data by firm name (conml)
+        const groupedData = filteredData.reduce((acc, row) => {
+            if (!acc[row.conml]) {
+                 acc[row.conml] = [];
+            }
+            acc[row.conml].push(row);
+            return acc;
+        }, {});
+        
+        // Create traces for each firm
+        const traces = Object.keys(groupedData).map(firmName => {
+            const firmData = groupedData[firmName];
+            // Sort firmData by dist
+            firmData.sort((a, b) => a.dist - b.dist);
+            return {
+                x: firmData.map(row => row.dist),
+                y: firmData.map(row => row[`cret${window2}_absolute`]),
+                mode: 'lines+markers',
+                name: firmName,
+                hoverinfo: 'name',
+                opacity: 0.6 // Set initial opacity
+            };
+        });
+        console.log("traces:", traces); 
+    
+        // Create shapes for vertical lines when date changes
+        const shapes = [
+            { // plot the red dash line at dist=0
+                type: 'line',
+                x0: xLabels[dist.indexOf(0)],
+                y0: Math.min(...perc_10),
+                x1: xLabels[dist.indexOf(0)],
+                y1: Math.max(...perc_90),
+                line: {
+                    color: 'red',
+                    width: 2,
+                    dash: 'dashdot'
+                }
+            }
+        ];
+    
+        // Add gray vertical lines when date changes
+        for (let i = 1; i < xLabels.length; i++) {
+            const prevDate = xLabels[i - 1].split(' ')[0];
+            const currDate = xLabels[i].split(' ')[0];
+            if (prevDate !== currDate) {
+                shapes.push({
+                    type: 'line',
+                    x0: xLabels[i-1],
+                    y0: Math.min(...perc_10),
+                    x1: xLabels[i-1],
+                    y1: Math.max(...perc_90),
+                    line: {
+                        color: 'gray',
+                        width: 1,
+                        dash: 'dot'
+                    }
+                });
+            }
+        }
+    
+        const layout = {
+            title: title,
+            xaxis: {
+                title: '',
+                //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
+                tickangle: 45,
+                type: 'category',
+                tickvals: xLabels.filter((_, i) => i % 3 === 0), // Show every 5th label
+                tickfont: {
+                    size: 10 // Reduce font size
+                }
+            },
+            yaxis: { title: 'Cumulative Minutely Returns (%)' },
+            shapes: shapes,
+            hovermode: 'closest', // Highlight the closest point
+            hoverlabel: {
+                bgcolor: 'white',
+                font: { color: 'black' }
+            },
+            showlegend: false // Disable the legend
+        };
+    
+        Plotly.newPlot(chartId, traces, layout);
+
+        // Add hover event to change opacity of other lines
+        const plotElement = document.getElementById(chartId);
+        plotElement.on('plotly_hover', function(data) {
+            const update = {
+                opacity: traces.map((_, i) => i === data.points[0].curveNumber ? 1 : 0.2)
+            };
+            Plotly.restyle(chartId, update);
+        });
+
+        plotElement.on('plotly_unhover', function(data) {
+            const update = {
+                opacity: traces.map(() => 0.6)
+            };
+            Plotly.restyle(chartId, update);
+        });
+    }
     // Function to insert <br> tags for long titles
     function insertLineBreaks(str, maxLineLength) {
         const words = str.split(' ');
