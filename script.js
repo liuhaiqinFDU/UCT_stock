@@ -634,13 +634,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         */
         const layout = {
-            title: 'Cumulative Abnormal Returns (Minutely, %)',
+            title: 'Cumulative Abnormal Returns (Minutely)',
             xaxis: {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
                 tickangle: 45,
                 type: 'category',
                 tickvals: xLabels.filter((_, i) => i % 3 === 0), // Show every 5th label
+                ticktext: xLabels.filter((_, i) => i % 3 === 0), // Ensure labels are shown
                 tickfont: {
                     size: 10 // Reduce font size
                 }
@@ -663,14 +664,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const update = {
                 opacity: traces.map((_, i) => i === data.points[0].curveNumber ? 1 : 0.2)
             };
-            Plotly.restyle(chartId, update);
+            Plotly.restyle(chartId, update, layout);
         });
 
         plotElement.on('plotly_unhover', function(data) {
             const update = {
                 opacity: traces.map(() => 0.6)
             };
-            Plotly.restyle(chartId, update);
+            Plotly.restyle(chartId, update, layout);
         });
     }
 
@@ -774,13 +775,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const layout = {
-            title: 'Cumulative Absolute Returns (Minutely, %)',
+            title: 'Cumulative Absolute Returns (Minutely)',
             xaxis: {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
                 tickangle: 45,
                 type: 'category',
                 tickvals: xLabels.filter((_, i) => i % 3 === 0), // Show every 5th label
+                ticktext: xLabels.filter((_, i) => i % 3 === 0), // Ensure labels are shown
                 tickfont: {
                     size: 10 // Reduce font size
                 }
