@@ -805,14 +805,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const update = {
                 opacity: traces.map((_, i) => i === data.points[0].curveNumber ? 1 : 0.2)
             };
-            Plotly.restyle(chartId, update);
+            Plotly.restyle(chartId, update, layout);
         });
 
         plotElement.on('plotly_unhover', function(data) {
             const update = {
                 opacity: traces.map(() => 0.6)
             };
-            Plotly.restyle(chartId, update);
+            Plotly.restyle(chartId, update, layout);
         });
     }
     // Function to insert <br> tags for long titles
