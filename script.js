@@ -414,32 +414,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
         document.getElementById('eventTime').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}, ${title}`;
 
-        // Insert line breaks into the title
-        //title = insertLineBreaks(title, 100);
-
         let { dist, median, perc_10, perc_90 } = stats;
         
-        // Check if dist = 0 exists in the data
-        const hasDistZero = dist.includes(0);
-        if (!hasDistZero) {
-            dist.push(0);
-            median.push(0); //null
-            perc_10.push(0);
-            perc_90.push(0);
-
-            // Sort dist and keep the same order for other arrays
-            const sortedIndices = dist.map((value, index) => [value, index])
-                                      .sort(([a], [b]) => a - b)
-                                      .map(([, index]) => index);
-
-            dist = sortedIndices.map(index => dist[index]);
-            median = sortedIndices.map(index => median[index]);
-            perc_10 = sortedIndices.map(index => perc_10[index]);
-            perc_90 = sortedIndices.map(index => perc_90[index]);
-
-            // Insert "0": eventTime into eventDistToLabel
-            eventDistToLabel[0] = eventTime;
-        }
+        // I'VE MADE SURE DIST FULLY SPANNED FOR EACH FIRM SO NO NEED TO INSERT ANYTHING NOW
 
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
         //console.log("xLabels:", xLabels); 
@@ -567,7 +544,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 opacity: 0.6 // Set initial opacity
             };
         });
-        //console.log("traces:", traces); 
     
         // Create shapes for vertical lines when date changes
         const shapes = [
@@ -584,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         ];
-        /*
+        
         // Add gray vertical lines when date changes
         for (let i = 1; i < xLabels.length; i++) {
             const prevDate = xLabels[i - 1].split(' ')[0];
@@ -604,7 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         }
-        */
+        
         const layout = {
             title: 'Cumulative Abnormal Returns (Minutely)',
             xaxis: {
@@ -762,23 +738,6 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             Plotly.restyle(chartId, update, layout);
         });
-    }
-    // Function to insert <br> tags for long titles
-    function insertLineBreaks(str, maxLineLength) {
-        const words = str.split(' ');
-        let result = '';
-        let currentLineLength = 0;
-
-        words.forEach(word => {
-            if (currentLineLength + word.length > maxLineLength) {
-                result += '<br>';
-                currentLineLength = 0;
-            }
-            result += word + ' ';
-            currentLineLength += word.length + 1;
-        });
-
-        return result.trim();
     }
     
     document.getElementById('eventid').addEventListener('change', () => {
