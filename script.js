@@ -535,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
             firmData.sort((a, b) => a.dist - b.dist);
 
             return {
-                x: firmData.map(row => row.dist),
+                x: xLabels, //firmData.map(row => row.dist), -- so have to make sure it's fully spanned
                 y: firmData.map(row => row[`cret${window2}_abnormal`]),
                 mode: 'lines+markers',
                 name: firmName,
@@ -587,9 +587,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
                 tickangle: 45,
-                type: 'text',
+                type: 'category',
                 tickvals: xLabels.filter((_, i) => i % 3 === 0), // Show every 5th label
-                ticktext: xLabels.filter((_, i) => i % 3 === 0), //Ensure labels are shown
+                //ticktext: xLabels.filter((_, i) => i % 3 === 0), //Ensure labels are shown
                 tickfont: {
                     size: 10 // Reduce font size
                 }
@@ -652,7 +652,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Sort firmData by dist
             firmData.sort((a, b) => a.dist - b.dist);
             return {
-                x: firmData.map(row => row.dist),
+                x: xLabels, //firmData.map(row => row.dist),
                 y: firmData.map(row => row[`cret${window2}_absolute`]),
                 mode: 'lines+markers',
                 name: firmName,
@@ -706,7 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tickangle: 45,
                 type: 'category',
                 tickvals: xLabels.filter((_, i) => i % 3 === 0), // Show every 5th label
-                ticktext: xLabels.filter((_, i) => i % 3 === 0), // Ensure labels are shown
+                //ticktext: xLabels.filter((_, i) => i % 3 === 0), // Ensure labels are shown
                 tickfont: {
                     size: 10 // Reduce font size
                 }
