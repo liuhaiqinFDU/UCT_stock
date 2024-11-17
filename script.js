@@ -412,10 +412,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const hour = Math.floor(tic / 60);
         const minute = tic - hour * 60;
         const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
-        document.getElementById('eventTime').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}`;
+        document.getElementById('eventTime').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}, ${title}`;
 
         // Insert line breaks into the title
-        title = insertLineBreaks(title, 100);
+        //title = insertLineBreaks(title, 100);
 
         let { dist, median, perc_10, perc_90 } = stats;
         
@@ -442,6 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
+        console.log("xLabels:", xLabels); 
 
         const traceMedian = {
             x: xLabels,
@@ -497,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const layout = {
-            title: title,
+            title: 'Cumulative Absolute Returns (Minutely, %)',
             xaxis: {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
@@ -508,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     size: 10 // Reduce font size
                 }
             },
-            yaxis: { title: 'Cumulative Minutely Returns (%)' },
+            yaxis: { title: '' },
             shapes: shapes /*[
                 { // plot the red dash line at dist=0
                     type: 'line',
@@ -539,12 +540,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}, ${title}`;
     
     
-        let { dist, perc_10, perc_90 } = stats;
+        let { dist, median, perc_10, perc_90 } = stats;
         
         // Check if dist = 0 exists in the data
         const hasDistZero = dist.includes(0);
         if (!hasDistZero) {
             dist.push(0);
+            median.push(0); //null
             perc_10.push(0);
             perc_90.push(0);
     
@@ -554,6 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                       .map(([, index]) => index);
     
             dist = sortedIndices.map(index => dist[index]);
+            median = sortedIndices.map(index => median[index]);
             perc_10 = sortedIndices.map(index => perc_10[index]);
             perc_90 = sortedIndices.map(index => perc_90[index]);
     
@@ -577,6 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const firmData = groupedData[firmName];
             // Sort firmData by dist
             firmData.sort((a, b) => a.dist - b.dist);
+
             return {
                 x: firmData.map(row => row.dist),
                 y: firmData.map(row => row[`cret${window2}_abnormal`]),
@@ -644,7 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 bgcolor: 'white',
                 font: { color: 'black' }
             },
-            showlegend: true // Disable the legend
+            showlegend: false // Disable the legend
         };
     
         Plotly.newPlot(chartId, traces, layout);
