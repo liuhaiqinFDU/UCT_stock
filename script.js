@@ -612,7 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         ];
-    
+        /*
         // Add gray vertical lines when date changes
         for (let i = 1; i < xLabels.length; i++) {
             const prevDate = xLabels[i - 1].split(' ')[0];
@@ -632,7 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         }
-    
+        */
         const layout = {
             title: 'Cumulative Abnormal Returns (Minutely, %)',
             xaxis: {
@@ -685,15 +685,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Insert line breaks into the title
         //title = insertLineBreaks(title, 100);
     
-        let { dist, perc_10, perc_90 } = stats;
+        let { dist, median, perc_10, perc_90 } = stats;
         
+        /*
         // Check if dist = 0 exists in the data
         const hasDistZero = dist.includes(0);
         if (!hasDistZero) {
             dist.push(0);
             perc_10.push(0);
             perc_90.push(0);
-    
+            
             // Sort dist and keep the same order for other arrays
             const sortedIndices = dist.map((value, index) => [value, index])
                                       .sort(([a], [b]) => a - b)
@@ -702,13 +703,14 @@ document.addEventListener('DOMContentLoaded', () => {
             dist = sortedIndices.map(index => dist[index]);
             perc_10 = sortedIndices.map(index => perc_10[index]);
             perc_90 = sortedIndices.map(index => perc_90[index]);
-    
+            
             // Insert "0": eventTime into eventDistToLabel
             eventDistToLabel[0] = eventTime;
         }
-    
+        */
+
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
-        console.log("xLabels:", xLabels);
+        //console.log("xLabels:", xLabels);
         
         // Group data by firm name (conml)
         const groupedData = filteredData.reduce((acc, row) => {
@@ -739,9 +741,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const shapes = [
             { // plot the red dash line at dist=0
                 type: 'line',
-                x0: xLabels[dist.indexOf(0)],
+                x0: xLabels[dist.indexOf(1)],
                 y0: Math.min(...perc_10),
-                x1: xLabels[dist.indexOf(0)],
+                x1: xLabels[dist.indexOf(1)],
                 y1: Math.max(...perc_90),
                 line: {
                     color: 'red',
