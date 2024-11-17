@@ -442,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
-        console.log("xLabels:", xLabels); 
+        //console.log("xLabels:", xLabels); 
 
         const traceMedian = {
             x: xLabels,
@@ -543,6 +543,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let { dist, median, perc_10, perc_90 } = stats;
         
         // Check if dist = 0 exists in the data
+        // decide to not insert this since it will show up as 0 anyway
+        // but "0" can't be distinguishable so it becomes confusing if I do
+        // and I need to insert zero for each firm, which is costly (there is no 0 in the original `dist_to_labels`)
+        /*
         const hasDistZero = dist.includes(0);
         if (!hasDistZero) {
             dist.push(0);
@@ -562,7 +566,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
             // Insert "0": eventTime into eventDistToLabel
             eventDistToLabel[0] = eventTime;
-        }
+        }*/
     
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
         
@@ -595,11 +599,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
         // Create shapes for vertical lines when date changes
         const shapes = [
-            { // plot the red dash line at dist=0
+            { // plot the red dash line at dist=1
                 type: 'line',
-                x0: xLabels[dist.indexOf(0)],
+                x0: xLabels[dist.indexOf(1)],
                 y0: Math.min(...perc_10),
-                x1: xLabels[dist.indexOf(0)],
+                x1: xLabels[dist.indexOf(1)],
                 y1: Math.max(...perc_90),
                 line: {
                     color: 'red',
