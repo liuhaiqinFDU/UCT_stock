@@ -582,7 +582,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 y: firmData.map(row => row[`cret${window2}_abnormal`]),
                 mode: 'lines+markers',
                 name: firmName,
-                hoverinfo: 'name',
+                text: firmData.map(row => `Firm: ${firmName}<br>x: ${row.dist}<br>y: ${row[`cret${window2}_abnormal`]}`),
+                hoverinfo: 'text',
                 opacity: 0.6 // Set initial opacity
             };
         });
@@ -720,7 +721,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 y: firmData.map(row => row[`cret${window2}_absolute`]),
                 mode: 'lines+markers',
                 name: firmName,
-                hoverinfo: 'name',
+                text: firmData.map(row => `Firm: ${firmName}<br>x: ${row.dist}<br>y: ${row[`cret${window2}_absolute`]}`),
+                hoverinfo: 'text',
                 opacity: 0.6 // Set initial opacity
             };
         }); 
