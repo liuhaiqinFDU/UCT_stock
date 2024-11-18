@@ -516,11 +516,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         let { distabs, medianabs, perc_10abs, perc_90abs } = statsabs;
+        console.log("distabs", distabs); 
         
         // I'VE MADE SURE DIST FULLY SPANNED FOR EACH FIRM SO NO NEED TO INSERT ANYTHING NOW
 
         const xLabelsabs = distabs.map(d => eventDistToLabel[d] || d);
-        //console.log("xLabels:", xLabels); 
 
         const traceMedianabs = {
             x: xLabelsabs,
@@ -613,7 +613,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let { dist, median, perc_10, perc_90 } = stats;
         
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
-        console.log("xLabels:", xLabels);
+        //console.log("xLabels:", xLabels);
         
         // Group data by firm name (conml)
         const groupedData = filteredData.reduce((acc, row) => {
