@@ -235,8 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (chartElement.innerHTML === 'No data') {
                 chartElement.innerHTML = '';
             }
-            const stats = calculateStatistics(filteredData, window,'absolute');
-            const statsabs = calculateStatistics(filteredData, window,'abnormal');
+            const stats = calculateStatistics(filteredData, window,'abnormal');
+            const statsabs = calculateStatistics(filteredData, window,'absolute');
             plotData(stats,statsabs,'chart1','chart1abs', appState.eventTitles[eventid], 
                 appState.eventDates[eventid], appState.eventTics[eventid], 
                 appState.eventDistToLabels[eventid]);
@@ -484,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const layout = {
-            title: `Cumulative ${retname} Returns (Minutely, %)`,
+            title: `Cumulative Abnormal Returns (Minutely, %)`,
             xaxis: {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
@@ -584,7 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const layoutabs = {
-            title: `Cumulative Abnormal Returns (Minutely, %)`,
+            title: `Cumulative Absolute Returns (Minutely, %)`,
             xaxis: {
                 title: '',
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
