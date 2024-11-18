@@ -517,6 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let { distabs, medianabs, perc_10abs, perc_90abs } = statsabs;
         console.log("distabs", distabs); 
+        console.log("statsabs", statsabs);
         
         // I'VE MADE SURE DIST FULLY SPANNED FOR EACH FIRM SO NO NEED TO INSERT ANYTHING NOW
 
