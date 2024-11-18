@@ -514,9 +514,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         Plotly.newPlot(chartId, [traceHigh, traceMedian, traceLow], layout);
 
-
-        let { distabs, medianabs, perc_10abs, perc_90abs } = statsabs;
-        console.log("distabs", distabs); 
+        // Destructure statsabs with different variable names
+        let { dist: distabs, median: medianabs, perc_10: perc_10abs, perc_90: perc_90abs } = statsabs;
         console.log("statsabs", statsabs);
         
         // I'VE MADE SURE DIST FULLY SPANNED FOR EACH FIRM SO NO NEED TO INSERT ANYTHING NOW
