@@ -2,7 +2,8 @@
   {
     "eventid": 1,
     "date": "2017-04-26",
-    "title": "The Trump administration launches an investigation into whether aluminum imports, including those from China, pose a threat to U.S. national security.",
+    "dow": 3.0,
+    "title": "The Trump administration launches an investigation into whether aluminum imports, including those from China, pose a threat to U.S. national security.The Trump administration launches an investigation into whether aluminum imports, including those from China, pose a threat to U.S. national security.",
     "tic": 873,
     "dist_to_labels": {
       "-20": "2017-04-26 14:13",
@@ -71,6 +72,7 @@
   {
     "eventid": 3,
     "date": "2017-08-18",
+    "dow": 5.0,
     "title": "The U.S. officially begins an investigation into China's alleged theft of intellectual property under Section 301 of the Trade Act of 1974.",
     "tic": 967,
     "dist_to_labels": {
@@ -141,6 +143,7 @@
   {
     "eventid": 4,
     "date": "2017-06-29",
+    "dow": 4.0,
     "title": "The Trump administration announces its first significant sanctions against Chinese firms and individuals for their alleged involvement in North Korea's nuclear and missile programs.",
     "tic": 822,
     "dist_to_labels": {
@@ -210,6 +213,7 @@
   {
     "eventid": 5,
     "date": "2018-01-22",
+    "dow": 1.0,
     "title": "The Trump administration imposes safeguard tariffs on solar panels and washing machines, primarily targeting Chinese imports.",
     "tic": 997,
     "dist_to_labels": {
@@ -280,6 +284,7 @@
   {
     "eventid": 8,
     "date": "2018-04-03",
+    "dow": 2.0,
     "title": "The Trump administration unveils a list of Chinese imports worth $50 billion that would be subject to 25% tariffs.",
     "tic": 1017,
     "dist_to_labels": {
@@ -350,6 +355,7 @@
   {
     "eventid": 9,
     "date": "2018-04-16",
+    "dow": 1.0,
     "title": "The U.S. bans American companies from selling components to Chinese telecom equipment maker ZTE, effectively shutting down the company temporarily.",
     "tic": 516,
     "dist_to_labels": {
@@ -420,7 +426,8 @@
   {
     "eventid": 10,
     "date": "2018-05-29",
-    "title": "The White House announces that it will impose the initial $50 billion in tariffs on Chinese imports, with 25% duties on $34 billion worth of goods starting on July 6th.",
+    "dow": 2.0,
+    "title": "(It was the Memorial Day and no Pre-Window) The White House announces that it will impose the initial $50 billion in tariffs on Chinese imports, with 25% duties on $34 billion worth of goods starting on July 6th.",
     "tic": 503,
     "dist_to_labels": {
       "1": "2018-05-29 09:30",
@@ -469,6 +476,7 @@
   {
     "eventid": 14,
     "date": "2018-08-23",
+    "dow": 4.0,
     "title": "The U.S. imposes tariffs on an additional $16 billion worth of Chinese imports.",
     "tic": 1,
     "dist_to_labels": {
@@ -539,6 +547,7 @@
   {
     "eventid": 15,
     "date": "2018-09-24",
+    "dow": 1.0,
     "title": "The Trump administration announces plans to impose 10% tariffs on an additional $200 billion worth of Chinese imports, effective September 24th.",
     "tic": 1,
     "dist_to_labels": {
@@ -609,6 +618,7 @@
   {
     "eventid": 16,
     "date": "2018-11-20",
+    "dow": 2.0,
     "title": "The Trump administration releases a report accusing China of engaging in hostile cyber activities and economic aggression.",
     "tic": 1268,
     "dist_to_labels": {
@@ -679,6 +689,7 @@
   {
     "eventid": 17,
     "date": "2018-12-01",
+    "dow": 6.0,
     "title": "The arrest of Huawei CFO Meng Wanzhou in Canada at the request of the U.S. raises tensions and prompts a diplomatic crisis with China.",
     "tic": 1019,
     "dist_to_labels": {
@@ -749,6 +760,7 @@
   {
     "eventid": 19,
     "date": "2019-05-15",
+    "dow": 3.0,
     "title": "President Trump issues an executive order giving the U.S. government powers to block U.S. companies from using foreign telecoms equipment deemed a national security risk, primarily targeting Huawei.",
     "tic": 1008,
     "dist_to_labels": {
@@ -819,6 +831,7 @@
   {
     "eventid": 20,
     "date": "2019-05-16",
+    "dow": 4.0,
     "title": "The U.S. adds Huawei to a trade blacklist, restricting its ability to do business with American companies.",
     "tic": 977,
     "dist_to_labels": {
@@ -889,6 +902,7 @@
   {
     "eventid": 21,
     "date": "2019-08-01",
+    "dow": 4.0,
     "title": "President Trump announces plans to impose a 10% tariff on an additional $300 billion worth of Chinese imports, effective September 1st.",
     "tic": 808,
     "dist_to_labels": {
@@ -958,6 +972,7 @@
   {
     "eventid": 24,
     "date": "2020-07-22",
+    "dow": 3.0,
     "title": "Closure of Chinese consulate in Houston. Tit-for-tat action after China closed the U.S. consulate in Chengdu.",
     "tic": 179,
     "dist_to_labels": {
@@ -1028,6 +1043,7 @@
   {
     "eventid": 25,
     "date": "2020-09-01",
+    "dow": 2.0,
     "title": "The U.S. imposes a 15% tariff on a wide range of Chinese goods, including consumer electronics, clothing, and footwear, as part of the ongoing trade war.",
     "tic": 593,
     "dist_to_labels": {
@@ -1097,6 +1113,7 @@
   {
     "eventid": 26,
     "date": "2020-08-06",
+    "dow": 4.0,
     "title": "Executive order banning transactions with TikTok and WeChat. Targeted Chinese technology companies with national security concerns.",
     "tic": 1282,
     "dist_to_labels": {
@@ -1167,6 +1184,7 @@
   {
     "eventid": 27,
     "date": "2020-11-12",
+    "dow": 4.0,
     "title": "The Trump administration issues an executive order prohibiting U.S. investments in companies linked to the Chinese military.",
     "tic": 833,
     "dist_to_labels": {
@@ -1236,6 +1254,7 @@
   {
     "eventid": 29,
     "date": "2021-06-02",
+    "dow": 3.0,
     "title": "The Biden administration announces plans to maintain and enforce the existing tariffs on Chinese goods imposed by the Trump administration.",
     "tic": 891,
     "dist_to_labels": {
@@ -1305,6 +1324,7 @@
   {
     "eventid": 31,
     "date": "2021-07-29",
+    "dow": 4.0,
     "title": "the SEC halted IPO plans for Chinese ride-hailing company Didi shortly after its U.S. listing, citing concerns over data security risks.",
     "tic": 736,
     "dist_to_labels": {
@@ -1374,6 +1394,7 @@
   {
     "eventid": 32,
     "date": "2021-12-05",
+    "dow": 0.0,
     "title": "Diplomatic boycott of Beijing Winter Olympics. Aimed at pressuring China on human rights issues.",
     "tic": 1243,
     "dist_to_labels": {
@@ -1444,6 +1465,7 @@
   {
     "eventid": 36,
     "date": "2023-02-02",
+    "dow": 4.0,
     "title": "The U.S. shot down a suspected Chinese spy balloon off the coast of South Carolina, further straining tensions between the two countries.",
     "tic": 342,
     "dist_to_labels": {
@@ -1514,6 +1536,7 @@
   {
     "eventid": 37,
     "date": "2024-02-07",
+    "dow": 3.0,
     "title": "The U.S. accused China of cyberespionage in a joint statement by the U.S. National Security Agency, U.S. cyber watchdog CISA, the FBI, and the Transportation Security Administration",
     "tic": 609,
     "dist_to_labels": {
@@ -1583,6 +1606,7 @@
   {
     "eventid": 38,
     "date": "2023-03-02",
+    "dow": 4.0,
     "title": "The U.S. Department of Commerce added 28 Chinese companies to its Entity List, restricting their ability to trade with U.S. companies due to their alleged roles in supporting Chinese military efforts",
     "tic": 997,
     "dist_to_labels": {
@@ -1653,6 +1677,7 @@
   {
     "eventid": 39,
     "date": "2024-03-07",
+    "dow": 4.0,
     "title": "The U.S. House of Representatives passed a bill requiring ByteDance to divest TikTok's U.S. operations or face a ban, citing national security concern.",
     "tic": 360,
     "dist_to_labels": {
@@ -1723,6 +1748,7 @@
   {
     "eventid": 40,
     "date": "2023-05-21",
+    "dow": 0.0,
     "title": "Beijing retaliates by banning chip purchases from US firm Micron for use in \u201ccritical information infrastructure\u201d\u2014including in the telecommunications, transportation, and defense sectors\u2014citing cybersecurity concerns.",
     "tic": 482,
     "dist_to_labels": {
@@ -1793,6 +1819,7 @@
   {
     "eventid": 42,
     "date": "2017-03-07",
+    "dow": 2.0,
     "title": "The US Department of Commerce sanctions Chinese telecommunications equipment manufacturer ZTE by adding it to the Entity List, which means American companies cannot sells goods or services to ZTE without a license.",
     "tic": 645,
     "dist_to_labels": {
@@ -1862,7 +1889,8 @@
   {
     "eventid": 45,
     "date": "2018-04-02",
-    "title": "China imposes retaliatory tariffs on aluminum waste and scrap, pork, fruits and nuts, and other US products, worth $2.4 billion in export value in 2017. This compares to the US steel and aluminum tariffs covering Chinese exports worth $2.8 billion in 2017.",
+    "dow": 1.0,
+    "title": "(It was the Monday after the Good Friday so no Pre-window) China imposes retaliatory tariffs on aluminum waste and scrap, pork, fruits and nuts, and other US products, worth $2.4 billion in export value in 2017. This compares to the US steel and aluminum tariffs covering Chinese exports worth $2.8 billion in 2017.",
     "tic": 307,
     "dist_to_labels": {
       "1": "2018-04-02 09:30",
@@ -1911,6 +1939,7 @@
   {
     "eventid": 46,
     "date": "2018-04-04",
+    "dow": 3.0,
     "title": "China publishes its list of 106 products subject to forthcoming 25 percent tariffs as retaliation for Trump\u2019s Section \n301 tariffs, covering $50 billion of China\u2019s imports from the United States. They mostly affect US transportation \n(vehicles, aircraft, and vessels) and vegetable products (largely soybeans).",
     "tic": 220,
     "dist_to_labels": {
@@ -1981,6 +2010,7 @@
   {
     "eventid": 47,
     "date": "2018-04-05",
+    "dow": 4.0,
     "title": "Trump instructs trade officials to consider whether an additional $100 billion of US imports from China should be subject to new tariffs",
     "tic": 940,
     "dist_to_labels": {
@@ -2050,6 +2080,7 @@
   {
     "eventid": 48,
     "date": "2018-04-17",
+    "dow": 2.0,
     "title": "The Chinese government announces preliminary antidumping duties of 178.6 percent on imports from the United \nStates of sorghum.",
     "tic": 152,
     "dist_to_labels": {
@@ -2120,6 +2151,7 @@
   {
     "eventid": 49,
     "date": "2018-05-13",
+    "dow": 0.0,
     "title": "President Trump tweets \u201cPresident Xi of China, and I, are working together to give massive Chinese phone company, \nZTE, a way to get back into business, fast. Too many jobs in China lost. Commerce Department has been instructed \nto get it done!\u201d",
     "tic": 670,
     "dist_to_labels": {
@@ -2190,6 +2222,7 @@
   {
     "eventid": 50,
     "date": "2018-05-18",
+    "dow": 5.0,
     "title": "China\u2019s Commerce Ministry announcement comes as US and Chinese negotiating teams meet to resolve trade \ndisputes.",
     "tic": 1343,
     "dist_to_labels": {
@@ -2260,6 +2293,7 @@
   {
     "eventid": 51,
     "date": "2018-06-18",
+    "dow": 1.0,
     "title": "In response to China\u2019s retaliatory tariffs announced June 15, 2018, President Trump directs the US Trade Representative to identify an additional $200 billion worth of Chinese goods for additional tariffs at a rate of 10 percent. This is on top of the $50 billion list of June 15. He also threatens another $200 billion of tariffs if China retaliates again",
     "tic": 1178,
     "dist_to_labels": {
@@ -2330,6 +2364,7 @@
   {
     "eventid": 52,
     "date": "2018-07-10",
+    "dow": 2.0,
     "title": "Following up on the June 18 request, the US Trade Representative releases a list of $200 billion of imports from China to be subjected to new 10 percent tariffs after public hearings in August. Intermediate goods, like computer and auto parts, make up 47 percent of the list. Consumer goods are more heavily targeted than in the previous June 15 list\u2014including telephones, computers, furniture, lamps, and luggage. This list combined with the $50 billion list of June 15 would cover $250 billion of the roughly $504 billion of goods imported from China in 2017.",
     "tic": 1011,
     "dist_to_labels": {
@@ -2400,6 +2435,7 @@
   {
     "eventid": 53,
     "date": "2018-07-20",
+    "dow": 5.0,
     "title": "In an interview, Trump says he is ready to impose tariffs on all US imports from China, which totaled $504 billion \nin 2017. The threat covers the remaining $262 billion of imports not already under previous tariffs or being inves\u0002tigated as previously announced under the Section 301 investigation. Capital goods and consumer products would \nbe the primary targets, since intermediate inputs were already previously targeted, and include mobile phones, \nlaptops, and clothing.",
     "tic": 372,
     "dist_to_labels": {
@@ -2470,6 +2506,7 @@
   {
     "eventid": 54,
     "date": "2018-08-03",
+    "dow": 5.0,
     "title": "China warns it could add duties of 5 to 25 percent on $60 billion of US goods following Trump\u2019s threat to raise proposed tariff rates on $200 billion of Chinese goods from 10 to 25 percent as well as potentially cover all $500 billion of imports from China with tariffs. The list targets mostly intermediate inputs, followed by capital goods and consumption goods. Combining this new list with the June 15 list leaves only $53 billion of Chinese imports from the United States that are not yet subject to Chinese retaliatory tariff lists.",
     "tic": 486,
     "dist_to_labels": {
@@ -2540,6 +2577,7 @@
   {
     "eventid": 55,
     "date": "2018-08-07",
+    "dow": 2.0,
     "title": "The Trump administration releases a revision to the second phase of its $50 billion list, announcing that $16 billion of imports from China will be subject to a higher 25 percent tariff rate, going into effect on August 23. After public hearings, the US Trade Representative removed only 5 of the 284 products subject to the list published on June 15. Those products include alginic acid, splitting machines, containers, floating docks, and microtomes\u2014imports \nworth $400 million in 2017.",
     "tic": 998,
     "dist_to_labels": {
@@ -2610,6 +2648,7 @@
   {
     "eventid": 56,
     "date": "2018-08-08",
+    "dow": 3.0,
     "title": "China revises the second tranche of its June 15 list of $50 billion of imports from the United States with which it planned to impose 25 percent tariffs. Crude oil was removed and replaced with a number of other products. The tariffs on the revised list, covering $16 billion of imports from the United States, are expected to go into effect as soon as the Trump administration\u2019s second tranche of its June 15 tariff list is imposed on August 23.",
     "tic": 492,
     "dist_to_labels": {
@@ -2680,6 +2719,7 @@
   {
     "eventid": 59,
     "date": "2018-09-18",
+    "dow": 2.0,
     "title": "China announced its plan to place tariffs on $60 billion of US exports if Trump goes ahead with his recently finalized tariffs on $200 billion of Chinese exports. These tariffs are mainly on intermediate inputs and capital equip\u0002ment, and range from 5 to 10 percent, down from the 5 to 25 percent originally announced.",
     "tic": 186,
     "dist_to_labels": {
@@ -2750,6 +2790,7 @@
   {
     "eventid": 62,
     "date": "2019-03-21",
+    "dow": 4.0,
     "title": "The Trump administration  issued its first set of sanctions aimed at North Korea since the failed summit last month between Kim Jong Un and President Donald Trump, going after two Chinese shipping companies that have helped Pyongyang evade restrictions imposed by the US and United Nations Security Council.",
     "tic": 834,
     "dist_to_labels": {
@@ -2819,6 +2860,7 @@
   {
     "eventid": 64,
     "date": "2019-05-05",
+    "dow": 0.0,
     "title": "In a sudden reversal during the US-China trade negotiations, President Trump tweets (later officially confirmed) that the United States will increase the 10 percent tariff on $200 billion of imports from China to 25 percent on May 10, 2019. He also indicates he will \u201cshortly\u201d impose 25 percent tariffs on the rest of US imports from China not yet targeted with his Section 301 tariffs, which he states are \u201c325 Billions Dollars\u201d and would mostly hit final consumer products such as toys, footwear, clothing, and electronics.",
     "tic": 734,
     "dist_to_labels": {
@@ -2889,6 +2931,7 @@
   {
     "eventid": 65,
     "date": "2019-05-13",
+    "dow": 1.0,
     "title": "In retaliation for President Trump\u2019s tariff rate increase on May 10, China announced that on June 1, it intends to \nincrease the tariff rate covering some of the $60 billion of US exports it had already hit in September.",
     "tic": 488,
     "dist_to_labels": {
@@ -2959,6 +3002,7 @@
   {
     "eventid": 67,
     "date": "2019-08-05",
+    "dow": 1.0,
     "title": "U.S. Labels China a Currency Manipulator.",
     "tic": 510,
     "dist_to_labels": {
@@ -3029,6 +3073,7 @@
   {
     "eventid": 69,
     "date": "2019-09-11",
+    "dow": 3.0,
     "title": "China announces it will exclude 16 products (less than $2 billion of US exports) from its retaliatory tariffs imposed \nin 2018, such as some animal feeds, chemicals, and petroleum products. President Trump plans to delay his tariff \nincrease on $250 billion of Chinese imports from 25 to 30 percent, originally set out on August 23, 2019, from \nOctober 1 to October 15.",
     "tic": 88,
     "dist_to_labels": {
@@ -3099,7 +3144,8 @@
   {
     "eventid": 71,
     "date": "2019-11-27",
-    "title": "Trump Signs Bill Supporting Hong Kong Protesters",
+    "dow": 3.0,
+    "title": "(It was before Thanksgiving Day so no Post-Window) Trump Signs Bill Supporting Hong Kong Protesters",
     "tic": 1028,
     "dist_to_labels": {
       "-20": "2019-11-27 15:40",
@@ -3127,6 +3173,7 @@
   {
     "eventid": 73,
     "date": "2020-01-15",
+    "dow": 3.0,
     "title": "\u2018Phase One\u2019 Trade Deal Signed. Under the agreement, China agrees to purchase the extraordinary amount of an additional $200 billion worth of US exports. Most tariffs remain in effect, and China does not address subsidies or state-owned enterprises\u2014major issues that prompted the trade war.",
     "tic": 748,
     "dist_to_labels": {
@@ -3196,6 +3243,7 @@
   {
     "eventid": 78,
     "date": "2020-03-17",
+    "dow": 2.0,
     "title": "China Expels American Journalists",
     "tic": 738,
     "dist_to_labels": {
@@ -3265,6 +3313,7 @@
   {
     "eventid": 79,
     "date": "2020-04-27",
+    "dow": 1.0,
     "title": "The US Department of Commerce expands export controls to prevent entities in China, Russia, and Venezuela from \npurchasing US technology that could be used in weapons development, military aircraft, or surveillance technology",
     "tic": 575,
     "dist_to_labels": {
@@ -3334,6 +3383,7 @@
   {
     "eventid": 80,
     "date": "2020-06-30",
+    "dow": 2.0,
     "title": "FCC DESIGNATES HUAWEI AND ZTE AS NATIONAL SECURITY THREAT",
     "tic": 751,
     "dist_to_labels": {
@@ -3403,6 +3453,7 @@
   {
     "eventid": 84,
     "date": "2021-01-19",
+    "dow": 2.0,
     "title": "U.S. Designates China\u2019s Abuses of Uyghurs as Genocide",
     "tic": 724,
     "dist_to_labels": {
@@ -3472,6 +3523,7 @@
   {
     "eventid": 87,
     "date": "2021-06-14",
+    "dow": 1.0,
     "title": "At U.S. Urging, NATO Declares China a \u2018Security Challenge\u2019",
     "tic": 198,
     "dist_to_labels": {
@@ -3542,6 +3594,7 @@
   {
     "eventid": 88,
     "date": "2021-10-04",
+    "dow": 1.0,
     "title": "In a speech, USTR Katherine Tai says the Biden administration will enforce the phase one agreement, including the \n$200 billion purchase commitments. It will also begin a new \u201ctargeted tariff exclusion process\u201d to provide selective \nrelief to US importers adversely affected by the US tariffs that remain on nearly two-thirds (roughly $335 billion) \nof US imports from China.",
     "tic": 300,
     "dist_to_labels": {
@@ -3612,6 +3665,7 @@
   {
     "eventid": 89,
     "date": "2021-11-10",
+    "dow": 3.0,
     "title": "Collaboration on Climate Change Amid Tensions",
     "tic": 744,
     "dist_to_labels": {
@@ -3681,6 +3735,7 @@
   {
     "eventid": 91,
     "date": "2022-03-18",
+    "dow": 5.0,
     "title": "Biden Presses Xi on Russia\u2019s War in Ukraine",
     "tic": 599,
     "dist_to_labels": {
@@ -3750,6 +3805,7 @@
   {
     "eventid": 94,
     "date": "2022-08-31",
+    "dow": 3.0,
     "title": "US semiconductor companies like Nvidia and AMD reveal the US government has imposed new export control \nlicensing requirements for sales to China of their advanced chips linked to artificial intelligence and advanced \ncomputing.",
     "tic": 625,
     "dist_to_labels": {
@@ -3819,6 +3875,7 @@
   {
     "eventid": 96,
     "date": "2017-04-20",
+    "dow": 4.0,
     "title": "Trump administration launching an investigation into steel imports",
     "tic": 672,
     "dist_to_labels": {
@@ -3888,6 +3945,7 @@
   {
     "eventid": 97,
     "date": "2018-07-31",
+    "dow": 2.0,
     "title": "U.S. Said to Plan Higher Tariff on $200 Billion of China Imports",
     "tic": 1133,
     "dist_to_labels": {
@@ -3958,6 +4016,7 @@
   {
     "eventid": 98,
     "date": "2020-07-23",
+    "dow": 4.0,
     "title": "China closes US consulate in Chengdu",
     "tic": 1434,
     "dist_to_labels": {
@@ -4028,6 +4087,7 @@
   {
     "eventid": 99,
     "date": "2015-06-25",
+    "dow": 4.0,
     "title": "US blames China for OPM cyberattack",
     "tic": 683,
     "dist_to_labels": {
@@ -4097,6 +4157,7 @@
   {
     "eventid": 100,
     "date": "2016-12-16",
+    "dow": 5.0,
     "title": "China seizes US drone",
     "tic": 744,
     "dist_to_labels": {
@@ -4166,6 +4227,7 @@
   {
     "eventid": 101,
     "date": "2017-08-01",
+    "dow": 2.0,
     "title": "China opens its first overseas military base in Djibouti, raising concerns about its growing military presence",
     "tic": 211,
     "dist_to_labels": {
@@ -4236,6 +4298,7 @@
   {
     "eventid": 102,
     "date": "2020-05-28",
+    "dow": 4.0,
     "title": "China introduces a controversial national security law in Hong Kong",
     "tic": 189,
     "dist_to_labels": {
@@ -4306,6 +4369,7 @@
   {
     "eventid": 107,
     "date": "2019-05-31",
+    "dow": 5.0,
     "title": "China announces plans to establish its own \u201cunreliable entity list\u201d",
     "tic": 325,
     "dist_to_labels": {
@@ -4376,6 +4440,7 @@
   {
     "eventid": 112,
     "date": "2024-02-09",
+    "dow": 5.0,
     "title": "China establish a military presence along Gabon\u2019s Atlantic Ocean coast",
     "tic": 1380,
     "dist_to_labels": {
@@ -4441,6 +4506,427 @@
       "39": "2024-02-12 10:08",
       "40": "2024-02-12 10:09",
       "41": "2024-02-12 10:10"
+    }
+  },
+  {
+    "eventid": 113,
+    "date": "2022-03-10",
+    "dow": 4.0,
+    "title": "The HFCAA list: first wave",
+    "tic": 828,
+    "dist_to_labels": {
+      "-20": "2022-03-10 13:28",
+      "-19": "2022-03-10 13:29",
+      "-18": "2022-03-10 13:30",
+      "-17": "2022-03-10 13:31",
+      "-16": "2022-03-10 13:32",
+      "-15": "2022-03-10 13:33",
+      "-14": "2022-03-10 13:34",
+      "-13": "2022-03-10 13:35",
+      "-12": "2022-03-10 13:36",
+      "-11": "2022-03-10 13:37",
+      "-10": "2022-03-10 13:38",
+      "-9": "2022-03-10 13:39",
+      "-8": "2022-03-10 13:40",
+      "-7": "2022-03-10 13:41",
+      "-6": "2022-03-10 13:42",
+      "-5": "2022-03-10 13:43",
+      "-4": "2022-03-10 13:44",
+      "-3": "2022-03-10 13:45",
+      "-2": "2022-03-10 13:46",
+      "-1": "2022-03-10 13:47",
+      "0": "2022-03-10 13:48",
+      "1": "2022-03-10 13:49",
+      "2": "2022-03-10 13:50",
+      "3": "2022-03-10 13:51",
+      "4": "2022-03-10 13:52",
+      "5": "2022-03-10 13:53",
+      "6": "2022-03-10 13:54",
+      "7": "2022-03-10 13:55",
+      "8": "2022-03-10 13:56",
+      "9": "2022-03-10 13:57",
+      "10": "2022-03-10 13:58",
+      "11": "2022-03-10 13:59",
+      "12": "2022-03-10 14:00",
+      "13": "2022-03-10 14:01",
+      "14": "2022-03-10 14:02",
+      "15": "2022-03-10 14:03",
+      "16": "2022-03-10 14:04",
+      "17": "2022-03-10 14:05",
+      "18": "2022-03-10 14:06",
+      "19": "2022-03-10 14:07",
+      "20": "2022-03-10 14:08",
+      "21": "2022-03-10 14:09",
+      "22": "2022-03-10 14:10",
+      "23": "2022-03-10 14:11",
+      "24": "2022-03-10 14:12",
+      "25": "2022-03-10 14:13",
+      "26": "2022-03-10 14:14",
+      "27": "2022-03-10 14:15",
+      "28": "2022-03-10 14:16",
+      "29": "2022-03-10 14:17",
+      "30": "2022-03-10 14:18",
+      "31": "2022-03-10 14:19",
+      "32": "2022-03-10 14:20",
+      "33": "2022-03-10 14:21",
+      "34": "2022-03-10 14:22",
+      "35": "2022-03-10 14:23",
+      "36": "2022-03-10 14:24",
+      "37": "2022-03-10 14:25",
+      "38": "2022-03-10 14:26",
+      "39": "2022-03-10 14:27",
+      "40": "2022-03-10 14:28"
+    }
+  },
+  {
+    "eventid": 114,
+    "date": "2022-03-23",
+    "dow": 3.0,
+    "title": "The HFCAA: Weibo was added to the list.",
+    "tic": 808,
+    "dist_to_labels": {
+      "-20": "2022-03-23 13:08",
+      "-19": "2022-03-23 13:09",
+      "-18": "2022-03-23 13:10",
+      "-17": "2022-03-23 13:11",
+      "-16": "2022-03-23 13:12",
+      "-15": "2022-03-23 13:13",
+      "-14": "2022-03-23 13:14",
+      "-13": "2022-03-23 13:15",
+      "-12": "2022-03-23 13:16",
+      "-11": "2022-03-23 13:17",
+      "-10": "2022-03-23 13:18",
+      "-9": "2022-03-23 13:19",
+      "-8": "2022-03-23 13:20",
+      "-7": "2022-03-23 13:21",
+      "-6": "2022-03-23 13:22",
+      "-5": "2022-03-23 13:23",
+      "-4": "2022-03-23 13:24",
+      "-3": "2022-03-23 13:25",
+      "-2": "2022-03-23 13:26",
+      "-1": "2022-03-23 13:27",
+      "0": "2022-03-23 13:28",
+      "1": "2022-03-23 13:29",
+      "2": "2022-03-23 13:30",
+      "3": "2022-03-23 13:31",
+      "4": "2022-03-23 13:32",
+      "5": "2022-03-23 13:33",
+      "6": "2022-03-23 13:34",
+      "7": "2022-03-23 13:35",
+      "8": "2022-03-23 13:36",
+      "9": "2022-03-23 13:37",
+      "10": "2022-03-23 13:38",
+      "11": "2022-03-23 13:39",
+      "12": "2022-03-23 13:40",
+      "13": "2022-03-23 13:41",
+      "14": "2022-03-23 13:42",
+      "15": "2022-03-23 13:43",
+      "16": "2022-03-23 13:44",
+      "17": "2022-03-23 13:45",
+      "18": "2022-03-23 13:46",
+      "19": "2022-03-23 13:47",
+      "20": "2022-03-23 13:48",
+      "21": "2022-03-23 13:49",
+      "22": "2022-03-23 13:50",
+      "23": "2022-03-23 13:51",
+      "24": "2022-03-23 13:52",
+      "25": "2022-03-23 13:53",
+      "26": "2022-03-23 13:54",
+      "27": "2022-03-23 13:55",
+      "28": "2022-03-23 13:56",
+      "29": "2022-03-23 13:57",
+      "30": "2022-03-23 13:58",
+      "31": "2022-03-23 13:59",
+      "32": "2022-03-23 14:00",
+      "33": "2022-03-23 14:01",
+      "34": "2022-03-23 14:02",
+      "35": "2022-03-23 14:03",
+      "36": "2022-03-23 14:04",
+      "37": "2022-03-23 14:05",
+      "38": "2022-03-23 14:06",
+      "39": "2022-03-23 14:07",
+      "40": "2022-03-23 14:08"
+    }
+  },
+  {
+    "eventid": 115,
+    "date": "2022-03-30",
+    "dow": 3.0,
+    "title": "The HFCAA: Baidu, iQIYI etc 5 additional firms added.",
+    "tic": 767,
+    "dist_to_labels": {
+      "-20": "2022-03-30 12:27",
+      "-19": "2022-03-30 12:28",
+      "-18": "2022-03-30 12:29",
+      "-17": "2022-03-30 12:30",
+      "-16": "2022-03-30 12:31",
+      "-15": "2022-03-30 12:32",
+      "-14": "2022-03-30 12:33",
+      "-13": "2022-03-30 12:34",
+      "-12": "2022-03-30 12:35",
+      "-11": "2022-03-30 12:36",
+      "-10": "2022-03-30 12:37",
+      "-9": "2022-03-30 12:38",
+      "-8": "2022-03-30 12:39",
+      "-7": "2022-03-30 12:40",
+      "-6": "2022-03-30 12:41",
+      "-5": "2022-03-30 12:42",
+      "-4": "2022-03-30 12:43",
+      "-3": "2022-03-30 12:44",
+      "-2": "2022-03-30 12:45",
+      "-1": "2022-03-30 12:46",
+      "0": "2022-03-30 12:47",
+      "1": "2022-03-30 12:48",
+      "2": "2022-03-30 12:49",
+      "3": "2022-03-30 12:50",
+      "4": "2022-03-30 12:51",
+      "5": "2022-03-30 12:52",
+      "6": "2022-03-30 12:53",
+      "7": "2022-03-30 12:54",
+      "8": "2022-03-30 12:55",
+      "9": "2022-03-30 12:56",
+      "10": "2022-03-30 12:57",
+      "11": "2022-03-30 12:58",
+      "12": "2022-03-30 12:59",
+      "13": "2022-03-30 13:00",
+      "14": "2022-03-30 13:01",
+      "15": "2022-03-30 13:02",
+      "16": "2022-03-30 13:03",
+      "17": "2022-03-30 13:04",
+      "18": "2022-03-30 13:05",
+      "19": "2022-03-30 13:06",
+      "20": "2022-03-30 13:07",
+      "21": "2022-03-30 13:08",
+      "22": "2022-03-30 13:09",
+      "23": "2022-03-30 13:10",
+      "24": "2022-03-30 13:11",
+      "25": "2022-03-30 13:12",
+      "26": "2022-03-30 13:13",
+      "27": "2022-03-30 13:14",
+      "28": "2022-03-30 13:15",
+      "29": "2022-03-30 13:16",
+      "30": "2022-03-30 13:17",
+      "31": "2022-03-30 13:18",
+      "32": "2022-03-30 13:19",
+      "33": "2022-03-30 13:20",
+      "34": "2022-03-30 13:21",
+      "35": "2022-03-30 13:22",
+      "36": "2022-03-30 13:23",
+      "37": "2022-03-30 13:24",
+      "38": "2022-03-30 13:25",
+      "39": "2022-03-30 13:26",
+      "40": "2022-03-30 13:27"
+    }
+  },
+  {
+    "eventid": 116,
+    "date": "2022-04-12",
+    "dow": 2.0,
+    "title": "The HFCAA: 12 additional incl. Sohu, Melco were added.",
+    "tic": 870,
+    "dist_to_labels": {
+      "-20": "2022-04-12 14:10",
+      "-19": "2022-04-12 14:11",
+      "-18": "2022-04-12 14:12",
+      "-17": "2022-04-12 14:13",
+      "-16": "2022-04-12 14:14",
+      "-15": "2022-04-12 14:15",
+      "-14": "2022-04-12 14:16",
+      "-13": "2022-04-12 14:17",
+      "-12": "2022-04-12 14:18",
+      "-11": "2022-04-12 14:19",
+      "-10": "2022-04-12 14:20",
+      "-9": "2022-04-12 14:21",
+      "-8": "2022-04-12 14:22",
+      "-7": "2022-04-12 14:23",
+      "-6": "2022-04-12 14:24",
+      "-5": "2022-04-12 14:25",
+      "-4": "2022-04-12 14:26",
+      "-3": "2022-04-12 14:27",
+      "-2": "2022-04-12 14:28",
+      "-1": "2022-04-12 14:29",
+      "0": "2022-04-12 14:30",
+      "1": "2022-04-12 14:31",
+      "2": "2022-04-12 14:32",
+      "3": "2022-04-12 14:33",
+      "4": "2022-04-12 14:34",
+      "5": "2022-04-12 14:35",
+      "6": "2022-04-12 14:36",
+      "7": "2022-04-12 14:37",
+      "8": "2022-04-12 14:38",
+      "9": "2022-04-12 14:39",
+      "10": "2022-04-12 14:40",
+      "11": "2022-04-12 14:41",
+      "12": "2022-04-12 14:42",
+      "13": "2022-04-12 14:43",
+      "14": "2022-04-12 14:44",
+      "15": "2022-04-12 14:45",
+      "16": "2022-04-12 14:46",
+      "17": "2022-04-12 14:47",
+      "18": "2022-04-12 14:48",
+      "19": "2022-04-12 14:49",
+      "20": "2022-04-12 14:50",
+      "21": "2022-04-12 14:51",
+      "22": "2022-04-12 14:52",
+      "23": "2022-04-12 14:53",
+      "24": "2022-04-12 14:54",
+      "25": "2022-04-12 14:55",
+      "26": "2022-04-12 14:56",
+      "27": "2022-04-12 14:57",
+      "28": "2022-04-12 14:58",
+      "29": "2022-04-12 14:59",
+      "30": "2022-04-12 15:00",
+      "31": "2022-04-12 15:01",
+      "32": "2022-04-12 15:02",
+      "33": "2022-04-12 15:03",
+      "34": "2022-04-12 15:04",
+      "35": "2022-04-12 15:05",
+      "36": "2022-04-12 15:06",
+      "37": "2022-04-12 15:07",
+      "38": "2022-04-12 15:08",
+      "39": "2022-04-12 15:09",
+      "40": "2022-04-12 15:10"
+    }
+  },
+  {
+    "eventid": 117,
+    "date": "2022-04-21",
+    "dow": 4.0,
+    "title": "The HFCAA: 17 additional incl. Li Auto, Ke Holdings, Luckin were added.",
+    "tic": 796,
+    "dist_to_labels": {
+      "-20": "2022-04-21 12:56",
+      "-19": "2022-04-21 12:57",
+      "-18": "2022-04-21 12:58",
+      "-17": "2022-04-21 12:59",
+      "-16": "2022-04-21 13:00",
+      "-15": "2022-04-21 13:01",
+      "-14": "2022-04-21 13:02",
+      "-13": "2022-04-21 13:03",
+      "-12": "2022-04-21 13:04",
+      "-11": "2022-04-21 13:05",
+      "-10": "2022-04-21 13:06",
+      "-9": "2022-04-21 13:07",
+      "-8": "2022-04-21 13:08",
+      "-7": "2022-04-21 13:09",
+      "-6": "2022-04-21 13:10",
+      "-5": "2022-04-21 13:11",
+      "-4": "2022-04-21 13:12",
+      "-3": "2022-04-21 13:13",
+      "-2": "2022-04-21 13:14",
+      "-1": "2022-04-21 13:15",
+      "0": "2022-04-21 13:16",
+      "1": "2022-04-21 13:17",
+      "2": "2022-04-21 13:18",
+      "3": "2022-04-21 13:19",
+      "4": "2022-04-21 13:20",
+      "5": "2022-04-21 13:21",
+      "6": "2022-04-21 13:22",
+      "7": "2022-04-21 13:23",
+      "8": "2022-04-21 13:24",
+      "9": "2022-04-21 13:25",
+      "10": "2022-04-21 13:26",
+      "11": "2022-04-21 13:27",
+      "12": "2022-04-21 13:28",
+      "13": "2022-04-21 13:29",
+      "14": "2022-04-21 13:30",
+      "15": "2022-04-21 13:31",
+      "16": "2022-04-21 13:32",
+      "17": "2022-04-21 13:33",
+      "18": "2022-04-21 13:34",
+      "19": "2022-04-21 13:35",
+      "20": "2022-04-21 13:36",
+      "21": "2022-04-21 13:37",
+      "22": "2022-04-21 13:38",
+      "23": "2022-04-21 13:39",
+      "24": "2022-04-21 13:40",
+      "25": "2022-04-21 13:41",
+      "26": "2022-04-21 13:42",
+      "27": "2022-04-21 13:43",
+      "28": "2022-04-21 13:44",
+      "29": "2022-04-21 13:45",
+      "30": "2022-04-21 13:46",
+      "31": "2022-04-21 13:47",
+      "32": "2022-04-21 13:48",
+      "33": "2022-04-21 13:49",
+      "34": "2022-04-21 13:50",
+      "35": "2022-04-21 13:51",
+      "36": "2022-04-21 13:52",
+      "37": "2022-04-21 13:53",
+      "38": "2022-04-21 13:54",
+      "39": "2022-04-21 13:55",
+      "40": "2022-04-21 13:56"
+    }
+  },
+  {
+    "eventid": 118,
+    "date": "2022-05-04",
+    "dow": 3.0,
+    "title": "The HFCAA: 88 added.",
+    "tic": 1139,
+    "dist_to_labels": {
+      "-20": "2022-05-04 15:40",
+      "-19": "2022-05-04 15:41",
+      "-18": "2022-05-04 15:42",
+      "-17": "2022-05-04 15:43",
+      "-16": "2022-05-04 15:44",
+      "-15": "2022-05-04 15:45",
+      "-14": "2022-05-04 15:46",
+      "-13": "2022-05-04 15:47",
+      "-12": "2022-05-04 15:48",
+      "-11": "2022-05-04 15:49",
+      "-10": "2022-05-04 15:50",
+      "-9": "2022-05-04 15:51",
+      "-8": "2022-05-04 15:52",
+      "-7": "2022-05-04 15:53",
+      "-6": "2022-05-04 15:54",
+      "-5": "2022-05-04 15:55",
+      "-4": "2022-05-04 15:56",
+      "-3": "2022-05-04 15:57",
+      "-2": "2022-05-04 15:58",
+      "-1": "2022-05-04 15:59",
+      "0": "2022-05-04 18:59",
+      "1": "2022-05-05 09:30",
+      "2": "2022-05-05 09:31",
+      "3": "2022-05-05 09:32",
+      "4": "2022-05-05 09:33",
+      "5": "2022-05-05 09:34",
+      "6": "2022-05-05 09:35",
+      "7": "2022-05-05 09:36",
+      "8": "2022-05-05 09:37",
+      "9": "2022-05-05 09:38",
+      "10": "2022-05-05 09:39",
+      "11": "2022-05-05 09:40",
+      "12": "2022-05-05 09:41",
+      "13": "2022-05-05 09:42",
+      "14": "2022-05-05 09:43",
+      "15": "2022-05-05 09:44",
+      "16": "2022-05-05 09:45",
+      "17": "2022-05-05 09:46",
+      "18": "2022-05-05 09:47",
+      "19": "2022-05-05 09:48",
+      "20": "2022-05-05 09:49",
+      "21": "2022-05-05 09:50",
+      "22": "2022-05-05 09:51",
+      "23": "2022-05-05 09:52",
+      "24": "2022-05-05 09:53",
+      "25": "2022-05-05 09:54",
+      "26": "2022-05-05 09:55",
+      "27": "2022-05-05 09:56",
+      "28": "2022-05-05 09:57",
+      "29": "2022-05-05 09:58",
+      "30": "2022-05-05 09:59",
+      "31": "2022-05-05 10:00",
+      "32": "2022-05-05 10:01",
+      "33": "2022-05-05 10:02",
+      "34": "2022-05-05 10:03",
+      "35": "2022-05-05 10:04",
+      "36": "2022-05-05 10:05",
+      "37": "2022-05-05 10:06",
+      "38": "2022-05-05 10:07",
+      "39": "2022-05-05 10:08",
+      "40": "2022-05-05 10:09",
+      "41": "2022-05-05 10:10"
     }
   }
 ]
