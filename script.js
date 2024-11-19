@@ -447,13 +447,26 @@ document.addEventListener('DOMContentLoaded', () => {
             line: { color: 'lightgrey' }
         };
 
+        // Determine the appropriate dist value for the red dashed line
+        let distValue;
+        if (dist.includes(0)) {
+            distValue = 0;
+        } else if (dist.every(d => d < 0)) {
+            distValue = -1;
+        } else if (dist.every(d => d > 0)) {
+            distValue = 1;
+        } else {
+            // Default to 0 if none of the above conditions are met
+            distValue = 0;
+        }
+
         // Create shapes for vertical lines when date changes
         const shapes = [
             { // plot the red dash line at dist=0
                 type: 'line',
-                x0: xLabels[dist.indexOf(0)],
+                x0: xLabels[dist.indexOf(distValue)],
                 y0: Math.min(...perc_10),
-                x1: xLabels[dist.indexOf(0)],
+                x1: xLabels[dist.indexOf(distValue)],
                 y1: Math.max(...perc_90),
                 line: {
                     color: 'red',
@@ -516,8 +529,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Destructure statsabs with different variable names
         let { dist: distabs, median: medianabs, perc_10: perc_10abs, perc_90: perc_90abs } = statsabs;
-        console.log("statsabs", statsabs);
-        
+        //console.log("statsabs", statsabs);
+        // Determine the appropriate dist value for the red dashed line
+        let distValueabs;
+        if (distabs.includes(0)) {
+            distValueabs = 0;
+        } else if (distabs.every(d => d < 0)) {
+            distValueabs = -1;
+        } else if (distabs.every(d => d > 0)) {
+            distValueabs = 1;
+        } else {
+            // Default to 0 if none of the above conditions are met
+            distValueabs = 0;
+        }
+
         // I'VE MADE SURE DIST FULLY SPANNED FOR EACH FIRM SO NO NEED TO INSERT ANYTHING NOW
 
         const xLabelsabs = distabs.map(d => eventDistToLabel[d] || d);
@@ -551,9 +576,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const shapesabs = [
             { // plot the red dash line at dist=0
                 type: 'line',
-                x0: xLabelsabs[distabs.indexOf(0)],
+                x0: xLabelsabs[distabs.indexOf(distValueabs)],
                 y0: Math.min(...perc_10abs),
-                x1: xLabelsabs[distabs.indexOf(0)],
+                x1: xLabelsabs[distabs.indexOf(distValueabs)],
                 y1: Math.max(...perc_90abs),
                 line: {
                     color: 'red',
@@ -611,7 +636,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
         let { dist, median, perc_10, perc_90 } = stats;
-        
+        // Determine the appropriate dist value for the red dashed line
+        let distValue;
+        if (dist.includes(0)) {
+            distValue = 0;
+        } else if (dist.every(d => d < 0)) {
+            distValue = -1;
+        } else if (dist.every(d => d > 0)) {
+            distValue = 1;
+        } else {
+            // Default to 0 if none of the above conditions are met
+            distValue = 0;
+        }
+
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
         //console.log("xLabels:", xLabels);
         
@@ -658,9 +695,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const shapes = [
             { // plot the red dash line at dist=1
                 type: 'line',
-                x0: xLabels[dist.indexOf(0)],
+                x0: xLabels[dist.indexOf(distValue)],
                 y0: minCretValue,
-                x1: xLabels[dist.indexOf(0)],
+                x1: xLabels[dist.indexOf(distValue)],
                 y1: maxCretValue,
                 line: {
                     color: 'red',
@@ -742,6 +779,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
         let { dist, median, perc_10, perc_90 } = stats;
         
+        // Determine the appropriate dist value for the red dashed line
+        let distValue;
+        if (dist.includes(0)) {
+            distValue = 0;
+        } else if (dist.every(d => d < 0)) {
+            distValue = -1;
+        } else if (dist.every(d => d > 0)) {
+            distValue = 1;
+        } else {
+            // Default to 0 if none of the above conditions are met
+            distValue = 0;
+        }
         // I've made sure `dist` is fully spanned so that no need to insert 0 any more
 
         const xLabels = dist.map(d => eventDistToLabel[d] || d);
@@ -788,9 +837,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const shapes = [
             { // plot the red dash line at dist=0
                 type: 'line',
-                x0: xLabels[dist.indexOf(0)],
+                x0: xLabels[dist.indexOf(distValue)],
                 y0: minCretValue,
-                x1: xLabels[dist.indexOf(0)],
+                x1: xLabels[dist.indexOf(distValue)],
                 y1: maxCretValue,
                 line: {
                     color: 'red',
