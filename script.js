@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const data_question = await fetchJSON(`question_data/event${eventid_question}.json`);
             appState_question.cachedEventData[eventid_question] = data_question;
-            updateDropdowns_question(data2);
+            updateDropdowns_question(data_question);
             await fetchData_question();
         } catch (error) {
             console.error('Error fetching options:', error);
