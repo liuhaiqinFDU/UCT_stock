@@ -445,12 +445,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const stats_question = calculateStatistics_question(filteredData_question,'abnormal'); 
             // I use the same function but not plot the same data
+            /*
             plotData2_question(filteredData_question, stats_question, 'chart2_question', 
                 appState_question.eventTitles[eventid_question],appState_question.eventDates[eventid_question],
                 appState_question.eventTics[eventid_question],appState_question.eventDistToLabels[eventid_question]);
             plotData3_question(filteredData_question, stats_question, 'chart3_question', 
                 appState_question.eventDates[eventid_question], appState_question.eventTics[eventid_question], 
                 appState_question.eventDistToLabels[eventid_question]);
+            */
+            const tic_question = appState_question.eventTics[eventid_question];
+            const hour = Math.floor(tic_question / 60);
+            const minute = tic_question - hour * 60;
+            const title_question = appState_question.eventTitles[eventid_question];
+            const date_question = appState_question.eventDates[eventid_question];
+            document.getElementById('eventTime_question').innerHTML = `Date: ${date_question}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}, ${title_question}`;
         }
     }
 
