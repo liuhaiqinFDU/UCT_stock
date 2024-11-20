@@ -21,6 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
         initialDropdownData: {}
     };
 
+    const appState_question = {
+        dropdowns: ['eventid_question', 'window_question', 'PrimarySector_question', 'state_question', 'SIC4_question', 'city_question', 'conml_question'],
+        eventTitles: {},
+        eventDates: {},
+        eventTics: {},
+        eventDistToLabels: {},
+        cachedEventData: {},
+        initialDropdownData: {}
+    };
+
     async function fetchJSON(url){
         try {
             const response = await fetch(url);
@@ -126,6 +136,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function fetchOptions_question() {
+        const eventid_question = document.getElementById('eventid_question').value;
+        try {
+            const data_question = await fetchJSON(`question_data/event${eventid_question}.json`);
+            appState_question.cachedEventData[eventid_question] = data_question;
+            updateDropdowns_question(data2);
+            await fetchData_question();
+        } catch (error) {
+            console.error('Error fetching options:', error);
+        }
+
+
+        const figuresContainer = document.getElementById('figuresContainer');
+        figuresContainer.innerHTML = ''; // Clear existing figures
+
+        // Assuming the figures are stored in the 'figures' folder
+        const figurePrefix = `cret${eventid_question}`;
+        const maxFigures = 10; // Adjust this number based on the maximum expected number of figures
+
+        for (let i = 1; i <= maxFigures; i++) {
+            const img = document.createElement('img');
+            img.src = `figures/${figurePrefix}_${i}.png`;
+            img.alt = `Figure for event ID ${eventid_question}`;
+            img.onerror = () => img.style.display = 'none'; // Hide image if not found
+            figuresContainer.appendChild(img);
+        }
+        
+    }
+
     function updateDropdowns(data) {
         const primarySectors = new Set();
         const states = new Set();
@@ -163,7 +202,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Store initial dropdown data for city, SIC4, and conml
         appState2.initialDropdownData = data2;
-        updateCityDropdown(data2, selectedPrimarySector2, selectedState2);
+        updateCityDropdown2(data2, selectedPrimarySector2, selectedState2);
+    }
+
+    function updateDropdowns_question(data_question) {
+        const primarySectors_question = new Set();
+        const states_question = new Set();
+
+        data_question.forEach(item => {
+            primarySectors_question.add(item.PrimarySector);
+            states_question.add(item.state);
+        });
+
+        const selectedPrimarySector_question = document.getElementById('PrimarySector_question').value;
+        const selectedState_question = document.getElementById('state_question').value;
+
+        populateDropdown('PrimarySector_question', Array.from(primarySectors_question), selectedPrimarySector_question);
+        populateDropdown('state_question', Array.from(states_question), selectedState_question);
+
+        // Store initial dropdown data for city, SIC4, and conml
+        appState_question.initialDropdownData = data_question;
+        updateCityDropdown_question(data_question, selectedPrimarySector_question, selectedState_question);
     }
 
     async function fetchData() {
@@ -206,6 +265,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data2 = await fetchJSON(`winner_loser/event${eventid2}.json`);
                 appState2.cachedEventData[eventid2] = data2;
                 processData2(data2,primarySector2,state2,city2,sic42,conml2,window2,eventid2);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+    }    
+
+    async function fetchData_question() {
+        const eventid_question = document.getElementById('eventid_question').value;
+        const window_question = document.getElementById('window_question').value;
+        const primarySector_question = document.getElementById('PrimarySector_question').value;
+        const state_question = document.getElementById('state_question').value;
+        const city_question = document.getElementById('city_question').value;
+        const sic4_question = document.getElementById('SIC4_question').value;
+        const conml_question = document.getElementById('conml_question').value;
+
+        if (appState_question.cachedEventData[eventid_question]) {
+            processData_question(appState_question.cachedEventData[eventid_question], 
+                primarySector_question, state_question, city_question, sic4_question,
+                conml_question, window_question, eventid_question);
+        } else {
+            try {
+                const data_question = await fetchJSON(`question_data/event${eventid_question}.json`);
+                appState_question.cachedEventData[eventid_question] = data_question;
+                processData_question(data_question,primarySector_question,state_question,
+                    city_question,sic4_question,conml_question,window_question,eventid_question);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -277,6 +361,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function processData_question(data_question, primarySector_question, state_question, city_question, sic4_question, conml_question, window_question, eventid_question) {
+        let filteredData_question = data_question.filter(item =>
+            (!primarySector_question || item.PrimarySector === primarySector_question) &&
+            (!state_question || item.state === state_question) &&
+            (!city_question || item.city === city_question) &&
+            (!sic4_question || item.SIC4 === sic4_question) &&
+            (!conml_question || item.conml === conml_question)
+        );
+
+        // Filter data based on the window parameter
+        if (window_question == 45) {
+            filteredData_question = filteredData_question.filter(item => item.dist >= -15 && item.dist <= 30);
+        } else if (window_question == 30) {
+            filteredData_question = filteredData_question.filter(item => item.dist >= -10 && item.dist <= 20);
+        } else if (window_question == 60) {
+            filteredData_question = filteredData_question.filter(item => item.dist >= -20 && item.dist <= 40);
+        } else if (window_question == 90) {
+            filteredData_question = filteredData_question.filter(item => item.dist >= -30 && item.dist <= 60);
+        } else if (window_question == 150) {
+            filteredData_question = filteredData_question.filter(item => item.dist >= -60 && item.dist <= 90);
+        } //else: all 3-D data
+
+        const chartElement_question = document.getElementById('chart2_question');
+        if (filteredData_question.length === 0) {
+            chartElement_question.innerHTML = 'No data';
+        } else {
+            if (chartElement_question.innerHTML === 'No data') {
+                chartElement_question.innerHTML = '';
+            }
+            const stats_question = calculateStatistics(filteredData_question, window_question,'abnormal'); 
+            // I use the same function but not plot the same data
+            plotData2(filteredData_question, window_question, stats_question, 'chart2_question', 
+                appState_question.eventTitles[eventid_question],appState_question.eventDates[eventid_question],
+                appState_question.eventTics[eventid_question],appState_question.eventDistToLabels[eventid_question]);
+            plotData3(filteredData_question, window_question, stats_question, 'chart3_question', 
+                appState_question.eventDates[eventid_question], appState2.eventTics[eventid2], 
+                appState_question.eventDistToLabels[eventid2]);
+        }
+    }
+
     function updateCityDropdown(data, primarySector, state) {
         const cities = new Set();
 
@@ -305,6 +429,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedCity2 = document.getElementById('city2').value;
         populateDropdown('city2', Array.from(cities2), selectedCity2);
         updateSIC4Dropdown2(data2, primarySector2, state2, selectedCity2);
+    }
+
+    function updateCityDropdown_question(data_question, primarySector_question, state_question) {
+        const cities_question = new Set();
+
+        data_question.forEach(item => {
+            if ((!primarySector_question || item.PrimarySector === primarySector_question) &&
+                (!state_question || item.state === state_question)) {
+                cities_question.add(item.city);
+            }
+        });
+
+        const selectedCity_question = document.getElementById('city_question').value;
+        populateDropdown('city_question', Array.from(cities_question), selectedCity_question);
+        updateSIC4Dropdown_question(data_question, primarySector_question, state_question, selectedCity_question);
     }
 
     function updateSIC4Dropdown(data, primarySector, state, city) {
@@ -339,6 +478,22 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCompanyDropdown2(data2, primarySector2, state2, city2, selectedSIC42);
     }
 
+    function updateSIC4Dropdown_question(data_question, primarySector_question, state_question, city_question) {
+        const sic4s_question = new Set();
+
+        data_question.forEach(item => {
+            if ((!primarySector_question || item.PrimarySector === primarySector_question) &&
+                (!state_question || item.state === state_question) &&
+                (!city_question || item.city === city_question)) {
+                sic4s_question.add(item.SIC4);
+            }
+        });
+
+        const selectedSIC4_question = document.getElementById('SIC4_question').value;
+        populateDropdown('SIC4_question', Array.from(sic4s_question), selectedSIC4_question);
+        updateCompanyDropdown_question(data_question,primarySector_question,state_question,city_question,selectedSIC4_question);
+    }
+
     function updateCompanyDropdown(data, primarySector, state, city, sic4) {
         const conmls = new Set();
 
@@ -369,6 +524,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const selectedConml2 = document.getElementById('conml2').value;
         populateDropdown('conml2', Array.from(conmls2), selectedConml2);
+    }
+
+    function updateCompanyDropdown_question(data_question, primarySector_question, state_question, city_question, sic4_question) {
+        const conmls_question = new Set();
+
+        data_question.forEach(item => {
+            if ((!primarySector_question || item.PrimarySector === primarySector_question) &&
+                (!state_question || item.state === state_question) &&
+                (!city_question || item.city === city_question) &&
+                (!sic4_question || item.SIC4 === sic4_question)) {
+                conmls_question.add(item.conml);
+            }
+        });
+
+        const selectedConml_question = document.getElementById('conml_question').value;
+        populateDropdown('conml_question', Array.from(conmls_question), selectedConml_question);
     }
 
     function calculateStatistics(data, window,rettype) {
@@ -921,10 +1092,11 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchData2();
     });
     
-    // Event listener for the second tab
     document.getElementById('eventid_question').addEventListener('change', () => {
-        fetchOptions_question(); // only need to fetch figures
+        fetchOptions_question();
+        fetchData_question();
     });
+
 
     appState.dropdowns.forEach(dropdown => {
         document.getElementById(dropdown).addEventListener('change', fetchData);
@@ -934,6 +1106,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(dropdown).addEventListener('change', fetchData2);
     });
 
+    appState_question.dropdowns.forEach(dropdown => {
+        document.getElementById(dropdown).addEventListener('change', fetchData_question);
+    });
 
     document.getElementById('PrimarySector').addEventListener('change', () => {
         const primarySector = document.getElementById('PrimarySector').value;
@@ -945,6 +1120,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const primarySector2 = document.getElementById('PrimarySector2').value;
         const state2 = document.getElementById('state2').value;
         updateCityDropdown2(appState2.initialDropdownData, primarySector2, state2);
+    });
+
+    document.getElementById('PrimarySector_question').addEventListener('change', () => {
+        const primarySector_question = document.getElementById('PrimarySector_question').value;
+        const state_question = document.getElementById('state_question').value;
+        updateCityDropdown_question(appState_question.initialDropdownData, primarySector_question, state_question);
     });
 
     document.getElementById('state').addEventListener('change', () => {
@@ -959,6 +1140,12 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCityDropdown2(appState2.initialDropdownData, primarySector2, state2);
     });
 
+    document.getElementById('state_question').addEventListener('change', () => {
+        const primarySector_question = document.getElementById('PrimarySector_question').value;
+        const state_question = document.getElementById('state_question').value;
+        updateCityDropdown_question(appState_question.initialDropdownData, primarySector_question, state_question);
+    });
+
     document.getElementById('city').addEventListener('change', () => {
         const primarySector = document.getElementById('PrimarySector').value;
         const state = document.getElementById('state').value;
@@ -971,6 +1158,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const state2 = document.getElementById('state2').value;
         const city2 = document.getElementById('city2').value;
         updateSIC4Dropdown2(appState2.initialDropdownData, primarySector2, state2, city2);
+    });
+
+    document.getElementById('city_question').addEventListener('change', () => {
+        const primarySector_question = document.getElementById('PrimarySector_question').value;
+        const state_question = document.getElementById('state_question').value;
+        const city_question = document.getElementById('city_question').value;
+        updateSIC4Dropdown_question(appState_question.initialDropdownData, primarySector_question, state_question, city_question);
     });
 
     document.getElementById('SIC4').addEventListener('change', () => {
@@ -989,24 +1183,14 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCompanyDropdown2(appState2.initialDropdownData, primarySector2, state2, city2, sic42);
     });
 
-    // Fetch options for the second tab
-    function fetchOptions_question() {
-        const eventid = document.getElementById('eventid_question').value;
-        const figuresContainer = document.getElementById('figuresContainer');
-        figuresContainer.innerHTML = ''; // Clear existing figures
-
-        // Assuming the figures are stored in the 'figures' folder
-        const figurePrefix = `cret${eventid}`;
-        const maxFigures = 10; // Adjust this number based on the maximum expected number of figures
-
-        for (let i = 1; i <= maxFigures; i++) {
-            const img = document.createElement('img');
-            img.src = `figures/${figurePrefix}_${i}.png`;
-            img.alt = `Figure for event ID ${eventid}`;
-            img.onerror = () => img.style.display = 'none'; // Hide image if not found
-            figuresContainer.appendChild(img);
-        }
-    }
+    document.getElementById('SIC4_question').addEventListener('change', () => {
+        const primarySector_question = document.getElementById('PrimarySector_question').value;
+        const state_question = document.getElementById('state_question').value;
+        const city_question = document.getElementById('city_question').value;
+        const sic4_question = document.getElementById('SIC4_question').value;
+        updateCompanyDropdown_question(appState_question.initialDropdownData, primarySector_question, state_question, 
+            city_question, sic4_question);
+    });
 
     initialize();
 });
