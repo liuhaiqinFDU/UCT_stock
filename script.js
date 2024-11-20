@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const appState_question = {
-        dropdowns: ['eventid_question', 'window_question', 'PrimarySector_question', 'state_question', 'SIC4_question', 'city_question', 'conml_question'],
+        dropdowns: ['eventid_question', 'window_question', 'PrimarySector_question', 
+            'state_question', 'SIC4_question', 'city_question', 'conml_question'],
         eventTitles: {},
         eventDates: {},
         eventTics: {},
@@ -64,13 +65,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             await fetchOptions();
         } catch (error) {
-            console.error('Initialization error:', error);
+            console.error('Error fetching unquestionable event IDs:', error);
         }
 
         try {
-            const questionableEventData = await fetchJSON('question_data/event_ids.json');
-            const uniqueEventIds = [...new Set(questionableEventData.map(item => item.eventid))];
-            populateDropdown('eventid_question', uniqueEventIds);
+            const eventData_question = await fetchJSON('question_data/event_ids.json');
+            const uniqueEventIds_question = [];
+            eventData_question.forEach(item => {
+                if (!appState_question.eventTitles[item.eventid]) {
+                    uniqueEventIds_question.push(item.eventid);
+                    appState_question.eventTitles[item.eventid] = item.title;
+                    appState_question.eventDates[item.eventid] = item.date;
+                    appState_question.eventTics[item.eventid] = item.tic;
+                    appState_question.eventDistToLabels[item.eventid] = item.dist_to_labels;
+                }
+            });
+            populateDropdown('eventid_question', uniqueEventIds_question);
+            if (uniqueEventIds_question.length > 0) {
+                document.getElementById('eventid_question').value = 7; //uniqueEventIds_question[0]
+                document.getElementById('window_question').value = "3D";
+            }
+            await fetchOptions_question();
         } catch (error) {
             console.error('Error fetching questionable event IDs:', error);
         }
@@ -94,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             await fetchOptions2();
         } catch (error) {
-            console.error('Initialization error:', error);
+            console.error('Error fetching winner-loser event IDs:', error);
         }
     }
 
@@ -396,8 +411,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 appState_question.eventTitles[eventid_question],appState_question.eventDates[eventid_question],
                 appState_question.eventTics[eventid_question],appState_question.eventDistToLabels[eventid_question]);
             plotData3(filteredData_question, window_question, stats_question, 'chart3_question', 
-                appState_question.eventDates[eventid_question], appState2.eventTics[eventid2], 
-                appState_question.eventDistToLabels[eventid2]);
+                appState_question.eventDates[eventid_question], appState2.eventTics[eventid_question], 
+                appState_question.eventDistToLabels[eventid_question]);
         }
     }
 
