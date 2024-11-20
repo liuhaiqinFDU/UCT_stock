@@ -398,6 +398,43 @@ document.addEventListener('DOMContentLoaded', () => {
             filteredData_question = filteredData_question.filter(item => item.dist >= -60 && item.dist <= 90);
         } //else: all 3-D data
 
+        // Group by conml and adjust cret_abnormal
+        const groupedData = filteredData_question.reduce((acc, item) => {
+            if (!acc[item.conml]) {
+                acc[item.conml] = [];
+            }
+            acc[item.conml].push(item);
+            return acc;
+        }, {});
+
+        filteredData_question = Object.values(groupedData).flatMap(group => {
+            group.sort((a, b) => a.dist - b.dist);
+            const firstNonNA = group.find(item => item.cret_abnormal !== null && item.cret_abnormal !== undefined);
+            if (firstNonNA) {
+                const firstValue = firstNonNA.cret_abnormal;
+                group.forEach(item => {
+                    if (item.cret_abnormal !== null && item.cret_abnormal !== undefined) {
+                        item.cret_abnormal -= firstValue;
+                    }
+                });
+            }
+            return group;
+        });
+
+        filteredData_question = Object.values(groupedData).flatMap(group => {
+            group.sort((a, b) => a.dist - b.dist);
+            const firstNonNA = group.find(item => item.cret_absolute !== null && item.cret_absolute !== undefined);
+            if (firstNonNA) {
+                const firstValue = firstNonNA.cret_absolute;
+                group.forEach(item => {
+                    if (item.cret_absolute !== null && item.cret_absolute !== undefined) {
+                        item.cret_absolute -= firstValue;
+                    }
+                });
+            }
+            return group;
+        });
+
         const chartElement_question = document.getElementById('chart2_question');
         if (filteredData_question.length === 0) {
             chartElement_question.innerHTML = 'No data';
@@ -1134,7 +1171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const hour = Math.floor(tic / 60);
         const minute = tic - hour * 60;
         const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
-        document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}, ${title}`;
+        document.getElementById('eventTime_question').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}, ${title}`;
     
     
         let { dist, median, perc_10, perc_90 } = stats;
