@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function initialize(){
         try {
-            const eventData = await fetchJSON('json_data/event_ids.json');
+            const eventData = await fetchJSON('winner_loser/event_ids.json');
             const uniqueEventIds = [];
             eventData.forEach(item => {
                 if (!appState.eventTitles[item.eventid]) {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const questionableEventData = await fetchJSON('json_data/event_ids_questionable.json');
+            const questionableEventData = await fetchJSON('question_data/event_ids.json');
             const uniqueEventIds = [...new Set(questionableEventData.map(item => item.eventid))];
             populateDropdown('eventid_question', uniqueEventIds);
         } catch (error) {
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchOptions() {
         const eventid = document.getElementById('eventid').value;
         try {
-            const data = await fetchJSON(`json_data/event${eventid}.json`);
+            const data = await fetchJSON(`winner_loser/event${eventid}.json`);
             appState.cachedEventData[eventid] = data;
             updateDropdowns(data);
             await fetchData();
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 primarySector, state, city, sic4, conml, window, eventid);
         } else {
             try {
-                const data = await fetchJSON(`json_data/event${eventid}.json`);
+                const data = await fetchJSON(`winner_loser/event${eventid}.json`);
                 appState.cachedEventData[eventid] = data;
                 processData(data, primarySector, state, city, sic4, conml, window, eventid);
             } catch (error) {
