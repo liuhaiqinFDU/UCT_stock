@@ -407,10 +407,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const stats_question = calculateStatistics(filteredData_question, window_question,'abnormal'); 
             // I use the same function but not plot the same data
-            plotData2(filteredData_question, window_question, stats_question, 'chart2_question', 
+            plotData2_question(filteredData_question, window_question, stats_question, 'chart2_question', 
                 appState_question.eventTitles[eventid_question],appState_question.eventDates[eventid_question],
                 appState_question.eventTics[eventid_question],appState_question.eventDistToLabels[eventid_question]);
-            plotData3(filteredData_question, window_question, stats_question, 'chart3_question', 
+            plotData3_question(filteredData_question, window_question, stats_question, 'chart3_question', 
                 appState_question.eventDates[eventid_question], appState2.eventTics[eventid_question], 
                 appState_question.eventDistToLabels[eventid_question]);
         }
@@ -1097,6 +1097,292 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    function plotData2_question(filteredData, stats, chartId, title, date, tic, eventDistToLabel) {
+
+        const hour = Math.floor(tic / 60);
+        const minute = tic - hour * 60;
+        const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
+        document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}, ${title}`;
+    
+    
+        let { dist, median, perc_10, perc_90 } = stats;
+        // Determine the appropriate dist value for the red dashed line
+        let distValue;
+        if (dist.includes(0)) {
+            distValue = 0;
+        } else if (dist.every(d => d < 0)) {
+            distValue = -1;
+        } else if (dist.every(d => d > 0)) {
+            distValue = 1;
+        } else {
+            // Default to 0 if none of the above conditions are met
+            distValue = 0;
+        }
+
+        const xLabels = dist.map(d => eventDistToLabel[d] || d);
+        //console.log("xLabels:", xLabels);
+        
+        // Group data by firm name (conml)
+        const groupedData = filteredData.reduce((acc, row) => {
+            if (!acc[row.conml]) {
+                 acc[row.conml] = [];
+            }
+            acc[row.conml].push(row);
+            return acc;
+        }, {});
+        
+         // Flatten the cret{window2}_abnormal values across all firms
+        const allCretValues = [];
+        Object.keys(groupedData).forEach(firmName => {
+            const firmData = groupedData[firmName];
+            firmData.forEach(row => {
+                allCretValues.push(row[`cret_abnormal`]);
+            });
+        });
+
+        // Calculate the minimum and maximum values
+        const minCretValue = Math.min(...allCretValues);
+        const maxCretValue = Math.max(...allCretValues);
+        
+        // Create traces for each firm
+        const traces = Object.keys(groupedData).map(firmName => {
+            const firmData = groupedData[firmName];
+            // Sort firmData by dist
+            firmData.sort((a, b) => a.dist - b.dist);
+
+            return {
+                x: xLabels, //firmData.map(row => row.dist), -- so have to make sure it's fully spanned
+                y: firmData.map(row => row[`cret_abnormal`]),
+                mode: 'lines+markers',
+                name: firmName,
+                text: firmData.map(row => `Firm: ${firmName}<br>x: ${row.dist}<br>y: ${row[`cret_abnormal`]}`),
+                hoverinfo: 'text',
+                opacity: 0.6 // Set initial opacity
+            };
+        });
+    
+        // Create shapes for vertical lines when date changes
+        const shapes = [
+            { // plot the red dash line at dist=1
+                type: 'line',
+                x0: xLabels[dist.indexOf(distValue)],
+                y0: minCretValue,
+                x1: xLabels[dist.indexOf(distValue)],
+                y1: maxCretValue,
+                line: {
+                    color: 'red',
+                    width: 2,
+                    dash: 'dashdot'
+                }
+            }
+        ];
+        
+        // Add gray vertical lines when date changes
+        for (let i = 1; i < xLabels.length; i++) {
+            const prevDate = xLabels[i - 1].split(' ')[0];
+            const currDate = xLabels[i].split(' ')[0];
+            if (prevDate !== currDate) {
+                shapes.push({
+                    type: 'line',
+                    x0: xLabels[i-1],
+                    y0: minCretValue,
+                    x1: xLabels[i-1],
+                    y1: maxCretValue,
+                    line: {
+                        color: 'gray',
+                        width: 1,
+                        dash: 'dot'
+                    }
+                });
+            }
+        }
+        
+        const layout = {
+            title: 'Cumulative Abnormal Returns (Minutely, %)',
+            xaxis: {
+                title: '',
+                //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
+                tickangle: 45,
+                type: 'category',
+                tickvals: xLabels.filter((_, i) => i % 15 === 0), // Show every 5th label
+                //ticktext: xLabels.filter((_, i) => i % 3 === 0), //Ensure labels are shown
+                tickfont: {
+                    size: 10 // Reduce font size
+                }
+            },
+            yaxis: { title: '' },
+            shapes: shapes,
+            hovermode: 'closest', // Highlight the closest point
+            hoverlabel: {
+                bgcolor: 'white',
+                font: { color: 'black' }
+            },
+            showlegend: false // Disable the legend
+        };
+    
+        Plotly.newPlot(chartId, traces, layout);
+
+        // Add hover event to change opacity of other lines
+        const plotElement = document.getElementById(chartId);
+        plotElement.on('plotly_hover', function(data) {
+            const update = {
+                opacity: traces.map((_, i) => i === data.points[0].curveNumber ? 1 : 0.2)
+            };
+            Plotly.restyle(chartId, update, layout);
+        });
+
+        plotElement.on('plotly_unhover', function(data) {
+            const update = {
+                opacity: traces.map(() => 0.6)
+            };
+            Plotly.restyle(chartId, update, layout);
+        });
+    }
+
+    function plotData3_question(filteredData, stats, chartId, date, tic, eventDistToLabel) {
+
+        // Calculate and display the event time (hour and minute from tic)
+        const hour = Math.floor(tic / 60);
+        const minute = tic - hour * 60;
+        const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
+        //document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}`;
+    
+        let { dist, median, perc_10, perc_90 } = stats;
+        
+        // Determine the appropriate dist value for the red dashed line
+        let distValue;
+        if (dist.includes(0)) {
+            distValue = 0;
+        } else if (dist.every(d => d < 0)) {
+            distValue = -1;
+        } else if (dist.every(d => d > 0)) {
+            distValue = 1;
+        } else {
+            // Default to 0 if none of the above conditions are met
+            distValue = 0;
+        }
+        // I've made sure `dist` is fully spanned so that no need to insert 0 any more
+
+        const xLabels = dist.map(d => eventDistToLabel[d] || d);
+        
+        // Group data by firm name (conml)
+        const groupedData = filteredData.reduce((acc, row) => {
+            if (!acc[row.conml]) {
+                 acc[row.conml] = [];
+            }
+            acc[row.conml].push(row);
+            return acc;
+        }, {});
+        
+        // Flatten the cret_abnormal values across all firms
+        const allCretValues = [];
+        Object.keys(groupedData).forEach(firmName => {
+            const firmData = groupedData[firmName];
+            firmData.forEach(row => {
+                allCretValues.push(row[`cret_abnormal`]);
+            });
+        });
+
+        // Calculate the minimum and maximum values
+        const minCretValue = Math.min(...allCretValues);
+        const maxCretValue = Math.max(...allCretValues);
+        
+        // Create traces for each firm
+        const traces = Object.keys(groupedData).map(firmName => {
+            const firmData = groupedData[firmName];
+            // Sort firmData by dist
+            firmData.sort((a, b) => a.dist - b.dist);
+            return {
+                x: xLabels, //firmData.map(row => row.dist),
+                y: firmData.map(row => row[`cret_absolute`]),
+                mode: 'lines+markers',
+                name: firmName,
+                text: firmData.map(row => `Firm: ${firmName}<br>x: ${row.dist}<br>y: ${row[`cret_absolute`]}`),
+                hoverinfo: 'text',
+                opacity: 0.6 // Set initial opacity
+            };
+        }); 
+    
+        // Create shapes for vertical lines when date changes
+        const shapes = [
+            { // plot the red dash line at dist=0
+                type: 'line',
+                x0: xLabels[dist.indexOf(distValue)],
+                y0: minCretValue,
+                x1: xLabels[dist.indexOf(distValue)],
+                y1: maxCretValue,
+                line: {
+                    color: 'red',
+                    width: 2,
+                    dash: 'dashdot'
+                }
+            }
+        ];
+    
+        // Add gray vertical lines when date changes
+        for (let i = 1; i < xLabels.length; i++) {
+            const prevDate = xLabels[i - 1].split(' ')[0];
+            const currDate = xLabels[i].split(' ')[0];
+            if (prevDate !== currDate) {
+                shapes.push({
+                    type: 'line',
+                    x0: xLabels[i-1],
+                    y0: minCretValue,
+                    x1: xLabels[i-1],
+                    y1: maxCretValue,
+                    line: {
+                        color: 'gray',
+                        width: 1,
+                        dash: 'dot'
+                    }
+                });
+            }
+        }
+    
+        const layout = {
+            title: 'Cumulative Absolute Returns (Minutely, %)',
+            xaxis: {
+                title: '',
+                //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
+                tickangle: 45,
+                type: 'category',
+                tickvals: xLabels.filter((_, i) => i % 15 === 0), // Show every 5th label
+                //ticktext: xLabels.filter((_, i) => i % 3 === 0), // Ensure labels are shown
+                tickfont: {
+                    size: 10 // Reduce font size
+                }
+            },
+            yaxis: { title: '' },
+            shapes: shapes,
+            hovermode: 'closest', // Highlight the closest point
+            hoverlabel: {
+                bgcolor: 'white',
+                font: { color: 'black' }
+            },
+            showlegend: false // Disable the legend
+        };
+    
+        Plotly.newPlot(chartId, traces, layout);
+
+        // Add hover event to change opacity of other lines
+        const plotElement = document.getElementById(chartId);
+        plotElement.on('plotly_hover', function(data) {
+            const update = {
+                opacity: traces.map((_, i) => i === data.points[0].curveNumber ? 1 : 0.2)
+            };
+            Plotly.restyle(chartId, update, layout);
+        });
+
+        plotElement.on('plotly_unhover', function(data) {
+            const update = {
+                opacity: traces.map(() => 0.6)
+            };
+            Plotly.restyle(chartId, update, layout);
+        });
+    }
+
+
+
     document.getElementById('eventid').addEventListener('change', () => {
         fetchOptions();
         fetchData();
