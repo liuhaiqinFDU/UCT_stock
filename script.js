@@ -376,7 +376,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function processData_question(data_question, primarySector_question, state_question, city_question, sic4_question, conml_question, window_question, eventid_question) {
+    function processData_question(data_question, primarySector_question, state_question,
+         city_question, sic4_question, conml_question, window_question, eventid_question) {
         let filteredData_question = data_question.filter(item =>
             (!primarySector_question || item.PrimarySector === primarySector_question) &&
             (!state_question || item.state === state_question) &&
@@ -448,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 appState_question.eventTitles[eventid_question],appState_question.eventDates[eventid_question],
                 appState_question.eventTics[eventid_question],appState_question.eventDistToLabels[eventid_question]);
             plotData3_question(filteredData_question, stats_question, 'chart3_question', 
-                appState_question.eventDates[eventid_question], appState2.eventTics[eventid_question], 
+                appState_question.eventDates[eventid_question], appState_question.eventTics[eventid_question], 
                 appState_question.eventDistToLabels[eventid_question]);
         }
     }
