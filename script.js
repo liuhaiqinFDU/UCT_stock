@@ -405,12 +405,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (chartElement_question.innerHTML === 'No data') {
                 chartElement_question.innerHTML = '';
             }
-            const stats_question = calculateStatistics(filteredData_question, window_question,'abnormal'); 
+            const stats_question = calculateStatistics_question(filteredData_question,'abnormal'); 
             // I use the same function but not plot the same data
-            plotData2_question(filteredData_question, window_question, stats_question, 'chart2_question', 
+            plotData2_question(filteredData_question, stats_question, 'chart2_question', 
                 appState_question.eventTitles[eventid_question],appState_question.eventDates[eventid_question],
                 appState_question.eventTics[eventid_question],appState_question.eventDistToLabels[eventid_question]);
-            plotData3_question(filteredData_question, window_question, stats_question, 'chart3_question', 
+            plotData3_question(filteredData_question, stats_question, 'chart3_question', 
                 appState_question.eventDates[eventid_question], appState2.eventTics[eventid_question], 
                 appState_question.eventDistToLabels[eventid_question]);
         }
@@ -559,6 +559,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calculateStatistics(data, window,rettype) {
         const cretKey = `cret${window}_${rettype}`;
+        const distMap = new Map();
+
+        data.forEach(item => {
+            if (!distMap.has(item.dist)) {
+                distMap.set(item.dist, []);
+            }
+            distMap.get(item.dist).push(item[cretKey]);
+        });
+
+        const dist = [];
+        const median = [];
+        const perc_10 = [];
+        const perc_90 = [];
+
+        distMap.forEach((values, key) => {
+            values.sort((a, b) => a - b);
+            const mid = Math.floor(values.length / 2);
+            const medianValue = values.length % 2 !== 0 ? values[mid] : (values[mid - 1] + values[mid]) / 2;
+            const perc10Value = values[Math.floor(values.length * 0.1)];
+            const perc90Value = values[Math.floor(values.length * 0.9)];
+
+            dist.push(key);
+            median.push(medianValue);
+            perc_10.push(perc10Value);
+            perc_90.push(perc90Value);
+        });
+
+        return { dist, median, perc_10, perc_90 };
+    }
+
+    function calculateStatistics_question(data,rettype) {
+        const cretKey = `cret_${rettype}`;
         const distMap = new Map();
 
         data.forEach(item => {
