@@ -82,8 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             populateDropdown('eventid_question', uniqueEventIds_question);
             if (uniqueEventIds_question.length > 0) {
-                document.getElementById('eventid_question').value = 7; //uniqueEventIds_question[0]
-                document.getElementById('window_question').value = "3D";
+                document.getElementById('eventid_question').value = uniqueEventIds_question[0]; //
+                document.getElementById('window_question').value = 150;
             }
             await fetchOptions_question();
         } catch (error) {
@@ -399,43 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
             filteredData_question = filteredData_question.filter(item => item.dist >= -60 && item.dist <= 90);
         } //else: all 3-D data
 
-        // Group by conml and adjust cret_abnormal
-        const groupedData = filteredData_question.reduce((acc, item) => {
-            if (!acc[item.conml]) {
-                acc[item.conml] = [];
-            }
-            acc[item.conml].push(item);
-            return acc;
-        }, {});
-
-        filteredData_question = Object.values(groupedData).flatMap(group => {
-            group.sort((a, b) => a.dist - b.dist);
-            const firstNonNA = group.find(item => item.cret_abnormal !== null && item.cret_abnormal !== undefined);
-            if (firstNonNA) {
-                const firstValue = firstNonNA.cret_abnormal;
-                group.forEach(item => {
-                    if (item.cret_abnormal !== null && item.cret_abnormal !== undefined) {
-                        item.cret_abnormal -= firstValue;
-                    }
-                });
-            }
-            return group;
-        });
-
-        filteredData_question = Object.values(groupedData).flatMap(group => {
-            group.sort((a, b) => a.dist - b.dist);
-            const firstNonNA = group.find(item => item.cret_absolute !== null && item.cret_absolute !== undefined);
-            if (firstNonNA) {
-                const firstValue = firstNonNA.cret_absolute;
-                group.forEach(item => {
-                    if (item.cret_absolute !== null && item.cret_absolute !== undefined) {
-                        item.cret_absolute -= firstValue;
-                    }
-                });
-            }
-            return group;
-        });
-
         const chartElement_question = document.getElementById('chart2_question');
         if (filteredData_question.length === 0) {
             chartElement_question.innerHTML = 'No data';
@@ -444,21 +407,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 chartElement_question.innerHTML = '';
             }
             const stats_question = calculateStatistics_question(filteredData_question,'abnormal'); 
-            // I use the same function but not plot the same data
-            /*
-            plotData2_question(filteredData_question, stats_question, 'chart2_question', 
+            plotData2_question(filteredData_question,window_question, stats_question, 'chart2_question', 
                 appState_question.eventTitles[eventid_question],appState_question.eventDates[eventid_question],
                 appState_question.eventTics[eventid_question],appState_question.eventDistToLabels[eventid_question]);
-            plotData3_question(filteredData_question, stats_question, 'chart3_question', 
+            plotData3_question(filteredData_question,window_question, stats_question, 'chart3_question', 
                 appState_question.eventDates[eventid_question], appState_question.eventTics[eventid_question], 
                 appState_question.eventDistToLabels[eventid_question]);
-            */
-            const tic_question = appState_question.eventTics[eventid_question];
-            const hour = Math.floor(tic_question / 60);
-            const minute = tic_question - hour * 60;
-            const title_question = appState_question.eventTitles[eventid_question];
-            const date_question = appState_question.eventDates[eventid_question];
-            document.getElementById('eventTime_question').innerHTML = `Date: ${date_question}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}, ${title_question}`;
         }
     }
 
@@ -1175,7 +1129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    function plotData2_question(filteredData, stats, chartId, title, date, tic, eventDistToLabel) {
+    function plotData2_question(filteredData,window, stats, chartId, title, date, tic, eventDistToLabel) {
 
         const hour = Math.floor(tic / 60);
         const minute = tic - hour * 60;
@@ -1214,7 +1168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.keys(groupedData).forEach(firmName => {
             const firmData = groupedData[firmName];
             firmData.forEach(row => {
-                allCretValues.push(row[`cret_abnormal`]);
+                allCretValues.push(row[`cret${window}_abnormal`]);
             });
         });
 
@@ -1230,10 +1184,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return {
                 x: xLabels, //firmData.map(row => row.dist), -- so have to make sure it's fully spanned
-                y: firmData.map(row => row[`cret_abnormal`]),
+                y: firmData.map(row => row[`cret${window}_abnormal`]),
                 mode: 'lines+markers',
                 name: firmName,
-                text: firmData.map(row => `Firm: ${firmName}<br>x: ${row.dist}<br>y: ${row[`cret_abnormal`]}`),
+                text: firmData.map(row => `Firm: ${firmName}<br>x: ${row.dist}<br>y: ${row[`cret${window}_abnormal`]}`),
                 hoverinfo: 'text',
                 opacity: 0.6 // Set initial opacity
             };
@@ -1282,7 +1236,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
                 tickangle: 45,
                 type: 'category',
-                tickvals: xLabels.filter((_, i) => i % 15 === 0), // Show every 5th label
+                tickvals: xLabels.filter((_, i) => i % 5 === 0), // Show every 5th label
                 //ticktext: xLabels.filter((_, i) => i % 3 === 0), //Ensure labels are shown
                 tickfont: {
                     size: 10 // Reduce font size
@@ -1317,13 +1271,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function plotData3_question(filteredData, stats, chartId, date, tic, eventDistToLabel) {
+    function plotData3_question(filteredData, window, stats, chartId, date, tic, eventDistToLabel) {
 
-        // Calculate and display the event time (hour and minute from tic)
-        const hour = Math.floor(tic / 60);
-        const minute = tic - hour * 60;
-        const eventTime = `${date} ${hour}:${minute < 10 ? '0' + minute : minute}`;
-        //document.getElementById('eventTime2').innerHTML = `Date: ${date}, Time: ${hour}:${minute < 10 ? '0' + minute : minute}`;
     
         let { dist, median, perc_10, perc_90 } = stats;
         
@@ -1357,7 +1306,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.keys(groupedData).forEach(firmName => {
             const firmData = groupedData[firmName];
             firmData.forEach(row => {
-                allCretValues.push(row[`cret_abnormal`]);
+                allCretValues.push(row[`cret${window}_abnormal`]);
             });
         });
 
@@ -1372,10 +1321,10 @@ document.addEventListener('DOMContentLoaded', () => {
             firmData.sort((a, b) => a.dist - b.dist);
             return {
                 x: xLabels, //firmData.map(row => row.dist),
-                y: firmData.map(row => row[`cret_absolute`]),
+                y: firmData.map(row => row[`cret${window}_absolute`]),
                 mode: 'lines+markers',
                 name: firmName,
-                text: firmData.map(row => `Firm: ${firmName}<br>x: ${row.dist}<br>y: ${row[`cret_absolute`]}`),
+                text: firmData.map(row => `Firm: ${firmName}<br>x: ${row.dist}<br>y: ${row[`cret${window}_absolute`]}`),
                 hoverinfo: 'text',
                 opacity: 0.6 // Set initial opacity
             };
@@ -1424,8 +1373,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 //tickformat: '%Y-%m-%d %H:%M', >>> can't do this otw it's identified as time
                 tickangle: 45,
                 type: 'category',
-                tickvals: xLabels.filter((_, i) => i % 15 === 0), // Show every 5th label
-                //ticktext: xLabels.filter((_, i) => i % 3 === 0), // Ensure labels are shown
+                tickvals: xLabels.filter((_, i) => i % 5 === 0), // Show every 5th label
                 tickfont: {
                     size: 10 // Reduce font size
                 }
