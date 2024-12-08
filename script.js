@@ -358,15 +358,15 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         // Filter data based on the window parameter
-               if (window2 == 45) {
+                if (window2 == 45) {
             filteredData2 = filteredData2.filter(item => item.dist >= -15 && item.dist <= 30);
         } else if (window2 == 30) {
             filteredData2 = filteredData2.filter(item => item.dist >= -10 && item.dist <= 20);
-        } else if (window == 60) {
+        } else if (window2 == 60) {
             filteredData2 = filteredData2.filter(item => item.dist >= -20 && item.dist <= 40);
-        } else if (window == 90) {
+        } else if (window2 == 90) {
             filteredData2 = filteredData2.filter(item => item.dist >= -30 && item.dist <= 60);
-        } else if (window == 150) {
+        } else if (window2 == 150) {
             filteredData2 = filteredData2.filter(item => item.dist >= -60 && item.dist <= 90);
         }
 
