@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             populateDropdown('eventid', uniqueEventIds);
             if (uniqueEventIds.length > 0) {
                 document.getElementById('eventid').value = uniqueEventIds[0];
-                document.getElementById('window').value = 45;
+                document.getElementById('window').value = 90;
             }
             await fetchOptions();
         } catch (error) {
