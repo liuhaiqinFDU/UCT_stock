@@ -56,7 +56,7 @@
                     aria-selected="true">Winners & Losers</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="chinatab" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4"
+                <a class="nav-link" id="china-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4"
                     aria-selected="false">Chinese Firms</a>
             </li>
             <li class="nav-item">
@@ -257,8 +257,8 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+
+            <div class="tab-pane fade" id="china" role="tabpanel" aria-labelledby="tab4-tab">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -283,40 +283,101 @@
                                 </select>
                             </div>
                             <div class="col-md-3 form-group">
-                                <label for="p_china">State:</label>
-                                <select id="state_question" class="form-control">
-                                    <option value="">-- Select State --</option>
+                                <label for="province_china">Province:</label>
+                                <select id="province_china" class="form-control">
+                                    <option value="">-- Select Province --</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3 form-group">
-                                <label for="city_question">City:</label>
-                                <select id="city_question" class="form-control">
+                                <label for="city_china">City:</label>
+                                <select id="city_china" class="form-control">
                                     <option value="">-- Select City --</option>
                                 </select>
                             </div>
                             <div class="col-md-3 form-group">
-                                <label for="SIC4_question">SIC4:</label>
-                                <select id="SIC4_question" class="form-control">
-                                    <option value="">-- Select SIC4 --</option>
+                                <label for="GBT_china">GB/T Sector:</label>
+                                <select id="GBT_china" class="form-control">
+                                    <option value="">-- Select GB/T --</option>
                                 </select>
                             </div>
                             <div class="col-md-3 form-group">
-                                <label for="conml_question">Company Name:</label>
-                                <select id="conml_question" class="form-control">
+                                <label for="conml_china">Company Name:</label>
+                                <select id="conml_china" class="form-control">
                                     <option value="">-- Select Company --</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12" id="eventTime_question"></div>
+                            <div class="col-md-12" id="eventTime_china"></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12" id="chart2_question"></div>
+                            <div class="col-md-12" id="chart2_china"></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12" id="chart3_question"></div>
+                            <div class="col-md-12" id="chart3_china"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" id="figuresContainer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="global" role="tabpanel" aria-labelledby="tab5-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                <label for="eventid_global">Event ID:</label>
+                                <select id="eventid_global" class="form-control" required></select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="window_global">Window:</label>
+                                <select id="window_global" class="form-control" required>
+                                    <option value="150">150</option>
+                                    <option value="90">90</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                    <option value="60">60</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="PrimarySector_global">Primary Sector:</label>
+                                <select id="PrimarySector_global" class="form-control">
+                                    <option value="">-- Select Primary Sector --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="province_global">Country:</label>
+                                <select id="province_global" class="form-control">
+                                    <option value="">-- Select Country --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                <label for="Sector_global">TRBC Sector:</label>
+                                <select id="Sector_global" class="form-control">
+                                    <option value="">-- Select TRBC --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="conml_global">Company Name:</label>
+                                <select id="conml_global" class="form-control">
+                                    <option value="">-- Select Company --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" id="eventTime_global"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" id="chart2_global"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" id="chart3_global"></div>
                         </div>
                         <div class="row">
                             <div class="col-md-12" id="figuresContainer"></div>
