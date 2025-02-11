@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const tickers = firmProperties1.map(item => item.ticker);
 
-        const filteredData1 = data1.filter(item =>
+        let filteredData1 = data1.filter(item => // `let` allows to be re-assigned; error if `const`
             tickers.includes(item.ticker)
         );
         console.log(filteredData1)
@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const tickers = firmProperties.map(item => item.ticker);
 
-        const filteredData2 = data2.filter(item =>
+        let filteredData2 = data2.filter(item =>
             tickers.includes(item.ticker)
         );
 
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const tickers = firmProperties3.map(item => item.ticker);
 
-        const filteredData3 = data3.filter(item =>
+        let filteredData3 = data3.filter(item =>
             tickers.includes(item.ticker)
         );
 
