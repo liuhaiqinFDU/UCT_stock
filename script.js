@@ -365,6 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const filteredData2 = data2.filter(item =>
             tickers.includes(item.ticker)
         );
+        console.log(tickers)
 
         // Filter data based on the window parameter
         if (window2 == 60) {
