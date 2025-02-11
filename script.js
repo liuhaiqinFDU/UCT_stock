@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             populateDropdown('eventid2', uniqueEventIds2);
             if (uniqueEventIds2.length > 0) {
-                document.getElementById('eventid2').value = uniqueEventIds2[0];
+                document.getElementById('eventid2').value = 11; //uniqueEventIds2[0]
                 document.getElementById('window2').value = 90;
             }
             await fetchOptions2();
