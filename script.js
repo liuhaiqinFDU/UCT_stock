@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             populateDropdown('eventid1', uniqueEventIds1);
             if (uniqueEventIds1.length > 0) {
-                document.getElementById('eventid').value = uniqueEventIds1[0];
-                document.getElementById('window').value = 90;
+                document.getElementById('eventid1').value = uniqueEventIds1[0];
+                document.getElementById('window1').value = 90;
             }
             await fetchOptions1();
         } catch (error) {
