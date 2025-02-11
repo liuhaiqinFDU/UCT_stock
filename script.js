@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             populateDropdown('eventid2', uniqueEventIds2);
             if (uniqueEventIds2.length > 0) {
-                document.getElementById('eventid2').value = 11; //uniqueEventIds2[0]
+                document.getElementById('eventid2').value = uniqueEventIds2[0]; //
                 document.getElementById('window2').value = 90;
             }
             await fetchOptions2();
@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let filteredData1 = data1.filter(item => // `let` allows to be re-assigned; error if `const`
             tickers.includes(item.ticker)
         );
-        console.log(filteredData1)
+        //console.log(filteredData1)
 
         // Filter data based on the window parameter
         if (window1 == 60) {
