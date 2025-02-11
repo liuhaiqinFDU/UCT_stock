@@ -50,9 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function initialize(){
         try {
-            const eventData = await fetchJSON('US/event_ids.json');
+            const eventData1 = await fetchJSON('US/event_ids.json');
             const uniqueEventIds1 = [];
-            eventData.forEach(item => {
+            eventData1.forEach(item => {
                 if (!appState1.eventTitles[item.eventid]) {
                     uniqueEventIds1.push(item.eventid);
                     appState1.eventTitles[item.eventid] = item.title;
