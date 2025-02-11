@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initialDropdownData: {}
     };
 
+    /*
     const appState3 = {  // By-standers
         dropdowns: ['eventid3', 'window3', 'PrimarySector3', 'state3', 
             'SIC3', 'city3', 'conm3'],
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cachedEventData: {},
         initialDropdownData: {}
     };
-
+    */
     async function fetchJSON(url){
         try {
             const response = await fetch(url);
@@ -152,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching options:', error);
         }
     }
-
+    /*
     async function fetchOptions3() {
         const eventid3 = document.getElementById('eventid3').value;
         try {
@@ -164,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching options:', error);
         }
     }
-
+    */
     // first level of selections (row 1 bars)
     function updateDropdowns1(data1) {
         const primarySectors1 = new Set();
@@ -205,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         appState2.initialDropdownData = data2;
         updateCityDropdown2(data2, selectedPrimarySector2, selectedState2);
     }
-
+    /*
     function updateDropdowns3(data3) {
         const primarySectors3 = new Set();
         const states3 = new Set();
@@ -225,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         appState3.initialDropdownData = data3;
         updateCityDropdown3(data3, selectedPrimarySector3, selectedState3);
     }    
-
+    */
     async function fetchData1() {
         const eventid1 = document.getElementById('eventid1').value;
         const window1 = document.getElementById('window1').value;
@@ -271,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }    
-
+    /*
     async function fetchData3() {
         const eventid3 = document.getElementById('eventid3').value;
         const window3 = document.getElementById('window3').value;
@@ -294,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }  
-
+    */
     function processData1(data1, primarySector1, state1, city1, sic1, conm1, window1, eventid1) {
         let filteredData1 = data1.filter(item =>
             (!primarySector1 || item.PrimarySector === primarySector1) &&
@@ -356,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 appState2.eventDates[eventid2],appState2.eventTics[eventid2], appState2.eventDistToLabels[eventid2]);
         }
     }
-
+    /*
     function processData3(data3, primarySector3, state3, city3, sic3, conm3, window3, eventid3) {
         let filteredData3 = data3.filter(item =>
             (!primarySector3 || item.PrimarySector === primarySector3) &&
@@ -387,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
             appState3.eventDates[eventid3],appState3.eventTics[eventid3], appState3.eventDistToLabels[eventid3]);
         }
     }
-
+    */
     function updateCityDropdown1(data1, primarySector1, state1) {
         const cities1 = new Set();
 
@@ -417,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
         populateDropdown('city2', Array.from(cities2), selectedCity2);
         updateSIC4Dropdown2(data2, primarySector2, state2, selectedCity2);
     }
-
+    /*
     function updateCityDropdown3(data3, primarySector3, state3) {
         const cities3 = new Set();
 
@@ -432,7 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
         populateDropdown('city3', Array.from(cities3), selectedCity3);
         updateSIC4Dropdown3(data3, primarySector3, state3, selectedCity3);
     }
-
+    */
     function updateSIC4Dropdown1(data1, primarySector1, state1, city1) {
         const sic4s1 = new Set();
 
@@ -464,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
         populateDropdown('SIC2', Array.from(sic4s2), selectedSIC2);
         updateCompanyDropdown2(data2, primarySector2, state2, city2, selectedSIC2);
     }
-
+    /*
     function updateSIC4Dropdown3(data3, primarySector3, state3, city3) {
         const sic4s3 = new Set();
 
@@ -480,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
         populateDropdown('SIC3', Array.from(sic4s3), selectedSIC3);
         updateCompanyDropdown3(data3, primarySector3, state3, city3, selectedSIC3);
     }
-
+    */
     function updateCompanyDropdown1(data1, primarySector1, state1, city1, sic1) {
         const conmls1 = new Set();
 
@@ -512,7 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedConm2 = document.getElementById('conm2').value;
         populateDropdown('conm2', Array.from(conmls2), selectedConm2);
     }
-
+    /*
     function updateCompanyDropdown3(data3, primarySector3, state3, city3, sic3) {
         const conmls3 = new Set();
 
@@ -528,7 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedConm3 = document.getElementById('conm3').value;
         populateDropdown('conm3', Array.from(conmls3), selectedConm3);
     }
-
+    */
     function calculateStatistics(data, window) { //,rettype -- no abnormal data anymore
         const cretKey = `cret${window}`; //_${rettype}
         const distMap = new Map();
@@ -713,13 +714,12 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchOptions2();
         fetchData2();
     });
-    
+    /*
     document.getElementById('eventid3').addEventListener('change', () => {
         fetchOptions3();
         fetchData3();
     });
-
-
+    */
     appState1.dropdowns.forEach(dropdown => {
         document.getElementById(dropdown).addEventListener('change', fetchData1);
     });
@@ -727,11 +727,11 @@ document.addEventListener('DOMContentLoaded', () => {
     appState2.dropdowns.forEach(dropdown => {
         document.getElementById(dropdown).addEventListener('change', fetchData2);
     });
-
+    /*
     appState3.dropdowns.forEach(dropdown => {
         document.getElementById(dropdown).addEventListener('change', fetchData3);
     });
-
+    */
     document.getElementById('PrimarySector1').addEventListener('change', () => {
         const primarySector1 = document.getElementById('PrimarySector1').value;
         const state1 = document.getElementById('state1').value;
@@ -743,13 +743,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const state2 = document.getElementById('state2').value;
         updateCityDropdown2(appState2.initialDropdownData, primarySector2, state2);
     });
-
+    /*
     document.getElementById('PrimarySector3').addEventListener('change', () => {
         const primarySector3 = document.getElementById('PrimarySector3').value;
         const state3 = document.getElementById('state3').value;
         updateCityDropdown3(appState3.initialDropdownData, primarySector3, state3);
     });
-
+    */
     document.getElementById('state1').addEventListener('change', () => {
         const primarySector1 = document.getElementById('PrimarySector1').value;
         const state1 = document.getElementById('state1').value;
@@ -761,13 +761,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const state2 = document.getElementById('state2').value;
         updateCityDropdown2(appState2.initialDropdownData, primarySector2, state2);
     });
-
+    /*
     document.getElementById('state3').addEventListener('change', () => {
         const primarySector3 = document.getElementById('PrimarySector3').value;
         const state3 = document.getElementById('state3').value;
         updateCityDropdown3(appState3.initialDropdownData, primarySector3, state3);
     });
-
+    */
     document.getElementById('city1').addEventListener('change', () => {
         const primarySector1 = document.getElementById('PrimarySector1').value;
         const state1 = document.getElementById('state1').value;
@@ -781,14 +781,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const city2 = document.getElementById('city2').value;
         updateSIC4Dropdown2(appState2.initialDropdownData, primarySector2, state2, city2);
     });
-
+    /*
     document.getElementById('city3').addEventListener('change', () => {
         const primarySector3 = document.getElementById('PrimarySector3').value;
         const state3 = document.getElementById('state3').value;
         const city3 = document.getElementById('city3').value;
         updateSIC4Dropdown3(appState3.initialDropdownData, primarySector3, state3, city3);
     });
-
+    */
     document.getElementById('SIC1').addEventListener('change', () => {
         const primarySector1 = document.getElementById('PrimarySector1').value;
         const state1 = document.getElementById('state1').value;
@@ -804,7 +804,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sic2 = document.getElementById('SIC2').value;
         updateCompanyDropdown2(appState2.initialDropdownData, primarySector2, state2, city2, sic2);
     });
-
+    /*
     document.getElementById('SIC3').addEventListener('change', () => {
         const primarySector3 = document.getElementById('PrimarySector3').value;
         const state3 = document.getElementById('state3').value;
@@ -812,6 +812,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const sic3 = document.getElementById('SIC3').value;
         updateCompanyDropdown3(appState3.initialDropdownData, primarySector3, state3, city3, sic3);
     });
-
+    */
     initialize();
 });
