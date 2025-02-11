@@ -325,11 +325,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const tickers = firmProperties1.map(item => item.ticker);
 
-        console.log(tickers)
-        
         const filteredData1 = data1.filter(item =>
             tickers.includes(item.ticker)
         );
+        console.log(filteredData1)
 
         // Filter data based on the window parameter
         if (window1 == 60) {
