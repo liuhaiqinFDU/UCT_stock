@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error fetching winner-loser event IDs:', error);
         }
-
+        /*
         try {
             const eventData3 = await fetchJSON('Global/event_ids.json');
             const uniqueEventIds3 = [];
@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error fetching winner-loser event IDs:', error);
         }
+        */
     }
 
     function populateDropdown(id, options, selectedValue = '') {
