@@ -603,7 +603,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.keys(groupedData).forEach(firmName => {
             const firmData = groupedData[firmName];
             firmData.forEach(row => {
-                allCretValues.push(row[`cret${window2}_abnormal`]);
+                allCretValues.push(row[`cret${window}`]);
             });
         });
 
